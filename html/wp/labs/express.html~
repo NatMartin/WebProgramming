@@ -9,7 +9,7 @@
   </head>
 
   <!-- Labs -->
-  <body ng-controller="agilefantCtrl">
+  <body ng-controller="xtemplateCtrl">
 
     <!-- Labs Navigation Bar -->
     <div ng-include="'templates/navigation.tpl.html'"></div>
@@ -27,8 +27,8 @@
 	</div>
 
 	<!-- Labs: Introduction -->
-	<div class="col-md-7">
-	  <div ng-include="'templates/agilefantText.tpl.html'"></div>
+	<div class="col-md-7 wp-text-area">
+	  <div ng-include="'templates/xtempateText.tpl.html'"></div>
 	</div>
       </div>
       <!-- Labs: Instructions -->

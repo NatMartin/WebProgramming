@@ -1,0 +1,255 @@
+<!DOCTYPE HTML>
+<html ng-app="wp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/wp/css/main.css" type="text/css">
+    <link rel="stylesheet" href="/wp/css/bootstrap.min.css" type="text/css">
+    <title>Web Programming</title>
+  </head>
+
+  <body ng-controller="mainCtrl">
+
+    <div ng-include="'templates/navigation.tpl.html'"></div>
+
+    <!-- Jumbotron -->
+    <div ng-include="'templates/head.tpl.html'"></div>
+
+    <!-- Body -->
+    <div class="container">
+      <div class="row">
+
+	<!-- Lessons -->
+	<div class="col-md-3">
+	  <h1>Lessons</h1>
+	  <!-- Lessons Table of Content -->
+	    <div ng-include="'lessons/templates/toc.tpl.html'"></div>
+	</div>
+	<!-- Labs -->
+	<div class="col-md-3">
+	  <h1>Labs</h1>
+	    <div ng-include="'labs/templates/toc.tpl.html'"></div>
+	</div>
+
+	<!-- Description -->
+	<div class="col-md-6 wp-text-area">
+	  <h1>Modern Web programming</h1>
+	  <p>
+	    The golden age of code, where the programmer stood alone
+	    to craft goundbreaking software, is over. Now, code is so
+	    complicated that it requires teams of programmers to
+	    develop, which, in turn, require new techniques to make
+	    sure that the teams do not collape under the weight of
+	    communications. This course is intended to teach web
+	    programming so that students develop habit that will help
+	    them out as they become programmers.
+	  </p>
+	  <p>
+	    This course prepares students to develop software in this
+	    new world. It focuses on agile development techniques that
+	    are in common use in industry. It covers:
+	    <ul>
+	      <li>
+		<a href="http://en.wikipedia.org/wiki/Scrum_%28software_development%29">
+		  Scrum
+		</a>
+	      </li>
+	      <li>
+		<a href="http://en.wikipedia.org/wiki/Test-driven_development">
+		  Test-driven Development
+		</a>
+	      </li>
+	      <li>
+		<a href="http://en.wikipedia.org/wiki/User-centered_design">
+		  User Centered Design
+		</a>
+	      </li>
+	    </ul>
+	  </p>
+	  <p>
+	    It uses Web Programming as the medium in which to explore
+	    modern software development, including:
+	    <ul>
+	      <li>
+		Client side programming
+		<ul>
+		  <li>
+		    <a href="">
+		      HTML (Hypertest Markup Language)
+		    </a>
+		  </li>
+		  <li>
+		    <a href="http://en.wikipedia.org/wiki/Cascading_Style_Sheets">
+		      CSS (Cascading Style Sheets)
+		    </a>
+		  </li>
+		  <li>
+		    <a href="http://en.wikipedia.org/wiki/JavaScript">
+		      JavaScript
+		    </a>
+		  </li>
+		</ul>
+	      <li>
+		Server side programming
+		<ul>
+		  <li>
+		    <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">
+		      HTTP (Hypertext Transfer Protocol)
+		    </a>
+		  </li>
+		  <li>
+		    <a href="http://en.wikipedia.org/wiki/Node.js">
+		      Node.js
+		    </a>
+		  </li>
+		  <li>
+		    <a href="http://en.wikipedia.org/wiki/MongoDB">
+		      MongoDB
+		    </a>
+		  </li>
+		</ul>
+	    </ul>
+	  </p>
+	  <h2>Structure of the Course</h2>
+	  <p>
+	    The course comprises lessons and labs, which run
+	    concurrently. In addition, there is a sequence of four
+	    units.
+	  </p>
+	  <p>
+	    In the first unit, the lessons cover the development of
+	    the computer from a User Interface perspective while the
+	    labs lead the student to set up an environment in which
+	    they can develop web sites.
+	  </p>
+	  <p>
+	    The second unit's lessons and labs are more in sync. Both
+	    cover programming: JavaScript, Testing, Databases, and
+	    Architecture. The lecture provide overviews of the subject
+	    and the labs give the students a chance to try them
+	    out. This unit, as do many of the others, covers a lot of
+	    material, so it touches on the subjects and provides links
+	    to further information.
+	  </p>
+	  <p>
+	    The lessons in the third unit focus on proces
+	    covering: code quality, agile development, test driven
+	    development, specification by example and lean
+	    development. The labs in this section give students the
+	    opportunity to practice what they hav elearned in the
+	    second section. They are run as simplified Scrums where
+	    each student has a story to implement and a set of
+	    automated tests to satisfy.
+	  </p>
+	  <p>
+	    The lessons in the fourth unit cover requirements
+	    elicitation and management. The labs use a full
+	    fledged Scrum development process. Groups work on a
+	    project with daily standups and weekly demos.
+	  </p>
+	  <h2>Web Programming</h2>
+	  <p>
+	    Web programming is difficult. Many student have difficulty
+	    learning a single programming language, but to program for
+	    the web, they need to master at least three languages:
+	    HTML, CSS and JavaScript. These three languages are
+	    necessary because they are the languages browsers
+	    understand, and web programming cannot control the
+	    browsers on which their programs run without these
+	    languages.
+	  </p>
+	  <p>
+	    What's more, web programming requires the interation of a
+	    least one client and server, the browser and web
+	    server. Distributed programming increases the complexity
+	    of writing code.
+	  </p>
+	  <h3>Web Stack: Linux, NodeJS, Mongo</h3>
+	  <p>
+	    The goal of this tutorial is to set up a system on which
+	    you can develop web programs on your personal
+	    computer. There are many ways to do this. The most common
+	    is LAMP (or WAMP or MAMP) which stands for Linux, Apache,
+	    MySQL and PHP (or Window or Mac). Another popular approach
+	    is <a href="http://rubyonrails.org/"> Ruby on
+	    Rails </a>. For Java afficianatos there
+	    is <a href="http://en.wikipedia.org/wiki/JavaServer_Pages">
+	    JavaServer Pages</a>. For those who prefer Python, there
+	    is <a href="https://www.djangoproject.com/">
+	    Django </a>. All of these applications use a language
+	    (PHP, or Ruby, or Java, or Python) to write HTML pages on
+	    the server and write them to the client. This is not a bad
+	    approach, but it sort of assumes that you already know how
+	    to write HTML, CSS and JavaScript. I want to write a
+	    lesson that teaches Web Programming from the beginning. So
+	    I have chosen a Linux, NodeJS, MongoDB stack.
+	  </p>
+	  <p>
+	    Linux, NodeJS and MongoDB make the process of learning the
+	    basics a little easier because NodeJS runs JavaScript on
+	    the server side. JavaScript is not a great langauage. It
+	    is a loosely-typed, object-oriented language, which seems
+	    almost a contradiction. However, it is what we have on the
+	    client, so by using it to program the server as well, it
+	    reduces the amount of syntax required. Furthermore,
+	    MongoDB is a "document oriented database" which means that
+	    it stores and returns objects that look like JavaScript
+	    Objects again reducing the amount of syntax students need
+	    to learn to experience web programming.
+	  </p>
+	  <p>
+	    By restricting the language to HTML, CSS and JavaScript,
+	    we hope to make the process of learning how to manage
+	    interacting clients and servers easier. Students use the
+	    same language to program on the client that they do on the
+	    server. The risk is that this can be confusing. With PHP
+	    or Java or Ruby, it is clear when one is programming on
+	    the server because the language is different. However, one
+	    runs the risk of learning that the language is the
+	    difference rather than the locus of program control. The
+	    location of control significantly affects the decisions
+	    one makes about programs. For example, one manages
+	    security on the web server rather than the client because
+	    the client is not under the programmers control in a
+	    production environment. We hope that the single languages
+	    makes these distinctions clear.
+	  </p>
+	  <p>
+	    Learning the syntax of all of the languages involved is
+	    challenging, but just learning the language is not enough
+	    to become a competent programmer. In addition to the
+	    syntax, a good programming must know how to develop
+	    programs that are maintainable. Maintainable programs must
+	    be easy to read and must have automated test
+	    cases. Learning to write programs that are easy to read is
+	    impossible unless people read and misunderstand them. In a
+	    classroom, a teacher can read and comment on students
+	    progmans, but such interactions, particularly in crowded
+	    classrooms lacks thoroughness and immediacy. A better
+	    approach is to have students read each others programs so
+	    the learn first hand what is easy to read and what is
+	    not. Writing programs easy to understand programs requires
+	    multiple drafts. As with any language, the first draft of
+	    a program usually stinks. Unfortunately, unlike natural
+	    languages, typoes in programming languages can cause fatal
+	    flaws rather than annoyance in the reader. Writing
+	    multiple drafts requires automated testing, so modern
+	    software development enphasizes automated testing. NodeJS
+	    provides several ways of testing: end to end testing
+	    with <a href="https://github.com/angular/protractor">
+	    Protractor </a> and unit testing
+	    with <a href="http://karma-runner.github.io/0.12/index.html">
+	    Karma</a>. Both of these rely
+	    on <a href="http://jasmine.github.io/">Jasmine</a>, which,
+	    as an added benefit, uses JavaScript syntax.
+	  </p>
+	</div>
+      </div>
+    </div>
+
+    <script src="/wp/js/jquery.min.js"></script>
+    <script src="/wp/js/bootstrap.min.js"></script>
+    <script src="/wp/js/angular.min.js"></script>
+    <script src="/wp/js/wp.js"></script>
+  </body>
+</html>

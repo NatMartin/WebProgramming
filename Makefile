@@ -3,7 +3,7 @@ deploy:
 	cp -r css /var/www/html
 	cp -r js /var/www/html
 	cp -r templates /var/www/html
-	cp index.html /var/www/html 
+	cp index.html /var/www/html/wp 
 
 push: commit
 	git push origin master

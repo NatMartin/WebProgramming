@@ -1,0 +1,57 @@
+<div class="wp-text-area">
+  <h1>Coordinating through Git</h1>
+  <p>
+    Git, the program you have been using for source control, helps
+    coordinate team work. When working in team, multiple people work
+    on the same code base at the same time. As people work on the code
+    base, they can introduce subtle bugs unless great care is taken to
+    test each new addition in the context of all previous additions.
+  </p>
+  <p>
+    For example, suppose Ashish changes a function that Betty's
+    function relies on. He tests the changes to make sure that Betty's
+    function still works before he checks it back in. In the mean
+    time, Betty also changes her function, she tests it against the
+    function that Ashish is in the process of changes to make sure it
+    still works before she checks it in. However, when they both check
+    in their work, the changes that Ashish has made break Betty's new
+    code. Now, the code no longer works, and it may be months before
+    the error is discovered. With luck, it will be discovered at the
+    demo, without luck, it will be discovered after both Ashish and
+    Betty have left the team and no one remembers what the code was
+    supposed to do.
+  </p>
+  <p>
+    Git provides a repository in which everyone stores their
+    code. Before it allows anyone to check new code in, it checks the
+    code that is being check in against the code in the repository and
+    to make sure that everything being checked in is compatible with
+    the latest version. If it is not, it will not allow the code to be
+    check in until it is compatible. Even if the team's code has
+    change in a different file, it will not allow you to check it
+    in. It will force you to check out the new code from the team's
+    version before you can check in your new code. You, of course,
+    should test your code against the team's version before checking
+    in your changes.
+  </p>
+  <p>
+    For example, If Ashish made his changes first, when Betty tried to
+    check in her code, she would have to check out his changes. She
+    would then test here changes against the new code, find and change
+    the incompatibilities.
+  </p>
+  <p>
+    The teams code should always work. If it does not, bad code will
+    be built on top of bad code. Eventually the code becomes so
+    corrupted that fixing any one of the bugs is likely to create
+    problems in other parts of the code. Unfortunately, that is the
+    state of may industrial code bases.
+  </p>
+  <p>
+    Remember, a principle of agile development is that the code base
+    always works. It may not do everything desired of it, but what it
+    does do, it does correctly. Test Driven Development helps insure
+    correctness at the unit level; team source control helps insure
+    correctness in end-to-end operation.
+  </p> 
+</div>

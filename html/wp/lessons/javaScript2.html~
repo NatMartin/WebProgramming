@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <title>WP: Chapter number</title>
+  </head>
+
+<!-- Lessons -->
+  <body ng-controller="mainCtrl">
+
+<!-- Lessons Navigation Bar -->
+    <div class="container">
+      <div ng-include="'templates/navigation.tpl.html'"></div>
+    </div>
+
+      <!-- Lessons Body -->
+    <div class="container">
+      <div class="row">
+	<!-- Lessons -->
+	<div class="col-md-12">
+	  <h1>Chapter Title</h1>
+	  <p>
+	  </p>
+	  <p>
+	  </p>
+	  <p>
+	  </p>
+	  <p>
+	  </p>
+	  <p>
+	  </p>
+	</div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/wp.js"></script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html ng-app="wp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
+    <title>WP</title>
+  </head>
+
+  <!-- Lessons -->
+  <body ng-controller="emacsGitCtrl">
+
+    <!-- Lessons Navigation Bar -->
+    <div ng-include="'templates/navigation.tpl.html'"></div>
+
+    <!-- Lessons Jumbotron -->
+    <div ng-include="'../templates/head.tpl.html'"></div>
+
+    <!-- Lessons Body -->
+    <div class="container">
+      <div class="row">
+
+	<!-- Lessons Table of Content -->
+	<div class="col-md-5">
+	  <div ng-include="'templates/toc.tpl.html'"></div>
+	</div>
+
+	<!-- Lesson: Introduction -->
+	<div class="col-md-7 wp-text-area">
+	  <div ng-include="'templates/emacs-gitText.tpl.html'"></div>
+	</div>
+      </div>
+      <div class="row">
+	<div ng-include="'templates/emacs-gitLab.tpl.html'"></div>
+      </div>
+    </div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/wp.js"></script>
+  </body>
+</html>

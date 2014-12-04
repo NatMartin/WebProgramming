@@ -1,0 +1,555 @@
+      <h1>Automated Testing Frameworks: Jasmine, Protractor and
+	Karma</h1>
+      <p>
+	We will be using three frameworks in this class. Jasmine is a
+	program that lets you write test files for javascript and
+	html. Protractor uses the Jasmine framework to do end to end
+	testing for HTML and Angular. Karma is a framework that uses
+	Jasmine to create unit tests for JavaScript.
+      </p>
+      <h2> Jasmine </h2>
+      <p>
+	The <a qhref="http://jasmine.github.io/2.0/introduction.html">
+	  main documentation page for Jasmine
+	</a> shows examples of all of the different types of Jasmine
+	tests. There is
+	a <a href="http://evanhahn.com/how-do-i-jasmine/">easy
+	tutorial</a> that will help you get started.
+      </p>
+      <p>
+	Jasmine is a JavaScript testing environment written in
+	JavaScript, so, using it requires only that you download it
+	and link it into a web page.
+      </p>
+      <p>
+	Download Jasmine:
+	<ol class="test">
+	  <li class="do">
+	    Move to your "dev" directory: <code>cd ~/dev</code>
+	  </li>
+	  <li class="do">
+	    Create a new directory called "modules": <code>mkdir modules</code>.
+	  </li>
+	  <li class="do">
+	    Move to the new directory: <code>cd modules</code>.
+	  </li>
+	  <li class="do">
+	    Check that you are in the right directory: <code>pwd</code>
+	  </li>
+	  <li class="see">
+	    <code>/home/&ltyourname&gt/dev/modules</code>
+	  <li class="do">
+	    Clone Jasmine from github: <code>git clone
+	      https://github.com/pivotal/jasmine.git</code> .
+	  </li>
+	  <li class="enter">
+	    <code>ls jasmine/dist</code>
+	  </li>
+	  <li class="see">
+	    <div class="code">
+nat@Linus:~/dev/modules$ ls jasmine/dist/
+jasmine-standalone-1.0.0.zip  jasmine-standalone-2.0.0.zip
+jasmine-standalone-1.1.0.zip  jasmine-standalone-2.0.1.zip
+jasmine-standalone-1.2.0.zip  jasmine-standalone-2.0.2.zip
+jasmine-standalone-1.3.0.zip  jasmine-standalone-2.0.3.zip
+jasmine-standalone-1.3.1.zip
+	    </div>
+	  </li>
+	  <li class="do">
+	    copy the most recent distribution to your html
+	    directory: <code>cp
+	    jasmine/dist/jasmine-standalone-2.0.3.zip
+	    ../server/html</code>
+	  </li>
+	  <li class="see">
+	    <div class="code">
+nat@Linus:~/dev/modules/jasmine$ ls
+CONTRIBUTING.md  images                Rakefile          spec
+dist             jasmine-core.gemspec  README.md         src
+Gemfile          lib                   RELEASE.md        travis-core-script.sh
+GOALS_2.0.md     MANIFEST.in           release_notes     travis-docs-script.sh
+grunt            MIT.LICENSE           requirements.txt  travis-node-script.sh
+Gruntfile.js     package.json          setup.py
+	    </div>
+	  </li>
+	  <li class="enter">
+	    <div class="code">
+nat@Linus:~/dev/modules/jasmine$ cd ../../server/html/
+	    </div>
+	  </li>
+	  <li class="do">
+	    Unzip jasmine-standalone-2.0.3 into a directory called
+	    "jasmine.": <code>unzip jasmine-standalone-2.0.3.zip
+	    -djasmine</code>
+	  </li>
+	  <li class="see">
+	    <div class="code">
+Archive:  jasmine-standalone-2.0.3.zip
+  inflating: jasmine/MIT.LICENSE    
+  inflating: jasmine/lib/jasmine-2.0.3/jasmine_favicon.png  
+  inflating: jasmine/lib/jasmine-2.0.3/jasmine.js  
+  inflating: jasmine/lib/jasmine-2.0.3/jasmine-html.js  
+  inflating: jasmine/lib/jasmine-2.0.3/jasmine.css  
+  inflating: jasmine/lib/jasmine-2.0.3/console.js  
+  inflating: jasmine/lib/jasmine-2.0.3/boot.js  
+  inflating: jasmine/SpecRunner.html  
+  inflating: jasmine/src/Player.js  
+  inflating: jasmine/src/Song.js    
+  inflating: jasmine/spec/PlayerSpec.js  
+  inflating: jasmine/spec/SpecHelper.js  
+	    </div>
+	  </li>
+	  <li class="do">
+	    Open a browser and
+	    enter: <code>http://localhost:3000/jasmine/SpecRunner.html</code>
+	  </li>
+	  <li class="see">
+	    <img src="img/jasmine-screenshot.png">
+	  </li>
+	</ol>
+	The image is the example that comes loaded with jasmine. It
+	shows that the system is working.
+      </p>
+      <p>
+	If you look in <code>jasmine</code> you will see a file
+	called <code>SpecRunner.html</code>. This file is what is
+	being displayed in the window.
+	<div class="code">
+&lt!DOCTYPE HTML&gt
+&lthtml&gt
+&lthead&gt
+  &ltmeta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt
+  &lttitle&gtJasmine Spec Runner v2.0.2&lt/title&gt
+
+  &ltlink rel="shortcut icon" type="image/png" href="lib/jasmine-2.0.2/jasmine_favicon.png"&gt
+  &ltlink rel="stylesheet" type="text/css" href="lib/jasmine-2.0.2/jasmine.css"&gt
+
+  &ltscript type="text/javascript" src="lib/jasmine-2.0.2/jasmine.js"&gt&lt/script&gt
+  &ltscript type="text/javascript" src="lib/jasmine-2.0.2/jasmine-html.js"&gt&lt/script&gt
+  &ltscript type="text/javascript" src="lib/jasmine-2.0.2/boot.js"&gt&lt/script&gt
+
+  &lt!-- include source files here... --&gt
+  &ltscript type="text/javascript" src="src/Player.js"&gt&lt/script&gt
+  &ltscript type="text/javascript" src="src/Song.js"&gt&lt/script&gt
+
+  &lt!-- include spec files here... --&gt
+  &ltscript type="text/javascript" src="spec/SpecHelper.js"&gt&lt/script&gt
+  &ltscript type="text/javascript" src="spec/PlayerSpec.js"&gt&lt/script&gt
+
+&lt/head&gt
+
+&ltbody&gt
+&lt/body&gt
+&lt/html&gt
+	</div>
+      </p>
+      <p>
+	As you can see, Jasmine is a JavaScript library. The files
+	"jasmine.js," "jasmine-html.js," and "boot.js" are loaded from
+	the directory "lib/jasmine-2.0.2." These files contain the
+	Jasmine standalone testing system. The file "jasmine.js"
+	contains the JavaScript code needed to run the tests;
+	"jasmine-html.js" contains the code that creates the html page
+	and "boot.js" contains the code to set everything up for the
+	test. You can tell exactly what Jasmine is doing by looking at
+	these files.
+      </p>
+      <p>
+	This example is a fake song player. It does not play any
+	songs, instead it implements the minimal amount to show how to
+	debug. The file "Player.js" implements the plays; "Song.js"
+	implements a song. These files are in the directory
+	"jasmine/src."
+      </p>
+      <p>
+	In "jasmine/spec" you will find the test files. Often, as is
+	the case here, automated testing files are called
+	specifications. They represent a written description of what
+	the program is supposed to do.
+      </p>
+      <p>
+	<ul>
+	  <li class="do">
+	    Look at the files in "src" and "spec" to see if
+	    you can figure out how they relate
+	  </li>
+	</ul>
+      </p>
+      <h3> References </h3>
+      <ol class="references">
+	<li class="ref">
+	  <a href="http://code.tutsplus.com/tutorials/testing-your-javascript-with-jasmine--net-21229">
+	    Testing your JavaScript with Jasmine (tutorial)
+	  </a>
+	</li>
+	<li class="ref">
+	  <a href="http://evanhahn.com/how-do-i-jasmine/">
+	    How do I Jasmine: A Tutorial.
+	  </a>
+	<li class="ref">
+	  <a href="http://jasmine.github.io/">
+	    Jasmine Main Page
+	  </a>
+	</li>
+	<li>
+	  <a href="http://jasmine.github.io/2.0/introduction.html">
+	    Jasmine 2.0 Documentation
+	  </a>
+	</li>
+      </ol>
+      <h2>Protractor</h2>
+      <p>
+	Protractor does end-to-end testing for HTML and Angular. It
+	uses a system called Selenium, which acts like a
+	server. Instead of serving HTML, CSS and JavaScript files to
+	the browser for display, it calls special functions in the
+	browser library to ask what the browser is showing. It does
+	not actually see what is showing on the screen, so appearance
+	needs to be done manually.
+      </p>
+      <p>
+	Protractor is a NodeJS program, so NPM installs it. The Node
+	Package Manager (NPM) is a program that will install NodeJS
+	applications and all of packages they require. Installing the
+	required packages along with the desired packages makes
+	mantaining NodeJS projects much easier. NPM installs packages
+	either globally by using the <code>-g</code> flag or locally
+	without the flag. If they are installed globally, they can be
+	used anywhere; if they are installed locally, you will need to
+	tell the system where to find the programs. We will install
+	the programs locally because it does not
+	require <code>sudo</code> rights. We will install them
+	in <code>~/dev</code>. We will then add the paths to the
+	programs in our <code>$PATH</code> directory.
+      </p>
+      <h3> Installation </h3>
+      <ol class="test">
+	<li class="do">
+	  Install NPM, the Node Package Manager: <code>sudo apt-get
+	    install npm</code>
+	</li>
+	<li class="see">
+	  <div class="code">
+nat@Linus:~/dev/modules/protractor$ npm --version
+1.3.10
+	  </div>
+	</li>
+	<li class="do">
+	  First initialize the npm.
+	  <div class="code">
+nat@Linus:~/dev$ npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sane defaults.
+
+See `npm help json` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install &ltpkg&gt --save` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+name: (dev) 
+version: (0.0.0) 
+description: General Development
+entry point: (index.js) 
+test command: 
+git repository: 
+keywords: 
+author: Nathaniel G. Martin
+license: (BSD-2-Clause) 
+About to write to /home/nat/dev/package.json:
+
+{
+  "name": "dev",
+  "version": "0.0.0",
+  "description": "General Development",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "protractor": "~1.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nathaniel G. Martin",
+  "license": "BSD-2-Clause"
+}
+
+
+Is this ok? (yes) yes
+	  </div class="code">
+	</li>
+	<li class="do">
+	  <div class="code">
+nat@Linus:~/dev/modules/protractor$ cd ~/dev
+nat@Linus:~/dev$ npm install protractor
+npm http GET https://registry.npmjs.org/protractor
+npm http 304 https://registry.npmjs.org/protractor
+	  </div>
+... Several lines deleted ...
+	  <div class="code">
+protractor@1.3.1 node_modules/protractor
+|-- jasminewd@1.1.0
+|-- saucelabs@0.1.1
+|-- q@1.0.0
+|-- minijasminenode@1.1.1
+|-- optimist@0.6.1 (wordwrap@0.0.2, minimist@0.0.10)
+|-- adm-zip@0.4.4
+|-- glob@3.2.11 (inherits@2.0.1, minimatch@0.3.0)
+|-- source-map-support@0.2.7 (source-map@0.1.32)
+|-- lodash@2.4.1
+|-- request@2.36.0 (json-stringify-safe@5.0.0, forever-agent@0.5.2, aws-sign2@0.5.0, qs@0.6.6, oauth-sign@0.3.0, tunnel-agent@0.4.0, node-uuid@1.4.1, mime@1.2.11, form-data@0.1.4, tough-cookie@0.12.1, hawk@1.0.0, http-signature@0.10.0)
+|__ selenium-webdriver@2.43.5 (tmp@0.0.24, xml2js@0.4.4)
+	  </div>
+	</li>
+      </ol>
+      <p>
+	This will install Protractor and the packages it
+	requires. However, to run Protractor, you will need to run
+	Selenium and to run Selenium, you will need to run the Java
+	Development Kit (JDK).
+	<h3>Install Selenium</h3>
+      <p>
+	Selenium is a stand-along program that is used to test web
+	sites. It uses browsers as servers, instead of clients. That
+	is, it calls the browser and asks the browser to interpret the
+	web page and inspects the interpreted web page for elements.
+      </p>
+      <h4>Install Java</h4>
+      <p>
+	First, you will need to install the Java Development Kit (JDK)
+	if you do not have it. First check to see if you have it.
+      </p>
+      <ol class="test">
+	<li class="enter">
+	  <code>java -version</code>
+	</li>
+	<li class="see">
+	  <div class="code">
+java version "1.7.0_65"
+OpenJDK Runtime Environment (IcedTea 2.5.2) (7u65-2.5.2-3~14.04)
+OpenJDK 64-Bit Server VM (build 24.65-b04, mixed mode)
+	  </div>
+	  Make sure you see JDK.
+	</li>
+      </ol>
+      <p>
+	If you do not see the JDK, install it using <code>apt-get</code>
+	<ol class="activity">
+	  <li class="enter">
+	    <code>sudo apt-get install default-jdk</code>
+	  </li>
+	</ol>
+	After you have done this test to see whether Java is
+	installed. This will install a version of Java 7. Java 8 is
+	the most recent version, and Oracle Java is the cannonical
+	implementation. Installing Oracle Java is somewhat more
+	difficult, though not a lot more difficult. Instructions for
+	installing Oracle Java 8 are
+	at 
+	<a href="http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html">
+	  Webupd8
+	</a>.
+      </p>
+      <h4>Finishing Up</h4>
+      <p>
+	With Java installed, you can install Selenium. To do this go do
+	<code>~/dev/node_modules/protractor/bin</code> and
+	execute <code>webdriver-manager</code> twice: first with the
+	parameter <code>update</code> then with the
+	parameter <code>start</code>. The first time will load all of
+	the necessary files, the second time will start the server.
+	<ol class="activity">
+	  <li class="enter">
+	    <code>cd ~/dev/node_modules/protractor/bin</code>
+	  </li>
+	  <li class="enter">
+	    <code>./webdriver-manager update</code>
+	  </li>
+	  <li class="see">
+	    <div class="code">
+nat@Linus:~/dev/node_modules/protractor/bin$ ./webdriver-manager update
+Updating selenium standalone
+downloading https://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar...
+Updating chromedriver
+downloading https://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip...
+chromedriver_2.10.zip downloaded to /home/nat/dev/node_modules/protractor/selenium/chromedriver_2.10.zip
+selenium-server-standalone-2.43.1.jar downloaded to /home/nat/dev/node_modules/protractor/selenium/selenium-server-standalone-2.43.1.jar
+	    </div>
+	  </li>
+	  <li class="enter">
+	    <code>./webdriver-manager start</code>
+	  </li>
+	  <li class="see">
+	    <div class="code">
+nat@Linus:~/dev/node_modules/protractor/bin$ webdriver-manager start
+webdriver-manager: command not found
+nat@Linus:~/dev/node_modules/protractor/bin$ ./webdriver-manager start
+seleniumProcess.pid: 8756
+12:18:47.911 INFO - Launching a standalone server
+Setting system property webdriver.chrome.driver to /home/nat/dev/node_modules/protractor/selenium/chromedriver
+12:18:47.989 INFO - Java: Oracle Corporation 24.65-b04
+12:18:47.990 INFO - OS: Linux 3.13.0-37-generic amd64
+12:18:48.016 INFO - v2.43.1, with Core v2.43.1. Built from revision 5163bce
+12:18:48.136 INFO - Default driver org.openqa.selenium.ie.InternetExplorerDriver registration is skipped: registration capabilities Capabilities [{platform=WINDOWS, ensureCleanSession=true, browserName=internet explorer, version=}] does not match with current platform: LINUX
+12:18:48.270 INFO - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
+12:18:48.272 INFO - Version Jetty/5.1.x
+12:18:48.274 INFO - Started HttpContext[/selenium-server/driver,/selenium-server/driver]
+12:18:48.275 INFO - Started HttpContext[/selenium-server,/selenium-server]
+12:18:48.276 INFO - Started HttpContext[/,/]
+12:18:48.315 INFO - Started org.openqa.jetty.jetty.servlet.ServletHandler@46a60ffc
+12:18:48.316 INFO - Started HttpContext[/wd,/wd]
+12:18:48.324 INFO - Started SocketListener on 0.0.0.0:4444
+12:18:48.324 INFO - Started org.openqa.jetty.jetty.Server@73cdf021
+	    </div>
+	  </li>
+	  <li class="do">
+	    End the program by hitting <code>ctrl-c</code>.  That is,
+	    hold down the control key while hitting the 'c' key.
+	  </li>
+	  <li class="see">
+	    <div class="code">
+^CStaying alive until the Selenium Standalone process exits
+12:19:02.353 INFO - Shutting down...
+Selenium Standalone has exited with code 130
+	    </div>
+	  </li>
+	</ol>
+      </p>
+
+      <h3> References </h3>
+      <ol class="refs">
+	<li class="ref">
+	  <a href="http://angular.github.io/protractor/#/">
+	    The Protractor web site
+	  </a>
+	</li>
+	<li class="ref">
+	  <a href="http://angular.github.io/protractor/#/tutorial">
+	    The Protractor Tutorial
+	  </a>
+	</li>
+	<li class="ref">
+	  <a href="http://angular.github.io/protractor/#/toc">
+	    Table of Content of Protractor Documentation
+	  </a>
+	</li>
+	<li>
+	  <a href="http://www.ng-newsletter.com/posts/practical-protractor.html">
+	    Practical End-to-end Testing with Protractor.
+	  </a>
+	</li>
+      </ol>
+    
+      <h2>Karma</h2>
+      
+      <p>
+	Installing Karma is easy using NPM. If you use the --save-dev
+	flag, it will also put the version and the package.json file,
+	so that it can be reloaded when needed. The package.json file
+	contains a list of the requirements for this particular
+	packagbe so it can be updated.
+      </p>
+
+      <ol class="activity">
+	<li class="enter">
+	  <code>
+	    cd ~/dev<br>
+	    npm install karma --save-dev
+	  </code>
+	</li>
+	<li class="see">
+	  <div class="code">
+nat@Linus:~/dev$ npm install karma --save-dev
+npm WARN package.json dev@0.0.0 No repository field.
+npm WARN package.json dev@0.0.0 No README data
+npm http GET https://registry.npmjs.org/karma
+npm http 200 https://registry.npmjs.org/karma
+npm http GET https://registry.npmjs.org/karma/-/karma-0.12.24.tgz
+npm http 200 https://registry.npmjs.org/karma/-/karma-0.12.24.tgz
+npm http GET https://registry.npmjs.org/http-proxy
+	  </div>
+Many lines deleted.
+	  <div class="code">
+npm http 304 https://registry.npmjs.org/core-util-is
+npm http 304 https://registry.npmjs.org/inherits
+karma@0.12.24 node_modules/karma
+|-- di@0.0.1
+|-- graceful-fs@2.0.3
+|-- rimraf@2.2.8
+|-- colors@0.6.2
+|-- mime@1.2.11
+|-- q@0.9.7
+|-- minimatch@0.2.14 (sigmund@1.0.0, lru-cache@2.5.0)
+|-- optimist@0.6.1 (wordwrap@0.0.2, minimist@0.0.10)
+|-- source-map@0.1.40 (amdefine@0.1.0)
+|-- glob@3.2.11 (inherits@2.0.1, minimatch@0.3.0)
+|-- lodash@2.4.1
+|-- useragent@2.0.10 (lru-cache@2.2.4)
+|-- chokidar@0.10.2 (async-each@0.1.5, readdirp@1.1.0)
+|-- log4js@0.6.21 (semver@1.1.4, async@0.2.10, readable-stream@1.0.33-1)
+|-- http-proxy@0.10.4 (pkginfo@0.3.0, utile@0.2.1)
+|-- connect@2.12.0 (uid2@0.0.3, methods@0.1.0, pause@0.0.1, cookie-signature@1.0.1, debug@0.8.1, fresh@0.2.0, qs@0.6.6, bytes@0.2.1, buffer-crc32@0.2.1, raw-body@1.1.2, batch@0.5.0, cookie@0.1.0, negotiator@0.3.0, send@0.1.4, multiparty@2.2.0)
+|__ socket.io@0.9.17 (base64id@0.1.0, policyfile@0.0.4, redis@0.7.3, socket.io-client@0.9.16)
+	  </div>
+	</li>
+	<li class="enter">
+	  <code>npm install karma-jasmine karma-chrome-launcher
+	    --save-dev</code>
+	</li>
+	<li class="see">
+	  <div class="code">
+npm WARN package.json dev@0.0.0 No repository field.
+npm WARN package.json dev@0.0.0 No README data
+npm http GET https://registry.npmjs.org/karma-jasmine
+npm http GET https://registry.npmjs.org/karma-chrome-launcher
+npm http 200 https://registry.npmjs.org/karma-jasmine
+npm http GET https://registry.npmjs.org/karma-jasmine/-/karma-jasmine-0.1.5.tgz
+npm http 200 https://registry.npmjs.org/karma-chrome-launcher
+npm http GET https://registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-0.1.5.tgz
+npm http 200 https://registry.npmjs.org/karma-jasmine/-/karma-jasmine-0.1.5.tgz
+npm http 200 https://registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-0.1.5.tgz
+karma-chrome-launcher@0.1.5 node_modules/karma-chrome-launcher
+
+karma-jasmine@0.1.5 node_modules/karma-jasmine
+	  </div>
+	</li>	
+      </ol>
+      <p>
+	Now make sure that Karma is working by starting it. Because
+	Karma's directory is not in <code>$PATH</code> you will need
+	to specify the entire directory starting with the home
+	directory denoted by a single period.
+      </p>
+      <ol class="test">
+	<li class="enter">
+	  <code>/node_modules/karma/bin/karma start</code>
+	</li>
+	<li class="see">
+	  <div class="code">
+nat@Linus:~/dev$ ./node_modules/karma/bin/karma start
+INFO [karma]: Karma v0.12.24 server started at http://localhost:9876/
+	  </div>
+	</li>
+	<li class="do">
+	  Now kill the server with Control-c. the prompt will return.
+	</li>
+      </ol>
+      <p>
+	It is annoying to have to type out the entire path for
+	Karma. The path can be added to the <code>$PATH</code> but, if
+	you have <code>sudo</code> priviledges, you can install the
+	commands globally with <code>sudo npm install -g
+	karma-cli</code>.
+      </p>
+      <h3> References </h3>
+      <ol>
+	<li>
+	  <a href="http://karma-runner.github.io/0.12/intro/installation.html">
+	    Karma on Github
+	  </a>
+	</li>
+      </ol>

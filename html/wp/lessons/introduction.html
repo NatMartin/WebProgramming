@@ -1,0 +1,418 @@
+<!DOCTYPE HTML>
+<html ng-app="wp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+    <title>WP</title>
+  </head>
+
+  <!-- Lessons -->
+  <body ng-controller="introCtrl">
+
+    <!-- Lessons Navigation Bar -->
+    <div ng-include="'templates/navigation.tpl.html'"></div>
+
+    <!-- Lessons Jumbotron -->
+    <div ng-include="'/templates/head.tpl.html'"></div>
+
+    <!-- Lessons Body -->
+    <div class="container">
+      <div class="row">
+
+	<!-- Lessons Table of Content -->
+	<div class="col-md-5">
+	  <div ng-include="'templates/toc.tpl.html'"></div>
+	</div>
+
+	<!-- Lesson: Introduction -->
+	<div class="col-md-7 wp-text-area">
+	  <h1>The Birth of Computers</h1>
+	  <p>
+	    In the late 20th century, the use of electronic computers
+	    exploded. In 1936, Alan Turing first described their
+	    protean nature that makes the the dominate technology of
+	    our time. By 1968, Douglas Englebart demonstrated a
+	    computer that combined a graphic screen, mouse, keyboard
+	    and internet connection showing the computer to be a tool
+	    for everyone. In another thirty year, the World Wide Web
+	    and the smart phone made the computer indispensable to
+	    everybody.
+	  <p>
+	  <p>
+	    Turing demonstrated that all of Mathematics, and by
+	    extension all intellectual activity, can be performed by a
+	    simple mechanical device. Humanity learns to communicate
+	    with this new alian intelligence in the computer
+	    revolution of the second half of the 20th century. We
+	    develop ever more sophisticated way to indicating to the
+	    computer what we want and build ever faster computers to
+	    run these new ways of communicating with it. At core,
+	    computers only do sequences of simple arithmetic, but
+	    through these sequences they can emulate arbitrarily
+	    complex activities if only we can tell them how to do it.
+	  </p>
+	  <h2>Early Computing Devices</h2>
+	  <p>
+	    Crows and people can recognize numbers up to around
+	    four. You can see this for yourself by picking up a few
+	    coins and looking at them. It is easy to see that there
+	    are one, two, three or four coins, but beyond that it
+	    becomes increasingly hard. So, we could say that the first
+	    computer developed by natural selection sometime in the
+	    distant past.
+	  </p>
+	  <p>
+	    However, when we usually think of computers, we are
+	    talking about artificial devices that can manipulate
+	    number, not animal brains. Still, artificial computing
+	    devices are also surprisingly old. The first artificial
+	    computer survives when we compute by counting fingers,
+	    still a common strategy for converting the names of months
+	    to numbers. Some culture continue to use the body,
+	    including toes, elbows, knees and many other apendages to
+	    count, but most such uses survive in the use the word for
+	    the body part rather than touching it. In most cultures,
+	    the correlation between body part and number has been
+	    completely lost, though, even in English, we still refer
+	    to a symbol for a number as a digit, or finger.
+	  </p>
+	  <p>
+	    Other prehistoric computers include pebbles and tally
+	    sticks. A cache of pebbles lets one manage groups of
+	    objects by putting then in a one-to-on correspondence with
+	    the pebbles making it easy to see that the flock of sheep
+	    is intact. Tally sticks abstract this principle by putting
+	    marks on the stick instead of collecting stores creating a
+	    constructed symbolic representation of a number. The
+	    practice of crossing four tally marks to make it easy to
+	    count uses the natural ability to recognize four similar
+	    objects and reducing it to a single symbol.
+	  </p>
+	  <p>
+	    Computing devices created history itself, so the end of
+	    prehistory may be an advance in computing. In Babylon,
+	    priests kept stores for farmers so they could survive the
+	    lean times. The priests needed some way to figure out how
+	    much grain each person had put in storage, so they started
+	    keeping small counters shaped like the goods that had been
+	    put in storage such a sheafs of grain or baskets of dried
+	    fruit. Unfortunately, if one of the counters got lost, the
+	    tally failed, so the priests started putting the counters
+	    in clay vessels that they then sealed and dried. But now,
+	    they needed to break the vessel to check the tally, so
+	    they began making marks on the vessel that showed what was
+	    inside. Now, they never needed to break the vessel, and
+	    indeed, they did not even need to put the counters in at
+	    all. This symbolic representation of objects in storage
+	    was the beginning of writing as the priests realized that
+	    they could make marks to represent anything, not just
+	    grain and fruit.
+	  </p>
+	  <p>
+	    Coins are another early computing device similar to the
+	    counters used by the priests in Babylon. Coins represented
+	    an abstraction of goods of any type, which could be traded
+	    for goods of any type. That is, they are counters of
+	    abstract value. 
+	  </p>
+	  <p>
+	    These early computing devices indicate the primary
+	    features of all computing devices. Computing devices have:
+	    <ol>
+	      <li>
+		A means of storing information
+	      </li>
+	      <li>
+		A means of changing the stored information according
+		to certain rules
+	      </li>
+	      <li>
+		A means of showing the results of the manipulation to
+		the human user.
+	      </li>
+	    </ol>
+	    For example, the sack of stones the shepherd uses to keep track of
+	    sheep stores information in the a sack. It changes as the
+	    shepherd takes one stone out each time a sheep passes. It
+	    demonstrates its results by being empty after all of the
+	    sheep have passed.
+	  </p>
+	  <p>
+	    The other early computing devices work in similar ways,
+	    relying on a one to one correspondence between the
+	    symbolic objects and the objects in the real world. The
+	    Babalonian markers extend the simple stones by association
+	    distinguished markers with good. Coins extend the stones
+	    by associated the markers with an abstract unit of good,
+	    no longer tied to a particular type of object such as a
+	    sheep or a sheaf of grain. The coin can be received for a
+	    sheep and then delivered for a sheaf of grain equating, in
+	    some way, the sheep and the grain.
+	  </p>
+	  <p>
+	    The Babalonians also invented the abacus, a device where
+	    the manipulation of objects represents addition and
+	    subtraction. Here we begin to see computing devices that
+	    appear more like what we expect as the rules begin to be
+	    incarnated in the device itself. The beads on the wires
+	    (or as originally designed, in the grooves on a flat
+	    table) are manipulated in particular ways the the results
+	    are read off the wires (or grooves) once the manipulations
+	    are completed.
+	  </p>
+	  <p>
+	    John Napier's discovery of logarithms extended mechanical
+	    computation of multiplication and he embodied this
+	    invention in a device called Napier's Bones. This device
+	    consisted of a box with a set of rods with numbers written
+	    on them that are laid in the box to represent the
+	    multiplicand. The result appears in the numbers that
+	    correspond to the row designating the multiplier.
+	  </p>
+	  <p>
+	    Through the 17th century various inventions developed ever
+	    more advanced calculating devices. Perhaps the most famous
+	    was invented by Blaise Pascal which added a mechanical
+	    adding machine to Napier's bones. These devices all
+	    provide a means for storing information, i.e. the numbers
+	    being operated on; a rule-based process that manipulates
+	    the stored information; and techniques for entering data
+	    and reading results.
+	  </p>
+	  <div class="illustration">
+	    <img src="img/pascaline-calculator.jpg" alt="Pascaline Calculator">
+	    <div class="caption">
+	      Pascaline Calculator invented by Blaise Pascal in 1642 
+	    </div>
+	    <div class="imageRef">
+	      <a href="http://commons.wikimedia.org/wiki/File:Pascaline_calculator.jpg#mediaviewer/File:Pascaline_calculator.jpg">
+		Pascaline calculator
+	      </a>
+	      by J. A. V. Turck - Downloaded 2008-1-9 from 
+	      <a rel="nofollow" class="external text"
+		 href="http://books.google.com/books?id=ir00AAAAMAAJ&amp;pg=PA10">
+		J. A. V. Turck (1921) Origin of Modern Calculating
+		Machines, Western Society of Engineers, Chicago, USA,
+		p.10, fig.2
+	      </a> 
+	      from Google Books. Licensed under Public domain via 
+	      <a href="//commons.wikimedia.org/wiki/">Wikimedia Commons</a>.
+	    </div>
+	  </div>
+	  <h2>Babbage and the invention of the first modern computer</h2>
+	  <p>
+	    Calculating devices are great aids to computation, but
+	    they are limited to addition, subtraction, multiplication
+	    and division. They cannot perform complex calculations
+	    that require arbitray combinations of fundamenal
+	    arithmetic. Humans need to combine the operations and,
+	    indeed, until the middle of the 20th century, the humans
+	    who combined arithmetical operations performed on
+	    calculators were called "computers."
+	  </p>
+	  <p>
+	    Charles Babbage invented the first mechanical device to
+	    performed algorithms mechanically in the middle of the
+	    19th century. His goal was to reduce human error by
+	    building a machine that would calculate and print
+	    results. He first designed and started to build a device
+	    called the Difference Engine, which calculates the values
+	    of polynomial functions. In building this machine, he
+	    realized that it would be possible to construct a machine
+	    would run programs to perform any calculation. He called
+	    this machine the Analytical Engine.
+	  </p>
+	  <p>
+	    Neither the Difference Engine nor the Analytical were
+	    completed in Babbages lifetime, but an example of the
+	    Difference Engine was build between 1989 and 1991 using
+	    technology that was avalable at the time. The Analytic
+	    Engine was continually refined during Babbages life and
+	    exists only in a series of notes. During his lifetime the
+	    only published description of the Analytical Engine was by
+	    Ada Lovelace who translated an Italian description based
+	    on lectures he gave in Turin and added an example of a
+	    program that would caluclate Bernoulli numbers. Her
+	    algorithm is considered the first computer program.
+	  <div class="illustration">
+	    <img src="img/analytic-engine.jpg" alt="Analytic Engine">
+	    <div class="caption">
+	      A reconstruction of part of the Analytic Engine
+	    </div>
+	    <div class="imageRef">
+	      <a href="http://commons.wikimedia.org/wiki/File:AnalyticalMachine_Babbage_London.jpg#mediaviewer/File:AnalyticalMachine_Babbage_London.jpg">
+		AnalyticalMachine Babbage London
+	      </a> 
+	      by Bruno Barral (ByB) Own work. Licensed under 
+	      <a title="Creative Commons Attribution-Share Alike 2.5"
+	      href="http://creativecommons.org/licenses/by-sa/2.5">
+		CC BY-SA 2.5
+	      </a>
+	      via 
+	      <a href="//commons.wikimedia.org/wiki/">
+		Wikimedia Commons
+	      </a>.
+	    </div>
+	  </div>
+	  </p>
+	  <p>
+	    The Analytical Engine is very similar to electronic
+	    computers of the mid-twentieth century except that it was
+	    mechanical and used decimal rather than binary numbers. It
+	    has a memory, which Babbage called the "store," a CPU,
+	    which Babbage called the "mill," input in the form of
+	    punched cards and printed output. In this computer, we see
+	    most clearly the three elements of computation: storage,
+	    processing, and user interface.
+	  </p>
+	  <h2>Turing and the discovery of the modern computer</h2>
+	  <p>
+	    No one person invented the computer; it has been under
+	    development since the dawn of civilization. However, if
+	    any one step could be said to be the pivotal step, it
+	    would be Alan Turing's publication of "On Computable
+	    Numbers, with an Application to the Entscheidungsproblem."
+	    With this paper, computing broke free of arithmetic and
+	    moved into a much wider world.
+	  </p>
+	  <p>
+	    Turing later went on to develop several early electronic
+	    computer. During the Second World War, he lead the development of
+	    special purpose code breaking computers and was
+	    influential in the development of Collosus, the first
+	    programmable digital computer. After the war, he designed
+	    the ACE computer, either the first or second design for a
+	    stored program computer, which is now called the Von
+	    Neumann machine after the other design with a claim to be
+	    the first or second. But, Turing's publication of the Turing
+	    Machine, a mathematical formalization of mathematics was
+	    the most profound step in the development of the modern
+	    computer.
+	  </p>
+	  <p>
+	    "On Computable Numbers, with an Application of the
+	    Entscheidungsproblem" answers a questions posed
+	    by David Hilbert, "Is there a mechanical procedure for
+	    determining of any mathematical statement is true or
+	    false?" The attempt to answer this question lead to many
+	    answers that had application to computers, such as Alonzo
+	    Church's Lambda Calculus, which gave rise to Lisp and
+	    Emile Post's Production Systems, which gave rise to expert
+	    systems, but Turings had particular importance. In his
+	    approach, he formalized a mathematician doing mathematics
+	    as a machine that thought in a sequence of state changes
+	    and read or wrote. This mechanical mathematician's result
+	    were what was written on the paper, when the process was
+	    complete. The remarkable step was to create such a machine
+	    that could read a tape and simulate in every detail the
+	    work of another machine. By doing this, he could answer
+	    "no" to Hilbert's question, as had Church, but he also
+	    provided the first glimpse of modern computing where the
+	    machine on which the program runs is secondary to the
+	    machine itself.
+	  </p>
+	  <h2>The first practical computers</h2>
+	  <p>
+	    Electronics made the possibility of automatic computing
+	    possible, and it became clear to the users of these
+	    machines that writing programs for them was a difficult
+	    and complicated process. These devices filled large rooms
+	    and used significant amounts of electicity. They also
+	    costs millions of dollars, so they ran continuously under
+	    the supervision of a team of engineers, whose did no
+	    computation but instead kept the machine running for those
+	    who did do computations.
+	  <p>
+	    The machines usually comprised: a card reader, which put a
+	    program and data in memory; the memory, which held the
+	    program and data while the CPU (Central Processing unit)
+	    worked on it; a CPU which read a step in the program,
+	    performed the operation specified, and moved on to the
+	    next step; and a printer, which printed out the memory
+	    locations in which the results were stored.  Once again,
+	    we can see the three elements of computing: the card
+	    reader and the printer are the human interface, the memory
+	    is storage, and the CPU is the rule based algorithm
+	  <p>
+	    Programmers used key punches to make card decks that held
+	    their programs and data and submitted them to the
+	    engineers who supported the computer. The engineers would
+	    run the program and return the cards and print-out to the
+	    programmer. 
+	  </p>
+	  <p>
+	    From the programmer's point of view, the computer looks
+	    different than it does from the engineers point of
+	    view. To the programmer, the computer's interface is the
+	    desk at which he or she present the program and picks up
+	    the print-out. The storage is the set of card that are
+	    presented to the device. Still, however, the basic three
+	    part organization appears.
+	  </p>
+	  <p>
+	    From the programmer's point of view the computer itself is
+	    inaccessable. He or she deals with the system that
+	    surrounds the computer. Programers rarely even got to see
+	    the machine that actually performed the calculations as it
+	    was sequestered inside an air conditioned room. The move
+	    away from the physical embodiment of the computer
+	    characterizes the rest of the story of the
+	    computer. Improving hardware continually increases the
+	    speed at which the computer operates, but these computers
+	    are the universal machine first described by Turing. Speed
+	    improvements appear as dramatic changes in the behavior of
+	    the computer, but the real change is the complexity of the
+	    software they can run.
+	  </p>
+	  <h3>References</h3>
+	  <ul class="references">
+	    <li class="ref">
+	      <a href="http://en.wikipedia.org/wiki/History_of_writing_ancient_numbers">
+		History of Writing Ancient Numbers
+	      </a>
+	    </li>
+	    <li class="ref">
+	      <a href="http://en.wikipedia.org/wiki/History_of_writing">
+		History of Writing
+	      </a>
+	    </li>
+	    <li class="ref">
+	      <a href="http://en.wikipedia.org/wiki/History_of_computing_hardware">
+		History of Computing Hardware
+	      </a>
+	    </li>
+	    <li class="ref">
+	      <a href="http://en.wikipedia.org/wiki/Analytical_Engine">
+		Analytical Engine
+	      </a>
+	    </li>
+	    <li class="ref">
+	      <a href="http://en.wikipedia.org/wiki/Charles_Babbage">
+		Charles Babbage
+	      </a>
+	    </li>
+	    <li class="ref">
+	      <a href="img/Turing_Paper_1939.pdf">
+		On Computable Numbers, with an Application to the
+		Entscheidungsproblem.
+	      </a>
+	    </li>
+	    <li class="ref">
+	      <a href="http://en.wikipedia.org/wiki/Alan_Turing">
+		Alan Turing
+	      </a>
+	    </li>
+	    </li>
+	  </ul>
+	</div>
+      </div>
+    </div>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/wp.js"></script>
+  </body>
+</html>

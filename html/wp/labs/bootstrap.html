@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html ng-app="wp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+    <title>WP: Labs</title>
+  </head>
+
+  <!-- labs/os.html -->
+  <body ng-controller="bootstrapCtrl">
+
+    <!-- Labs Navigation Bar -->
+    <div ng-include="'templates/navigation.tpl.html'"></div>
+    
+    <!-- Labs Jumbotron -->
+    <div ng-include="'/templates/head.tpl.html'"></div>
+
+    <!-- Labs Body -->
+    <div class="container">
+      <div class="row">
+
+	<!-- Labs -->
+	<div class="col-md-5">
+	  <div ng-include="'templates/toc.tpl.html'"></div>
+	</div>
+
+	<!-- Description -->
+	<div class="col-md-7 wp-text-area">
+	  <div ng-include="'templates/bootstrapText.tpl.html'"></div>
+	</div>
+      </div>
+      <div class="row">
+	<div ng-include="'templates/bootstrapLab.tpl.html'"></div>
+      </div>
+    </div>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/wp.js"></script>
+  </body>
+</html>

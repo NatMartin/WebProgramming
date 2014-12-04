@@ -1,0 +1,124 @@
+.wp {
+    color: #333333;
+}
+
+.wp-navbar {
+//    background-color: #cc0000;
+//    color: #FFFFFF; //#669999;
+}
+
+.wp-navbar-brand {
+    color: #669999;
+}
+
+.wp-navbar > a:link {
+
+}
+
+.wp-text-area {
+    border: solid 3px #333333;
+    border-radius: 4px;
+    background-color: #EEEEEE;
+    max-width: 35em;
+}
+
+.wp-jumbotron {
+    border: solid 3px #333333;
+ }
+
+.content {
+    padding: 25px;
+    background-color: #FFFFCC;
+}
+
+.references {
+}
+
+.ref {
+}
+
+code {
+    background-color: lightgray;
+}
+
+.code {
+    background-color: lightgray;
+    white-space: pre;
+    font-family: monospace, courier;
+    font-size: small;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.add {
+    color: red;
+}
+
+.delete {
+    color: gray;
+}
+
+.small-font {
+    font-size: small;
+}
+
+.test {
+    background-color: lightgreen;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.failure {
+    background-color: lightgreen;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.activity {
+    background-color: lightgreen;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.see::before {
+    content: "See--> ";
+    color: white;
+    font-weight: bold;
+    background-color: red;
+    font-size: medium;
+}
+
+.see {
+//    white-space: pre;
+//    font-family: monospace, courier;
+//    font-size: small;
+}
+
+.do::before {
+    content: "Do---> ";
+    color: white;
+    font-weight: bold;
+    background-color: red;
+}
+
+.enter::before {
+    content: "Enter> ";
+    color: white;
+    font-weight: bold;
+    background-color: red;
+    font-size: medium;
+}
+
+.enter {
+//    white-space: pre;
+//    font-family: monospace, courier;
+//    font-size: small;
+}
+
+.fix::before {
+    content: "Fix--> ";
+    color: white;
+    font-weight: bold;
+    background-color: red;
+    font-size: medium;
+}

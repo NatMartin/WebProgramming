@@ -1,0 +1,78 @@
+<h1>Types of Testing</h1>
+<p>
+  Testing software is critical and programmers do it all the time
+  without really thinking about it. When you open a browser to see if
+  the new colors look good, that's software testing. When you open a
+  browser to see that all of the boxes appear where you thought they
+  would be, that's software testing. When you run a program to see
+  whether it moves the files you thought it would, that's software
+  testing. When you run a quick calculation to see if the numbers are
+  the ones you expected, that's software testing. The ubiquity of
+  software testing may be why it took decades before engineers learned
+  the importance of software testing.
+</p>
+<h2>Manual and Automated Testing</h2>
+<p>
+  The examples above are all of manual software testing. The tester
+  performs some tasks and check to see that those tasks are done as
+  expected. Unfortunately, manual testing requires the tester to do
+  the same tests steps every time the test needs to run.
+</p>
+<p>
+  Automatic software testing solves the problem of setting up the test
+  each time the test needs to run. Instead, the test is written as a
+  program that sets up the conditions for the test, checks the
+  conditions at the end and reports on the results. The disadvantage
+  of manual testing is that it will only find the error that it is
+  programed to to find.
+</p>
+<p>
+  Manual and automated testing complement each other. Manual testing
+  is costly, but it can find errors that are completely
+  unexpected. Automated testing is inexpensive, so they can be run
+  every time the program changes. Since software only breaks when it
+  changes, automated testing can provide an alert system that will
+  catch errors when they are new. New errors are much easier to
+  correct than old error because few changes have occured that could
+  have introduced the error leaving fewer places to look.
+</p>
+<p>
+  Manual testing cycles over longer periods than the less expensive
+  automated testing. However, a failed test usually triggers an
+  entensive round of manual test as the error is tracked down.
+</p>
+<h2>End to End and Unit Testing</h2>
+<p>
+  In addition to the distinction between manual and automated testing,
+  there is a distinction between end to end and unit testing. End to
+  end testing checks the behavior of the program from the point of
+  view of the user of that program. It makes sure that the program
+  does what the user is told it will do. Since the behavior of the
+  program from the point of view of the user is the only thing that
+  ultimately matters, end to end testing is important.
+</p>
+<p>
+  However, end to end testing is less helpful to the programming. It
+  will tell the programmer that there is an error in the program, but
+  it provides no information about where the error might be. Unit
+  testing does this task. Unit testing checks that individual
+  programming units perform as needed. For example, it will check to
+  see that a method returns the expected results on test inputs.
+</p>
+<p>
+  End to end and unit testing can be implemented either manually or as
+  automated tests. For example, testing to make sure that the system
+  behaves as the user expects needs to involve a user, so it needs to
+  be done manually. Often the visual aspect of a program need to be
+  tested manually because it is hard to specify the appearance of a
+  screen. Still, automated tests are important in end to end
+  testing. Automated testing can test against many different browser
+  quickly. Manual testing against all of the available browsers would
+  be prohibitively expensive.
+</p>
+<p>
+  Manual unit testing is common when an error is caught. Unless the
+  source of the error is obvious, it needs to be found using manual
+  tests. However, with a well written set of automated tests, the
+  error may be obvious saving a significant amount of effort.
+</p>

@@ -1,0 +1,578 @@
+<div class="wp-text-area">
+  <h2>Loading NodeJS</h2>
+  <p>
+    The server we will write will be a static file server. It will
+    send people files that they request, but it will not respond to
+    requests for anything else and it will not accept information.
+    This is very different from the current dynamic WWW which is
+    essentially an interface to application running partially on the
+    client and partially on the server. However, this static web
+    server will give us the ability to test most of the programs we
+    will be running this semester.
+  </p>
+  <p>
+    <a href="http://nodejs.org/">NodeJS</a>
+  </p>
+</div>
+<ol class="activity">
+  <li>
+    Enter "sudo apt-get install nodejs-legacy"
+  </li>
+  <li> Enter 'y' when prompted.</li>
+</ol>
+<div class="wp-text-area">
+  You should see:
+</div>
+<div class="code">
+nat@Linus:~/dev/node_modules/protractor/bin$ sudo apt-get install nodejs-legacy
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  ax25-node gyp javascript-common libax25 libc-ares-dev libjs-node-uuid
+  libssl-dev libssl-doc libv8-3.14-dev linux-headers-3.13.0-32
+  linux-headers-3.13.0-32-generic linux-image-3.13.0-32-generic
+  linux-image-extra-3.13.0-32-generic openbsd-inetd zlib1g-dev
+Use 'apt-get autoremove' to remove them.
+The following extra packages will be installed:
+  nodejs
+The following NEW packages will be installed:
+  nodejs nodejs-legacy
+0 upgraded, 2 newly installed, 0 to remove and 0 not upgraded.
+Need to get 14.6 kB/698 kB of archives.
+After this operation, 3,238 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://us.archive.ubuntu.com/ubuntu/ trusty/universe nodejs-legacy all 0.10.25~dfsg2-2ubuntu1 [14.6 kB]
+Fetched 14.6 kB in 0s (43.5 kB/s)        
+Selecting previously unselected package nodejs.
+(Reading database ... 235976 files and directories currently installed.)
+Preparing to unpack .../nodejs_0.10.25~dfsg2-2ubuntu1_amd64.deb ...
+Unpacking nodejs (0.10.25~dfsg2-2ubuntu1) ...
+Selecting previously unselected package nodejs-legacy.
+Preparing to unpack .../nodejs-legacy_0.10.25~dfsg2-2ubuntu1_all.deb ...
+Unpacking nodejs-legacy (0.10.25~dfsg2-2ubuntu1) ...
+Processing triggers for doc-base (0.10.5) ...
+Processing 1 added doc-base file...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Setting up nodejs (0.10.25~dfsg2-2ubuntu1) ...
+update-alternatives: using /usr/bin/nodejs to provide /usr/bin/js (js) in auto mode
+Setting up nodejs-legacy (0.10.25~dfsg2-2ubuntu1) ...
+</div>
+
+<div class="wp-text-area">
+  <p>
+    What happened? Ubuntu has gone out to the web and retrieved
+    NodeJS. After checking with you that you have enough room, it
+    installed it on the hard disk in a place from which it can be run.
+  </p>
+
+  <h3> Test 1: Check the version number of NodeJS </h3>
+</div>
+
+<ol class="test">
+  <li class="enter">nodejs --version</li>
+  <li class="see">v0.10.25</li>
+</ol>
+
+<div class="wp-text-area">
+  <p class="whatHappened">
+    NodeJS has responded with it's version number. This means it is working.
+  </p>
+
+  <h3> Test 2: Write a NodeJS program and run it </h3>
+</div>
+
+<ol class="test">
+  <li class="do">Start Emacs</li>
+  <li class="do">Create a file called "test.js" that contains the line
+    "console.log("Hello World")"</li>
+  <li class="enter">nodejs test.js</li>
+  <li class="see">Hello World</li>
+</ol>
+
+<div class="wp-text-area">
+  <p class="whatHappened">
+    NodeJS ran the program. The program consists of a single line that
+    types the words "Hello World" on the console. Congratulations, you
+    have written your first NodeJS program.
+  </p>
+
+  <h2>Writing a Web Server</h2>
+  <p>
+    We now have a framework for writing web server programs on the
+    computer, but it is not yet a server. Next we will build a simple
+    web server. All it does is takes apart the URL, looks in the file
+    system for a file that matches the URL, and sends that file back
+    to the requesting program. This is not a server that you could
+    actually use today--it is too simple and insecure--but it is
+    similar to the kind of servers written in the 1990's.
+  </p>
+  <p>
+    The server will first have to take the URL apart. Below is an
+    example of a simple URL.
+    <blockquote class="code">
+      http://localhost:3000/index.html
+    </blockquote>
+    Here <code>http:</code> is the name of the protocol to be
+    used. <code>localhost</code> is the name of the server (i.e., the
+    same computer on which the web browser or client is
+    running). <code>3000</code> is the port number. The most common
+    port number for http is 80. Sometimes 8000 or 8080 is used, but
+    when you leave it off, 80 is the default. <code>/index.html</code>
+    is the path name to the file that is being
+    requested. The <code>/</code> indicates the root of the html
+    directory--where the server starts its directory tree. Other
+    directories can be put between it and the file
+    name. <code>index.html</code> is the name of the file being
+    requested.
+  </p>
+  <p>
+    The code for the server is:
+</div>
+
+  <div class="code">
+var fs = require('fs');
+var http = require('http');
+var url = require('url');
+var PAGE_DIRECTORY = "html/";
+http.createServer(
+    function (request, result) {
+        var urlObj = url.parse(request.url, true, false);
+        fs.readFile(PAGE_DIRECTORY + urlObj.pathname,
+            function (error, page_contents) {
+                if (error) {
+                    result.writeHead(404);
+                    result.end(JSON.stringify(error));
+                    return;
+                }
+                result.writeHead(200);
+                result.end(page_contents);
+             });
+    }).listen(3000);
+  </div>
+
+<div class="wp-text-area">
+  Let's look at it line by line:
+  <ol>
+    <li>
+      <code>var fs = require('fs');</code> loads the file system
+      object from NodeJS and assigns it to the
+      variable <code>fs</code>. This will let you get files off the
+      server's host.
+    </li>
+    <li>
+      <code>var http = require('http');</code> loads the http obejct
+      from NodeJS and assigns it to the
+      variable <code>http</code>. This gives you access to the object
+      that implements the http protocol.
+    </li>
+    <li>
+      <code>var url = require ('url');</code> loads the url parsing
+      object from NodeJS giving you access to methods and objects that
+      make it easy to take apart the URL
+    </li>
+    <li>
+      <code>var PAGE_DIRECTORY = "html/"</code> is a constant that
+      defines the location of the root of the directory in which the
+      server will search. In this case, it will start it's search from
+      the <code>html</code> directory in the directory from which the
+      server runs. (Actually, this is just another variable; we
+      indicate that it is to be taken as a costant by typing it in all
+      uppercase.)
+    </li>
+    <li>
+      <code>http.createServer(</code> calls a method in
+      the <code>http</code> object that will create a new server. It
+      takes as its only parameter a function.
+    </li>
+    <li>
+      <code>function (request, result) {</code> defines an anonymous
+      function (i.e., a function with no name) that takes two
+      arguments <code>req</code> and <code>res</code>. The create
+      server requires a function with two arguments. When it runs, it
+      will bind the first argument to the request object that it
+      creates from the http request it receives. It will bind the
+      second object to the result object that will be created in the
+      course of responding to the request and will be returned when
+      the function returns.
+    </li>
+    <li>
+      <code>var urlObj = url.parse(request.url, true, false);</code>
+      creates a variable with a urlObject that is created by
+      the <code>parse</code> method of the <code>url</code> object. It
+      takes the url apart into its various parts.
+    </li>
+    <li>
+      <code>fs.readFile(PAGE_DIRECTORY + urlObj.pathname,</code> uses
+      the <code>readFile</code> method in the <code>fs</code> object
+      to read a file. The method takes two parameters: the first is
+      the path of the file to be found, the second is the function
+      that will be called when the file system returns its result.
+    </li>
+    <li>
+      <code> function(error, page_content) {</code> is the
+      function <code>fs.readFile</code> will call when the file system
+      returns. NodeJS works this way because the file system may take
+      a long time to return and it does not want to block others from
+      using the system while the file system is working.
+    </li>
+    <li>
+      <code>if (error) {</code> the first the the function does it
+      check to see if the file system has returned an error.
+    </li>
+    <li>
+      If an error is return, it puts "file not found" error code in
+      the head of the result: <code>result.writeHead(404);</code>
+    </li>
+    <li>
+      It also put the error message body of the
+      result <code>result.end(JSON.stringify(error));</code>
+    </li>
+    <li>
+      And finishes the function sending the
+      result <code>return;</code>
+    </li>
+    <li>
+      <code>}</code>: end of the <code>if(error){</code> block.
+    </li>
+    <li>
+      If no error is returned, the function write the success
+      code, 200, in the head <code>result.writeHead(200);</code>.
+    </li>
+    <li>
+      And send the data that the file system returned in the
+      result <code>result.end(page_contents);</code>.
+    </li>
+    <li>
+      <code>});</code>: end of the <code>function(error,
+        page_contents)</code> definition and the end of the call
+      to <code>fs.readFile</code> function call.
+    </li>
+    <li>
+      <code>}).listen(3000);</code> is the end of
+      the <code>function(req, res)</code> definition and the end
+      of the call to the <code>http.createServer</code>. This
+      method returns an http object on which
+      the <code>listen</code> method is
+      called. The <code>listen</code> method takes a single
+      parameter representing the port on which it should
+      listen. It starts the server, and starts listening on that
+      port.
+    </li>
+  </ol>
+</p>
+<p>
+  When you understand the program, type it into a file
+  in <code>~/md/server/server.js</code>
+</p>
+</div>
+
+<ol class="activity">
+  <li class="enter">
+    <code>cd ~/md</code>
+  </li>
+  <li class="enter">
+    <code>mkdir server</code>
+  </li>
+  <li class="enter">
+    <code>cd server</code>
+  </li>
+  <li class="enter">
+    <code>emacs server.js</code>
+  </li>
+  <li class="do">
+    Type in the program code listed above into the file called
+    server.js that opened in the emacs buffer. When done, save the
+    file (c-x c-s) and close emacs (c-x c-s)
+  </li>
+</ol>
+      
+<div class="wp-text-area">
+  <h3>Create an html file to serve</h3>
+  
+  <p>
+    To test the server you will need to have a client and something to
+    server to the client. Fortunately, you already have a client: it
+    is your browser. You will need to write a file to server. A web
+    page is shown below that you can use to test your server.
+  </p>
+</div>
+
+<div class="code">
+&lthtml&gt 
+  &lthead&gt 
+    &lttitle&gt My Web Page&lt/title&gt 
+  &lt/head&gt 
+  &ltbody&gt 
+    &lth1&gt Hello World&lt/h1&gt 
+    &ltp&gt 
+      Being served from my web server
+    &lt/p&gt 
+  &lt/body&gt 
+&lt/html&gt 
+</div>
+
+
+<div class="wp-text-area">
+  <p>
+    Put this file in the a directory called <code>test.html</code>. It
+    should be in the directory <code>~/md/server/html</code> because
+    the server serves files from the <code>html</code> directory of
+    the server directory.
+  </p>
+</div>
+
+<ol class="activity">
+  <li class="enter">
+    <code>cd ~/md/server</code>
+  </li>
+  <li class="enter">
+    <code>mkdir html</code>
+  </li>
+  <li class="enter">
+    <code>cd html</code>
+  </li>
+  <li class="enter">
+    <code>emacs test.html</code>
+  </li>
+  <li class="do">
+    Type in the program code above into the file called called
+    test.html that opened in the emacs buffer. When done, save the
+    file (c-x c-s) and close emacs (c-x c-s)
+  </li>
+</ol>
+
+<div class="wp-text-area">
+  <h3>Test the server by opening your file in a browser</h3>
+  <p>
+    Now we can actually test the web server by requesting a file from
+    it. To do that we will start the server using <code>node
+    server.js</code> then open the browser and request the page by
+    typing <code>http://localhost:3000/index.html</code>
+  </p>
+</div>
+
+<ol class="test">
+  <li class="enter">
+    <code>cd ~/md/server</code>
+  </li>
+  <li class="enter">
+    <code>node server.js</code>
+  </li>
+  <li class="see">The prompt will not return because that window
+    is now running your server.</li>
+  <li class="do">
+    Open a browser and enter the
+    url <code>http://localhost:3000/test.html</code>.
+  </li>
+  <li class="see">Your web page in the browser.
+    <img src="img/TestWebPage.png" alt="Test Web Page">
+  </li>
+</ol>
+
+<div class="wp-text-area">
+  <h3>Save your code in Git</h3>
+  <p>
+    Congratulations, you have written a web server and a web page to
+    be served. We will continue to work on these, so, once we get it
+    to work, we want to save the current version in Git so, if we
+    break it later, we can always get back to working code. This
+    is <strong>very important</strong>. We always need to have working
+    code and this is easy as long as we always put our code in Git as
+    soon as it works.
+  </p>
+</div>
+
+<ol class="activity">
+  <li class="enter">
+    <code>cd ~/md</code>
+  </li>
+  <li class="enter">
+    <code>git status</code>
+  </li>
+  <li class="see">
+    <div class="code">
+nat@Linus:~/md$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	server/
+	test
+
+nothing added to commit but untracked files present (use "git add" to track)
+    </div>
+  </li>
+  <li class="enter">
+    <code>git add *</code>
+  </li>
+  <li class="enter">
+    <code>git commit</code>
+  </li>
+  <li class="see">
+    In an emacs buffer:
+    <div class="code">
+      
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#	new file:   server/html/test.html
+#	new file:   server/server.js
+#	new file:   test
+#
+    </div>
+  </li>
+  <li class="do">
+    Add <code>Finished and tested server</code>. Save and close
+    emacs.
+  </li>
+  <li class="see">
+    <div class="code">
+nat@Linus:~/md$ git commit
+[master 8f93a44] Finished and tested server.
+ 3 files changed, 29 insertions(+)
+ create mode 100644 server/html/test.html
+ create mode 100644 server/server.js
+ create mode 100644 test
+    </div>
+  </li>
+</ol>
+
+<div class="wp-text-area">
+  <h2>Hypertext Transfer Protocol (HTTP)</h2>
+  <p>
+    A Web Server comminicates with a browser using Hypertest Transfer
+    Protocol (HTTP), so one needs to know how it works to build a web
+    server. In the web server above, we rely on the NodeJS packages to
+    do the right thing for us. All of the magic is encapsulated
+    in <code>http.createServer</code>. Let's manipulate it a bit to
+    see better how the protocol works.
+  </p>
+  <p>
+    The HTTP specfication is created by the Internet Engineering Task
+    Force (IETF). The current specification
+    is <a href="http://www.w3.org/Protocols/">HTTP 1.1</a>. The
+    specification is very long and complicated, but the basics are
+    relatively simple. It specifies several different command, but, to
+    simply serve files, all we need is GET, which tells the server to
+    send the specified file. It dictates that the GET request must
+    start with the command "GET" (in all caps) followed by a space
+    then the path to the file, and the file name, another space, then
+    "HTTP/1.1". It specifies a CR-LF sequence the "Host:" followed by
+    the host from which it is requesting the file. It concludes with
+    two CR-LF sequences to produce a blank line at the bottom of the
+    message.
+  </p>
+  <p>
+    For example, a GET request to get
+    "/home/nat/server/html/index.html" from "www.example.com" might
+    look like this:
+    <div class="code">
+GET /home/nat/server/html/index.html http/1.1
+Host: www.example.com
+
+    </div>
+  </p>
+  <p>
+    Let's modify our server so we can see the request and the
+    header. In addition, let's write out a message when on the server
+    console when we cannot find a file. The additions are highlighted
+    in red.
+  </p>
+</div>
+
+<div class="code">
+var fs = require('fs'); 
+var http = require('http'); 
+var url = require('url'); 
+var PAGE_DIRECTORY = "html/"; 
+
+http.createServer(
+    function (request, result) { 
+	var urlObj = url.parse(request.url, true, false);
+	fs.readFile(PAGE_DIRECTORY + urlObj.pathname, 
+		    function (error, page_contents) { 
+<span class="add">			console.log("Request: %s %s/%s",
+				    request.method, 
+				    request.headers.host,
+				    request.url);</span>
+			if (error) { 
+			    result.writeHead(404); 
+			    result.end(JSON.stringify(error)); 
+<span class="add">			    console.log("%s", error);</span>
+			    return;
+			} 
+			result.writeHead(200); 
+			result.end(page_contents); 
+<span class="add">			console.log("Result  header:\n%s", 
+                                    result._header);</span>
+		    }); 
+    }).listen(3000);
+  </div>
+
+<ol class="activity">
+  <li class="do">
+    Using emacs, modify server.js as shown above. Remember to
+    save the modified version of the server.
+  </li>
+  <li class="do">
+    If it is running, kill the server by typing control-c into
+    the terminal in which it is running.
+  </li>
+  <li class="do">
+    Restart the server by typing <code>node server.js</code>
+    into the terminal window in which you just killed the
+    previous version of the server.
+  </li>
+</ol>
+
+<div class="wp-text-area">
+  <p>
+    A new version server should now be running. We can test it by
+    requesting test.html, which should show the request and the reply
+    header. Or we can test it by requesting any other file, which
+    should show the request and the error.
+  </p>
+</div>
+
+<ol class="test">
+  <li class="do">
+    In the browser,
+    enter <code>http://localhost:3000//notfound.html</code>
+  </li>
+  <li class="do">
+    In the browser,
+    enter <code>http://localhost:3000//test.html</code>
+  </li>
+  <li class="see">
+    In the terminal running the server:
+    <img src="img/RunningServer1.png" alt="Server running in
+					   terminal window">
+  </li>
+</ol>
+
+<div class="wp-text-area">
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">
+	Wikipedia: Hypertext Transfer Protocol (HTTP)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://www.w3.org/Protocols/">
+	IETF HTTP Specification
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://www.jmarshall.com/easy/http/">
+	HTTP Tutorial
+      </a>
+    </li>
+  </ul>	
+</div>
+
+<hr>
+<address></address>
+<!-- hhmts start -->Last modified: Tue Oct  7 15:39:40 EDT 2014 <!-- hhmts end -->

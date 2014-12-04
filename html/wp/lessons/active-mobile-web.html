@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html ng-app="wp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/main.css" type="text/css">
+    <title>WP</title>
+  </head>
+
+  <!-- Lessons -->
+  <body ng-controller="staticWebCtrl">
+
+    <!-- Lessons Navigation Bar -->
+    <div ng-include="'templates/navigation.tpl.html'"></div>
+
+    <!-- Lessons Jumbotron -->
+    <div ng-include="'/templates/head.tpl.html'"></div>
+
+    <!-- Lessons Body -->
+    <div class="container">
+      <div class="row">
+
+	<!-- Lessons Table of Content -->
+	<div class="col-md-5">
+	  <div ng-include="'templates/toc.tpl.html'"></div>
+	</div>
+
+	<!-- Lesson: Introduction -->
+	<div class="col-md-7 wp-text-area">
+	  <h1>The Active and Mobile Web</h1>
+	  <p>
+	  </p>
+	  <h2>JavaScript and the Client</h2>
+	  <p>
+	  </p>
+	  <h2>Server Side Programming</h2>
+	  <p>
+	  </p>
+	  <h2>The Database</h2>
+	  <p>
+	  </p>
+	  <h3>References</h3>
+	  <ul class="references">
+	    <li class="ref">
+	      <a href="http://en.wikipedia.org/wiki/Minicomputer">
+		Minicomputer
+	      </a>
+	    </li>
+	    <li class="ref">
+	      <a href="http://en.wikipedia.org/wiki/Microcomputer">
+		Microcomputer
+	      </a>
+	    </li>
+	    <li class="ref">
+	      <a href="http://en.wikipedia.org/wiki/Personal_computer">
+		Personal Computer
+	      </a>
+	    </li>
+	    <li class="ref">
+	      <a href="http://en.wikipedia.org/wiki/The_Mother_of_All_Demos">
+		The Mother of All Demos
+	      </a>
+	    </li>
+	    <li class="ref">
+	      <a href="http://en.wikipedia.org/wiki/Software">
+		Software
+	      </a>
+	    </li>
+	    <li class="ref">
+	      <a href="">
+
+	      </a>
+	    </li>
+	  </ul>
+	</div>
+      </div>
+    </div>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/wp.js"></script>
+  </body>
+</html>

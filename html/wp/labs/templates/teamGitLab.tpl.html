@@ -1,0 +1,73 @@
+<div class="wp-text-area">
+  <h1>Setting up a Git Server</h1>
+  <p>
+    To set up team source control with git, you need a server that all
+    of the team members can access. This means that the server's host
+    will need to be on a computer that is always accessible. While it
+    is possible that one of the members of a team can host the team's
+    server on their computer, hosting on the server on a separate
+    computer makes security easier. Here, we will set up the server on
+    a separate host.
+  </p>
+  <p>
+    Setting up a server on a separate host requires that each person
+    needs access to the host. This means that the host will have to
+    have an account for each person on the team. Only one version of
+    the repository exists on the host, and each member of the team has
+    access to it. To do this, the server needs a group that comprises
+    all of the team members. 
+  </p>
+  <p>
+    Since we are doing this with on Unix, git probably already runs on
+    the host, so we do not need to add it. We will, however, have to
+    set up a shared repository on the host. Once we have a shared
+    repository, we can then store the team code in that repository.
+  </p>
+  <p>
+    To access the code remotely, we will need to set up the host to
+    accept connectsion and serve the code to the team
+    members. Fortunately, in Unix SSH provides secure access and git
+    is designed to use this service.
+  </p>
+  <p>
+    In summary, we need to:
+    <ol>
+      <li>
+	Set up accounts for each person on the host.
+      </li>
+      <li>
+	Set up a shared git repository for the team on the host.
+      </li>
+      <li>
+	Set up each members git repository so that it will be able to
+	push new code to the repository on the host.
+      </li>
+    </ol>
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+  </li>
+  <li class="do">
+  </li>
+</ol>
+<div class="code">
+</div>
+<div class="wp-text-area">
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="">
+	Reference
+      </a>
+    <li class="ref">
+      <a href="">
+	Reference
+      </a>
+    </li>
+  </ul>
+</div>
+
+<hr>
+<address></address>
+<!-- hhmts start --><!-- hhmts end -->

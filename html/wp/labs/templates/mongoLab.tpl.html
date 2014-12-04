@@ -1,0 +1,798 @@
+    <h1>Mongo: a NoSQL Database</h1>
+    <p>
+      Mongo is probably the most popular NoSQL database. NoSQL stands
+      for Not Only SQL. SQL is the most common database
+      language. NoSQL languages are often use in web programming, so
+      we will use Mongo here. Another SQL alternative is MySQL, a SQL
+      database.
+    </p>
+    <h3>References</h3>
+    <ul>
+      <li>
+	<a href="http://en.wikipedia.org/wiki/MongoDB">
+	  MongoDB on Wikipedia
+	</a>
+      </li>
+      <li>
+	<a href="http://en.wikipedia.org/wiki/NoSQL">
+	  NoSQL on Wikipedia
+	</a>
+      </li>
+    </ul>
+    <h2>Installing MongoDB</h2>
+    <p>
+      First, Install MondoDB. on Unix, this is easy, simply
+      type <code>sudo apt-get mongodb-server</code>
+    </p>
+    <ol class="activity">
+      <li class="enter">
+	sudo apt-get install mongodb-server
+      </li>
+      <li class="see">
+	<div class="code">
+nat@Linus:~/dev/node_modules/mongodb$ sudo apt-get install mongodb-server
+[sudo] password for nat: 
+	</div>
+      <li class="do">
+	Type your <code>sudo</code> password and hit return.
+      </li>
+      <li class="see">
+	<div class="code">
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  ax25-node libax25 linux-headers-3.13.0-32 linux-headers-3.13.0-32-generic
+  linux-image-3.13.0-32-generic linux-image-extra-3.13.0-32-generic
+  openbsd-inetd
+Use 'apt-get autoremove' to remove them.
+The following extra packages will be installed:
+  libboost-filesystem1.54.0 libboost-program-options1.54.0
+  libboost-thread1.54.0 libgoogle-perftools4 libpcrecpp0 libsnappy1
+  libtcmalloc-minimal4 libunwind8 mongodb-clients
+The following NEW packages will be installed:
+  libboost-filesystem1.54.0 libboost-program-options1.54.0
+  libboost-thread1.54.0 libgoogle-perftools4 libpcrecpp0 libsnappy1
+  libtcmalloc-minimal4 libunwind8 mongodb-clients mongodb-server
+0 upgraded, 10 newly installed, 0 to remove and 0 not upgraded.
+Need to get 13.4 MB of archives.
+After this operation, 109 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://us.archive.ubuntu.com/ubuntu/ trusty-updates/main libboost-filesystem1.54.0 amd64 1.54.0-4ubuntu3.1 [34.2 kB]
+Get:2 http://us.archive.ubuntu.com/ubuntu/ trusty-updates/main libboost-program-options1.54.0 amd64 1.54.0-4ubuntu3.1 [115 kB]
+Get:3 http://us.archive.ubuntu.com/ubuntu/ trusty-updates/main libboost-thread1.54.0 amd64 1.54.0-4ubuntu3.1 [26.5 kB]
+Get:4 http://us.archive.ubuntu.com/ubuntu/ trusty/main libpcrecpp0 amd64 1:8.31-2ubuntu2 [14.5 kB]
+Get:5 http://us.archive.ubuntu.com/ubuntu/ trusty/main libunwind8 amd64 1.1-2.2ubuntu3 [48.3 kB]
+Get:6 http://us.archive.ubuntu.com/ubuntu/ trusty/main libtcmalloc-minimal4 amd64 2.1-2ubuntu1 [104 kB]
+Get:7 http://us.archive.ubuntu.com/ubuntu/ trusty/main libgoogle-perftools4 amd64 2.1-2ubuntu1 [184 kB]
+Get:8 http://us.archive.ubuntu.com/ubuntu/ trusty/main libsnappy1 amd64 1.1.0-1ubuntu1 [11.2 kB]
+Get:9 http://us.archive.ubuntu.com/ubuntu/ trusty/universe mongodb-clients amd64 1:2.4.9-1ubuntu2 [9,595 kB]
+Get:10 http://us.archive.ubuntu.com/ubuntu/ trusty/universe mongodb-server amd64 1:2.4.9-1ubuntu2 [3,312 kB]
+Fetched 13.4 MB in 48s (277 kB/s)                                              
+Selecting previously unselected package libboost-filesystem1.54.0:amd64.
+(Reading database ... 237072 files and directories currently installed.)
+Preparing to unpack .../libboost-filesystem1.54.0_1.54.0-4ubuntu3.1_amd64.deb ...
+Unpacking libboost-filesystem1.54.0:amd64 (1.54.0-4ubuntu3.1) ...
+Selecting previously unselected package libboost-program-options1.54.0:amd64.
+Preparing to unpack .../libboost-program-options1.54.0_1.54.0-4ubuntu3.1_amd64.deb ...
+Unpacking libboost-program-options1.54.0:amd64 (1.54.0-4ubuntu3.1) ...
+Selecting previously unselected package libboost-thread1.54.0:amd64.
+Preparing to unpack .../libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb ...
+Unpacking libboost-thread1.54.0:amd64 (1.54.0-4ubuntu3.1) ...
+Selecting previously unselected package libpcrecpp0:amd64.
+Preparing to unpack .../libpcrecpp0_1%3a8.31-2ubuntu2_amd64.deb ...
+Unpacking libpcrecpp0:amd64 (1:8.31-2ubuntu2) ...
+Selecting previously unselected package libunwind8.
+Preparing to unpack .../libunwind8_1.1-2.2ubuntu3_amd64.deb ...
+Unpacking libunwind8 (1.1-2.2ubuntu3) ...
+Selecting previously unselected package libtcmalloc-minimal4.
+Preparing to unpack .../libtcmalloc-minimal4_2.1-2ubuntu1_amd64.deb ...
+Unpacking libtcmalloc-minimal4 (2.1-2ubuntu1) ...
+Selecting previously unselected package libgoogle-perftools4.
+Preparing to unpack .../libgoogle-perftools4_2.1-2ubuntu1_amd64.deb ...
+Unpacking libgoogle-perftools4 (2.1-2ubuntu1) ...
+Selecting previously unselected package libsnappy1.
+Preparing to unpack .../libsnappy1_1.1.0-1ubuntu1_amd64.deb ...
+Unpacking libsnappy1 (1.1.0-1ubuntu1) ...
+Selecting previously unselected package mongodb-clients.
+Preparing to unpack .../mongodb-clients_1%3a2.4.9-1ubuntu2_amd64.deb ...
+Unpacking mongodb-clients (1:2.4.9-1ubuntu2) ...
+Selecting previously unselected package mongodb-server.
+Preparing to unpack .../mongodb-server_1%3a2.4.9-1ubuntu2_amd64.deb ...
+Unpacking mongodb-server (1:2.4.9-1ubuntu2) ...
+Processing triggers for man-db (2.6.7.1-1ubuntu1) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+Setting up libboost-filesystem1.54.0:amd64 (1.54.0-4ubuntu3.1) ...
+Setting up libboost-program-options1.54.0:amd64 (1.54.0-4ubuntu3.1) ...
+Setting up libboost-thread1.54.0:amd64 (1.54.0-4ubuntu3.1) ...
+Setting up libpcrecpp0:amd64 (1:8.31-2ubuntu2) ...
+Setting up libunwind8 (1.1-2.2ubuntu3) ...
+Setting up libtcmalloc-minimal4 (2.1-2ubuntu1) ...
+Setting up libgoogle-perftools4 (2.1-2ubuntu1) ...
+Setting up libsnappy1 (1.1.0-1ubuntu1) ...
+Setting up mongodb-clients (1:2.4.9-1ubuntu2) ...
+Setting up mongodb-server (1:2.4.9-1ubuntu2) ...
+Adding system user `mongodb' (UID 116) ...
+Adding new user `mongodb' (UID 116) with group `nogroup' ...
+Not creating home directory `/home/mongodb'.
+Adding group `mongodb' (GID 125) ...
+Done.
+Adding user `mongodb' to group `mongodb' ...
+Adding user mongodb to group mongodb
+Done.
+mongodb start/running, process 17691
+Processing triggers for libc-bin (2.19-0ubuntu6.3) ...
+Processing triggers for ureadahead (0.100.0-16) ...
+	</div>
+      </li>
+    </ol>
+    <p>
+      To test that it works, you will need to creat a directory in
+      which MongoDB will keep the database and then
+      tell <code>mongod</code> where to find the database.
+
+    <ol class="test">
+      <li class="enter">
+	cd ~/dev
+      </li>
+      <li class="enter">
+	mkdir ~/test
+      </li>
+      <li class="enter">
+	mkdir ~/test/data
+      </li>
+      <li class="enter">
+	mongod --dbpath ~/dev/test/data
+      </li>
+      <li class="see">
+	<div class="code">
+nat@Linus:~/dev$ mongod --dbpath ~/dev/test/data
+Wed Oct 29 17:20:49.762 [initandlisten] MongoDB starting : pid=20019 port=27017 dbpath=/home/nat/dev/test/data 64-bit host=Linus
+Wed Oct 29 17:20:49.763 [initandlisten] db version v2.4.9
+Wed Oct 29 17:20:49.763 [initandlisten] git version: nogitversion
+Wed Oct 29 17:20:49.763 [initandlisten] build info: Linux orlo 3.2.0-58-generic #88-Ubuntu SMP Tue Dec 3 17:37:58 UTC 2013 x86_64 BOOST_LIB_VERSION=1_54
+Wed Oct 29 17:20:49.763 [initandlisten] allocator: tcmalloc
+Wed Oct 29 17:20:49.763 [initandlisten] options: { dbpath: "/home/nat/dev/test/data" }
+Wed Oct 29 17:20:49.823 [initandlisten] journal dir=/home/nat/dev/test/data/journal
+Wed Oct 29 17:20:49.824 [initandlisten] recover : no journal files present, no recovery needed
+Wed Oct 29 17:20:49.931 [websvr] admin web console waiting for connections on port 28017
+Wed Oct 29 17:20:49.931 [initandlisten] waiting for connections on port 27017
+	</div>
+      </li>
+      <li class="do">
+	hit Control-c to kill the server
+      </li>
+      <li class="see">
+	<div class="code">
+^CWed Oct 29 17:21:16.815 [signalProcessingThread] got signal 2 (Interrupt), will terminate after current cmd ends
+Wed Oct 29 17:21:16.815 [signalProcessingThread] now exiting
+Wed Oct 29 17:21:16.815 dbexit: 
+Wed Oct 29 17:21:16.815 [signalProcessingThread] shutdown: going to close listening sockets...
+Wed Oct 29 17:21:16.815 [signalProcessingThread] closing listening socket: 9
+Wed Oct 29 17:21:16.816 [signalProcessingThread] closing listening socket: 10
+Wed Oct 29 17:21:16.816 [signalProcessingThread] closing listening socket: 11
+Wed Oct 29 17:21:16.816 [signalProcessingThread] removing socket file: /tmp/mongodb-27017.sock
+Wed Oct 29 17:21:16.816 [signalProcessingThread] shutdown: going to flush diaglog...
+Wed Oct 29 17:21:16.816 [signalProcessingThread] shutdown: going to close sockets...
+Wed Oct 29 17:21:16.816 [signalProcessingThread] shutdown: waiting for fs preallocator...
+Wed Oct 29 17:21:16.816 [signalProcessingThread] shutdown: lock for final commit...
+Wed Oct 29 17:21:16.816 [signalProcessingThread] shutdown: final commit...
+Wed Oct 29 17:21:16.843 [signalProcessingThread] shutdown: closing all files...
+Wed Oct 29 17:21:16.844 [signalProcessingThread] closeAllFiles() finished
+Wed Oct 29 17:21:16.844 [signalProcessingThread] journalCleanup...
+Wed Oct 29 17:21:16.844 [signalProcessingThread] removeJournalFiles
+Wed Oct 29 17:21:16.909 [signalProcessingThread] shutdown: removing fs lock...
+Wed Oct 29 17:21:16.909 dbexit: really exiting now
+	</div>
+      </li>
+    </ol>
+    <p>
+      A problem may occur if you have loaded mongodb using aptitude
+      (i.e., <code>sudo apt-get mongodb-server</code>. The problem is
+      that aptitude starts the server. If this happens, you will see
+      the failure shown below. That is, when you try to start the
+      server using the <code>mongod --dbpath ~/dev/test/data</code>,
+      the server will say that the socket is already in use because
+      mongodb is already started. (<code>ERROR: listen(): bind()
+      failed errno:98 Address already in use for socket:
+      0.0.0.0:28017</code>. To fix this you will need to kill the
+      server that is already running and try starting again.
+    </p>
+    <ol class="failure">
+      <li class="see">
+	<div class="code">
+nat@Linus:~/dev$ mongod --dbpath ~/dev/test/data
+Mon Oct 27 12:24:02.339 [initandlisten] MongoDB starting : pid=17846 port=27017 dbpath=/home/nat/dev/test/data 64-bit host=Linus
+Mon Oct 27 12:24:02.340 [initandlisten] db version v2.4.9
+Mon Oct 27 12:24:02.340 [initandlisten] git version: nogitversion
+Mon Oct 27 12:24:02.340 [initandlisten] build info: Linux orlo 3.2.0-58-generic #88-Ubuntu SMP Tue Dec 3 17:37:58 UTC 2013 x86_64 BOOST_LIB_VERSION=1_54
+Mon Oct 27 12:24:02.340 [initandlisten] allocator: tcmalloc
+Mon Oct 27 12:24:02.340 [initandlisten] options: { dbpath: "/home/nat/dev/test/data" }
+Mon Oct 27 12:24:02.451 [initandlisten] journal dir=/home/nat/dev/test/data/journal
+Mon Oct 27 12:24:02.452 [initandlisten] recover : no journal files present, no recovery needed
+Mon Oct 27 12:24:05.537 [initandlisten] preallocateIsFaster=true 33.36
+Mon Oct 27 12:24:08.589 [initandlisten] preallocateIsFaster=true 37.44
+Mon Oct 27 12:24:12.628 [initandlisten] preallocateIsFaster=true 36
+Mon Oct 27 12:24:12.628 [initandlisten] preallocateIsFaster check took 10.176 secs
+Mon Oct 27 12:24:12.628 [initandlisten] preallocating a journal file /home/nat/dev/test/data/journal/prealloc.0
+Mon Oct 27 12:24:26.664 [initandlisten] preallocating a journal file /home/nat/dev/test/data/journal/prealloc.1
+Mon Oct 27 12:24:40.502 [initandlisten] preallocating a journal file /home/nat/dev/test/data/journal/prealloc.2
+Mon Oct 27 12:24:54.554 [FileAllocator] allocating new datafile /home/nat/dev/test/data/local.ns, filling with zeroes...
+Mon Oct 27 12:24:54.554 [FileAllocator] creating directory /home/nat/dev/test/data/_tmp
+Mon Oct 27 12:24:54.606 [FileAllocator] done allocating datafile /home/nat/dev/test/data/local.ns, size: 16MB,  took 0.022 secs
+Mon Oct 27 12:24:54.606 [FileAllocator] allocating new datafile /home/nat/dev/test/data/local.0, filling with zeroes...
+Mon Oct 27 12:24:54.629 [FileAllocator] done allocating datafile /home/nat/dev/test/data/local.0, size: 64MB,  took 0.022 secs
+Mon Oct 27 12:24:54.638 [websvr] ERROR: listen(): bind() failed errno:98 Address already in use for socket: 0.0.0.0:28017
+Mon Oct 27 12:24:54.639 [websvr] ERROR:   addr already in use
+Mon Oct 27 12:24:54.638 [initandlisten] ERROR: listen(): bind() failed errno:98 Address already in use for socket: 0.0.0.0:27017
+Mon Oct 27 12:24:54.639 [initandlisten] ERROR:   addr already in use
+Mon Oct 27 12:24:54.664 [initandlisten] now exiting
+Mon Oct 27 12:24:54.664 dbexit: 
+Mon Oct 27 12:24:54.664 [initandlisten] shutdown: going to close listening sockets...
+Mon Oct 27 12:24:54.664 [initandlisten] shutdown: going to flush diaglog...
+Mon Oct 27 12:24:54.664 [initandlisten] shutdown: going to close sockets...
+Mon Oct 27 12:24:54.664 [initandlisten] shutdown: waiting for fs preallocator...
+Mon Oct 27 12:24:54.665 [initandlisten] shutdown: lock for final commit...
+Mon Oct 27 12:24:54.665 [initandlisten] shutdown: final commit...
+Mon Oct 27 12:24:54.785 [initandlisten] shutdown: closing all files...
+Mon Oct 27 12:24:54.785 [initandlisten] closeAllFiles() finished
+Mon Oct 27 12:24:54.785 [initandlisten] journalCleanup...
+Mon Oct 27 12:24:54.785 [initandlisten] removeJournalFiles
+Mon Oct 27 12:24:54.863 [initandlisten] shutdown: removing fs lock...
+Mon Oct 27 12:24:54.863 dbexit: really exiting now
+	</div>
+      </li>
+      <li class="fix">
+	  <ol>
+	    <li class="enter">
+	      <code>ps waux | grep mongo</code>
+	    </li>
+	    <li class="see">
+	      <div class="code">
+mongodb  17691  0.1  1.0 383076 41620 ?        Ssl  Oct27   4:08 /usr/bin/mongod --config /etc/mongodb.conf
+nat      19951  0.0  0.0  15940   920 pts/23   S+   16:47   0:00 grep --color=auto mongo
+	      </div>
+	    </li>
+	    <li class="do">
+	      Notice the line that starts
+	      with <code>mongodb</code>. This is the user that has
+	      started the process. It is the MongoDB installer. Kill
+	      this process using the number in the second collumn
+	      (here, it is 17691, but you will almost certainly have a
+	      different number). Enter the command <code>kill
+	      17691</code> except using whatever
+	      number <code>ps</code> gives you.
+	    </li>
+	  </ol>
+      </li>
+    </ol>
+    <h3>References</h3>
+    <ul>
+      <li>
+	<a href="https://www.mongodb.org/">
+	  Official MongoDB Site
+	</a>
+      </li>
+      <li>
+	<a href="http://docs.mongodb.org/manual/tutorial/getting-started/">
+	  MongoDB Tutorial from Office MongoDB site
+	</a>
+      </li>
+      <li>
+	<a href="http://docs.mongodb.org/ecosystem/drivers/node-js/">
+	  Official Mongo Driver Site
+	</a>
+      </li>
+      <li>
+	<a href="http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/">
+	  Simple Node, Express and Mongo Tutorial
+	</a>
+      </li>
+    </ul>
+    <h2>Mongoose</h2>
+    <p>
+      MongoDB is available from the <code>mongod</code>, and you can
+      access the information from <code>mongo</code> running in a
+      different window, but that does not really help get information
+      from the database server into your web program. To do that, you
+      need to connect the programs that run your web program to the
+      server. Various connectors are available to connect MongoDB
+      servers to JavaScript programs. We will look at one of them
+      called Mongoose.
+    </p>
+    <p>
+      Mongoose is a nodejs program, so it can be downloaded
+      using <code>npm</code>,
+    </p>
+    <ol class="activity">
+      <li class="enter">
+	<code>cd ~/dev</code>
+      </li>
+      <li class="enter">
+	<code>npm install mongoose --save</code>
+      </li>
+      <li class="see">
+	<div class="code">
+nat@Linus:~/dev$ npm install mongoose --save
+npm WARN package.json dev@0.0.0 No repository field.
+npm WARN package.json dev@0.0.0 No README data
+npm http GET https://registry.npmjs.org/mongoose
+npm http 200 https://registry.npmjs.org/mongoose
+npm http GET https://registry.npmjs.org/mongoose/-/mongoose-3.8.18.tgz
+npm http 200 https://registry.npmjs.org/mongoose/-/mongoose-3.8.18.tgz
+npm http GET https://registry.npmjs.org/mongodb/1.4.12
+npm http GET https://registry.npmjs.org/hooks/0.2.1
+npm http GET https://registry.npmjs.org/ms/0.1.0
+npm http GET https://registry.npmjs.org/muri/0.3.1
+npm http GET https://registry.npmjs.org/sliced/0.0.5
+npm http GET https://registry.npmjs.org/mpromise/0.4.3
+npm http GET https://registry.npmjs.org/mpath/0.1.1
+npm http GET https://registry.npmjs.org/regexp-clone/0.0.1
+npm http GET https://registry.npmjs.org/mquery/0.8.0
+npm http 200 https://registry.npmjs.org/ms/0.1.0
+npm http 200 https://registry.npmjs.org/sliced/0.0.5
+npm http 200 https://registry.npmjs.org/mongodb/1.4.12
+npm http GET https://registry.npmjs.org/ms/-/ms-0.1.0.tgz
+npm http GET https://registry.npmjs.org/mongodb/-/mongodb-1.4.12.tgz
+npm http GET https://registry.npmjs.org/sliced/-/sliced-0.0.5.tgz
+npm http 200 https://registry.npmjs.org/muri/0.3.1
+npm http GET https://registry.npmjs.org/muri/-/muri-0.3.1.tgz
+npm http 200 https://registry.npmjs.org/mpath/0.1.1
+npm http 200 https://registry.npmjs.org/regexp-clone/0.0.1
+npm http 200 https://registry.npmjs.org/mpromise/0.4.3
+npm http GET https://registry.npmjs.org/mpath/-/mpath-0.1.1.tgz
+npm http GET https://registry.npmjs.org/mpromise/-/mpromise-0.4.3.tgz
+npm http GET https://registry.npmjs.org/regexp-clone/-/regexp-clone-0.0.1.tgz
+npm http 200 https://registry.npmjs.org/mquery/0.8.0
+npm http GET https://registry.npmjs.org/mquery/-/mquery-0.8.0.tgz
+npm http 200 https://registry.npmjs.org/ms/-/ms-0.1.0.tgz
+npm http 200 https://registry.npmjs.org/mongodb/-/mongodb-1.4.12.tgz
+npm http 200 https://registry.npmjs.org/muri/-/muri-0.3.1.tgz
+npm http 200 https://registry.npmjs.org/sliced/-/sliced-0.0.5.tgz
+npm http 200 https://registry.npmjs.org/hooks/0.2.1
+npm http 200 https://registry.npmjs.org/regexp-clone/-/regexp-clone-0.0.1.tgz
+npm http 200 https://registry.npmjs.org/mpromise/-/mpromise-0.4.3.tgz
+npm http 200 https://registry.npmjs.org/mpath/-/mpath-0.1.1.tgz
+npm http GET https://registry.npmjs.org/hooks/-/hooks-0.2.1.tgz
+npm http 200 https://registry.npmjs.org/mquery/-/mquery-0.8.0.tgz
+npm http 200 https://registry.npmjs.org/hooks/-/hooks-0.2.1.tgz
+npm http GET https://registry.npmjs.org/debug/0.7.4
+npm http GET https://registry.npmjs.org/kerberos/0.0.4
+npm http GET https://registry.npmjs.org/readable-stream
+npm http GET https://registry.npmjs.org/bson
+npm http 200 https://registry.npmjs.org/debug/0.7.4
+npm http GET https://registry.npmjs.org/debug/-/debug-0.7.4.tgz
+npm http 304 https://registry.npmjs.org/kerberos/0.0.4
+npm http 304 https://registry.npmjs.org/bson
+npm http 200 https://registry.npmjs.org/debug/-/debug-0.7.4.tgz
+npm http 200 https://registry.npmjs.org/readable-stream
+npm http GET https://registry.npmjs.org/inherits
+npm http GET https://registry.npmjs.org/string_decoder
+npm http GET https://registry.npmjs.org/core-util-is
+npm http GET https://registry.npmjs.org/isarray/0.0.1
+
+> kerberos@0.0.4 install /home/nat/dev/node_modules/mongoose/node_modules/mongodb/node_modules/kerberos
+> (node-gyp rebuild 2> builderror.log) || (exit 0)
+
+npm http 304 https://registry.npmjs.org/inherits
+npm http 304 https://registry.npmjs.org/core-util-is
+npm http 304 https://registry.npmjs.org/string_decoder
+npm http 304 https://registry.npmjs.org/isarray/0.0.1
+npm http GET https://registry.npmjs.org/nan/1.3.0
+npm http 304 https://registry.npmjs.org/nan/1.3.0
+
+> bson@0.2.15 install /home/nat/dev/node_modules/mongoose/node_modules/mongodb/node_modules/bson
+> (node-gyp rebuild 2> builderror.log) || (exit 0)
+
+make: Entering directory `/home/nat/dev/node_modules/mongoose/node_modules/mongodb/node_modules/kerberos/build'
+  SOLINK_MODULE(target) Release/obj.target/kerberos.node
+  SOLINK_MODULE(target) Release/obj.target/kerberos.node: Finished
+  COPY Release/kerberos.node
+make: Leaving directory `/home/nat/dev/node_modules/mongoose/node_modules/mongodb/node_modules/kerberos/build'
+make: Entering directory `/home/nat/dev/node_modules/mongoose/node_modules/mongodb/node_modules/bson/build'
+  CXX(target) Release/obj.target/bson/ext/bson.o
+  SOLINK_MODULE(target) Release/obj.target/bson.node
+  SOLINK_MODULE(target) Release/obj.target/bson.node: Finished
+  COPY Release/bson.node
+make: Leaving directory `/home/nat/dev/node_modules/mongoose/node_modules/mongodb/node_modules/bson/build'
+mongoose@3.8.18 node_modules/mongoose
+├── regexp-clone@0.0.1
+├── muri@0.3.1
+├── sliced@0.0.5
+├── hooks@0.2.1
+├── mpath@0.1.1
+├── mpromise@0.4.3
+├── ms@0.1.0
+├── mquery@0.8.0 (debug@0.7.4)
+└── mongodb@1.4.12 (readable-stream@1.0.33, kerberos@0.0.4, bson@0.2.15)
+	</div>
+    </ol>
+
+    <h3>Testing to make sure Mongoose loaded</h3>
+    <p>
+      To test that <code>mongoose</code> has downloaded properly,
+      write a small program that will use it.
+    </p>
+    <ol class="test">
+      <li class="do">
+	using emacs, write the following program and save it
+	in <code>~/dev/server</code>. Call
+	it <code>getting-started.js</code>
+	<div class="code">
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+    console.log('database open');
+});
+	</div>
+	<p>
+	This program first loads mongoose using
+	the <code>require</code> command, then connects to MongoDB
+	running the <code>test</code> database
+	on <code>localhost</code>. It then sets a variable to the
+	connection and prints an error message on the console if the
+	connection has returned an error message. If there is no
+	error, it writes out "database open."
+	</p>
+      </li>
+      <li class="do">
+	In a terminal window, switch to <code>~/dev/server</code> and
+	enter <code>node getting-started.js</code>
+      </li>
+      <li class="see">
+	<div class="code">
+nat@Linus:~/dev/server$ node getting-started.js
+database open
+	</div>
+	The prompt will not return because the program continues to
+	run until terminated. That is, the callback function is placed
+	on the execution loop again whenever it finishes.
+      </li>
+      <li class="do">
+	Terminate the program with a control-c.
+      </li>
+    </ol>
+
+    <h3>Defining a Mongoose Schema and Model</h3>
+    <p>
+      Now that we are sure that Mongoos is working, we can continue
+      with the <a href="http://mongoosejs.com/docs/index.html">
+      Mongoose Quick Start Tutorial</a>
+    </p>
+    <ol class="activity">
+      <li class="do">
+	using emacs, change the program
+	in <code>getting-started.js</code> to:
+	<div class="code">
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+    // Define a schema for a kitten. The only field is the kitten's name
+    var kittySchema = mongoose.Schema({
+	name: String
+    })
+
+    // Use the schema to define a model
+    var Kitten = mongoose.model('Kitten', kittySchema)
+
+    // Create a kitten item, with the name "Silence". This is simply a
+    // JavaScript class
+    var silence = new Kitten({ name: 'Silence' })
+
+    // Check that the kitten item has been created by printing the name.
+    console.log(silence.name) // 'Silence'
+});
+	</div>
+	<p>
+	This program builds on the first by adding a line that defines
+	a schema <code>kittySchema</code> that defines document with
+	one element, the kitty's name. It then creates a model based
+	on the schema. It creates a class based on the model,
+	then writes out the name of the name of the object in the class.
+	</p>
+      </li>
+      <li class="do">
+	In a terminal window, switch to <code>~/dev/server</code> and
+	enter <code>node getting-started.js</code>
+      </li>
+      <li class="see">
+	<div class="code">
+nat@Linus:~/dev/server$ node getting-started.js
+Silence
+	</div>
+      </li>
+      <li class="do">
+	Terminate the program with a control-c.
+      </li>
+    </ol>
+
+    <h3> Adding a function to the Mongoose Schema </h3>
+    <p>
+      We have only created a class with a single data element in
+      it. We can also add a method.
+    </p>
+    <ol class="activity">
+      <li class="do">
+	using emacs, change the program
+	in <code>getting-started.js</code> to:
+	<div class="code">
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+    // Define a schema for a kitten. The only field is the kitten's name
+    var kittySchema = mongoose.Schema({
+	name: String
+    })
+
+    // NOTE: methods must be added to the schema before compiling it
+    // with mongoose.model()
+    kittySchema.methods.speak = function () {
+	var greeting = this.name
+	    ? "Meow name is " + this.name
+	    : "I don't have a name"
+	console.log(greeting);
+    }
+
+    // Use the schema to define a model
+    var Kitten = mongoose.model('Kitten', kittySchema)
+
+    // Create a kitten item, with the name "Silence". This is simply a
+    // JavaScript class
+    var silence = new Kitten({ name: 'Silence' })
+    silence.speak();
+
+    // Create a second kitten item with the name "fluffy" and make
+    // sure it works.
+    var fluffy = new Kitten({ name: 'fluffy' });
+    fluffy.speak() // "Meow name is fluffy"
+
+    // Check that the kitten item has been created by printing the name.
+    console.log(silence.name) // 'Silence'
+});
+	</div>
+	<p>
+	This program builds on the first by adding a method to the class.
+	</p>
+      </li>
+      <li class="do">
+	In a terminal window, switch to <code>~/dev/server</code> and
+	enter <code>node getting-started.js</code>
+      </li>
+      <li class="see">
+	<div class="code">
+nat@Linus:~/dev/server$ node getting-started.js
+Meow name is Silence
+Meow name is fluffy
+Silence
+	</div>
+      </li>
+      <li class="do">
+	Terminate the program with a control-c.
+      </li>
+    </ol>
+
+    <h3> Writing the classes to the database </h3>
+    <p>
+      So far we have not done anything more than define a class with
+      one data item and one method. Now we will store the class in the
+      database. This marshalling the class and sending it to
+      the <code>mongod</code> server. This is where mongoose helps.
+    </p>
+    <ol class="activity">
+      <li class="do">
+	using emacs, change the program
+	in <code>getting-started.js</code> to:
+	<div class="code">
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+    // Define a schema for a kitten. The only field is the kitten's name
+    var kittySchema = mongoose.Schema({
+	name: String
+    })
+
+    // NOTE: methods must be added to the schema before compiling it
+    // with mongoose.model()
+    kittySchema.methods.speak = function () {
+	var greeting = this.name
+	    ? "Meow name is " + this.name
+	    : "I don't have a name"
+	console.log(greeting);
+    }
+
+    // Use the schema to define a model
+    var Kitten = mongoose.model('Kitten', kittySchema);
+
+    // Create a kitten item, with the name "Silence". This is simply a
+    // JavaScript class
+    var silence = new Kitten({ name: 'Silence' })
+    silence.speak();
+
+    // Create a second kitten item with the name "fluffy" and make
+    // sure it works.
+    var fluffy = new Kitten({ name: 'fluffy' });
+    fluffy.speak(); // "Meow name is fluffy"
+
+    // Check that the kitten item has been created by printing the name.
+    console.log(silence.name); // 'Silence'
+
+    // Saves the kitten called fluffy to the database. If there is an
+    // error, it prints the error. it then calls speak.
+    fluffy.save(function (err, fluffy) {
+	if (err) return console.error(err);
+	fluffy.speak();
+    });
+});
+	</div>
+	<p>
+	  The program now saves <code>fluffy</code> in the database.
+	</p>
+      </li>
+      <li class="do">
+	In a terminal window, switch to <code>~/dev/server</code> and
+	enter <code>node getting-started.js</code>
+      </li>
+      <li class="see">
+	<div class="code">
+Meow name is Silence
+Meow name is fluffy
+Silence
+Meow name is fluffy
+	</div>
+	<p>
+	  We can see that the program worked by the second line that
+	  says <code>Meow name is fluffy</code> and we assume that the
+	  code is stored in the database because we see not error. To
+	  see that it actually stored the item, we will terminate the
+	  program, then look in the database with <code>mongo</code>.
+	</p>
+      </li>
+      <li class="do">
+	Terminate the program with a control-c.
+      </li>
+      <li class="do">
+	Enter <code>mongo</code> on the command
+	line, <code>db.kittens.find()</code> on the mongo command line
+	that appears.
+      </li>
+      <li class="see">
+	<div class="code">
+nat@Linus:~/dev/server$ mongo
+MongoDB shell version: 2.4.9
+connecting to: test
+> db.kittens.find()
+{ "name" : "fluffy", "_id" : ObjectId("545681cc778daf5e0b0de0ac"), "__v" : 0 }
+> 
+	</div>
+	<p>
+	  You can see that there is a single record with the name
+	  "fluffy".
+	</p>
+      </li>
+      <li class="do">
+	Type <code>exit</code> to quit Mongo.
+      </li>
+    </ol>
+
+    <h3> Refactoring and Finding records </h3>
+    <p>
+      The program is getting a little messy. it is printing out
+      several different messages some of which are the same. We can
+      only tell which one is which by their order. It needs to be
+      cleaned up.
+    </p>
+    <p>
+      In addition, we want to find the records we are writing to the
+      database, so the next step is to clean up the program and find
+      the records we are writing to the database.
+    </p>
+    <ol class="activity">
+      <li class="do">
+	using emacs, change the program
+	in <code>getting-started.js</code> to:
+	<div class="code">
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+    // Define a schema for a kitten. The only field is the kitten's name
+    var kittySchema = mongoose.Schema({
+	name: String
+    })
+
+    // NOTE: methods must be added to the schema before compiling it
+    // with mongoose.model()
+    kittySchema.methods.speak = function () {
+	var greeting = this.name
+	    ? "Meow name is " + this.name
+	    : "I don't have a name"
+	console.log(greeting);
+    }
+
+    // Use the schema to define a model
+    var Kitten = mongoose.model('Kitten', kittySchema);
+
+    // Create two kitten items
+    var silence = new Kitten({ name: 'Silence' })
+    var fluffy = new Kitten({ name: 'fluffy' });
+
+
+    // Saves the kitten called fluffy to the database. If there is an
+    // error, it prints the error. it then calls speak.
+    silence.save(function (err, kitty) {
+	if (err) return console.error(err);
+	kitty.speak();
+    });
+
+    // Retrievs all of the records in Kitten and prints them on the console.
+    Kitten.find(function (err, kittens) {
+	if (err) return console.error(err);
+	console.log(kittens)
+    })
+});
+	</div>
+	<p>
+	  The program now saves <code>silence</code> in the database.
+	</p>
+      </li>
+      <li class="do">
+	In a terminal window, switch to <code>~/dev/server</code> and
+	enter <code>node getting-started.js</code> twice.
+      </li>
+      <li class="see">
+	<div class="code">
+nat@Linus:~/dev/server$ node getting-started.js
+Meow name is Silence
+[ { name: 'fluffy', _id: 545681cc778daf5e0b0de0ac, __v: 0 } ]
+^Cnat@Linus:~/dev/server$ node getting-started.js
+Meow name is Silence
+[ { name: 'fluffy', _id: 545681cc778daf5e0b0de0ac, __v: 0 },
+  { name: 'fluffy', _id: 54579042f4f3923310cf42d3, __v: 0 },
+  { name: 'Silence', _id: 54579073b83fba3e10d845c3, __v: 0 } ]
+	</div>
+	<p>
+	  The first time the program runs, the only kitten found is
+	  "fluffy" because storage does not happen immediately. The
+	  second time it finds "fluffy" twice and "Silence" once
+	  because the last time we ran the program it put another
+	  "fluffy" and a "Silence" in the database. If we ran it
+	  again, it would have three "fluffies" and two "Silences."
+	</p>
+      </li>
+      <li class="do">
+	Terminate the program with a control-c.
+      </li>
+    </ol>
+    <p>
+      This completes the getting started tutorial. Now read
+      the <a href="http://mongoosejs.com/docs/guide.html">
+      documentation </a> to fill out your knowledge of Mongoose.
+    </p>
+
+    <h3>References</h3>
+    <ul class="reference">
+      <li>
+	<a href="http://mongoosejs.com/docs/index.html">
+	  Mongoose Quick Start Tutorial
+	</a>
+      </li>
+      <li>
+	<a href="http://mongoosejs.com/docs/guide.html">
+	  Mongoose guide
+	</a>
+      </li>
+    </ul>

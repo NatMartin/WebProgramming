@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html ng-app="wp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/main.css" type="text/css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <title>WP: Labs</title>
+  </head>
+
+  <!-- Lessons -->
+  <body ng-controller="labCtrl">
+
+    <!-- Labs Navigation Bar -->
+    <div ng-include="'templates/navigation.tpl.html'"></div>
+
+    <!-- Labs Jumbotron -->
+    <div ng-include="'../templates/head.tpl.html'"></div>
+
+    <!-- Labs Body -->
+    <div class="container">
+      <div class="row">
+
+	<!-- Labs -->
+	<div class="col-md-5">
+	  <div ng-include="'templates/toc.tpl.html'"></div>
+	</div>
+
+	<!-- Description -->
+	<div class="col-md-7 wp-text-area">
+	  <p>
+	    Labs are where you will learn the practical aspects of
+	    writing web programs. Theory gives you a models of the
+	    world: it helps you predict what will happen when you
+	    act. Practice teaches the range of things than can
+	    happen. Without theory, we see only confusion
+	    confusion. Without practice, we are blind.
+	  </p>
+	  <p>
+	    Like the lessons, the labs break into four units
+	    corresponding to the lesson units. The do not cover the
+	    same material, however. In the first unit, while the
+	    lessons cover the developing of computing and the
+	    World Wide Web, the labs guide you through the development
+	    of a working system that will let you build Web pages. It
+	    shows you how to set up your operating system and an
+	    editor. It introduces version control so you will never
+	    lose your work. You build a Web server and then write
+	    pages for that server using HTML and CSS. 
+	  </p>
+	  <p>
+	    The second unit follows the lessons more closely. It
+	    introduces programming in JavaScript: the language the web
+	    server was written in. It then introduces testing
+	    frameworks because this class focuses on the process of
+	    programming, not just the mechanics. It then introduces
+	    more elements on the server side.
+	  </p>
+	  <p>
+	    The third and fourth units allow you to consolidate the
+	    information you have learned in the first two. These
+	    follow a Scrum process whereby you are given a week to
+	    work on a project uninterrupted, then, when the week is
+	    over, you demonstrate what you have done.
+	  </p>
+	  <p>
+	    The fourth unit continues with Scrum, but this time, you
+	    will be working as a team. The goal of this unit is to
+	    complete a real Web project in a realistic team setting.
+	  </p>
+	</div>
+      </div>
+    </div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/wp.js"></script>
+  </body>
+</html>

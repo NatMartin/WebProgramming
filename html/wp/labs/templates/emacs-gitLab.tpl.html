@@ -1,0 +1,329 @@
+<div class="wp-text-area">
+  <h2>Emacs</h2>
+  <p>
+    Loading emacs is simple. Ubuntu is a Debian based version of
+    Linux, so it has an aptitude loader. To load Emacs, use the
+    command <code>sudo apt-get install emacs24</code>. The
+    work <code>sudo</code> indicates that you are doing the command as
+    a super user. This needs to be done to load new software, but
+    should be avoided if possible. Working as superuser can damage the
+    software. The command you are executing as superuser
+    is <code>apt-get</code> which updates the
+    software. The <code>apt-get</code> command you are running
+    is <code>install</code>, which indicates that you want to install
+    a new piece of software. Finally, you indicate that the software
+    you are installing is Emacs (<code>emacs24</code> refers to the
+    version of Emacs, 24 as of this writing).
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+    <code>"sudo apt-get install emacs24"</code>
+  </li>
+  <li class="do">Enter your password for your linux computer</li>
+  <li class="do">Answer 'y' when it asks if you want to install it.</li>
+  <li class="enter">
+    <code>"emacs"</code>
+  </li>
+  <li class="do">
+    Read the emacs tutorial to learn how to move around in the editor
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    Thats all there is to it. Now when you type emacs into the
+    terminal window, an emacs window will open up.
+  </p>
+  <h2>Git</h2> 
+  <p>
+    Git is a version control system. It will keep track of the changes
+    you make to your program and let you revert back to previous
+    versions. This is very important. Code only breaks when you change
+    it, so, if it used to work, you can fix it by changing to back to
+    the way it was when it worked. An empty program works--it does
+    nothing, but it does it very well. So, before you wrote anything
+    your code worked. As you go along, parts of the code will
+    work. When you change it, it may stop working. You will be very
+    happy to be able to return to the state when it worked rather than
+    floundering around trying to figure out which of the things you
+    did made it stop working.
+  </p>
+  <h3>Download Git</h3>
+  <p>
+    As with emacs, the first thing you need to do is download the
+    git program. This is easy to do.
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+    <code>sudo apt-get install git</code>
+  </li>
+  <li class="do">Enter your password for your linux computer</li>
+  <li class="do">Answer 'y' when it asks if you want to install it.</li>
+  <li class="enter">
+    <code>git --version</code>
+  </li>
+  <li class="see">
+    <div class="code">
+nat@Linus:~$ git --version
+git version 1.9.1
+    </div>
+  </li>
+  <li class="do">Read 
+    <a href="http://git-scm.com/book/en/Getting-Started">
+      Getting Started
+    </a>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <h3>Initialize Git</h3>
+  <p>
+    Git is a little more complicated to use than Emacs. You need to
+    tell it who you are and how to get in touch with you because it
+    can keep track of multiple people working on the same program. If
+    it does not know who you are, it does not know who make the
+    changes. If it does not know who made the changes, you cannot tell
+    who needs to fix things if those changes made things go bad.
+  </p>
+  <p>
+    You need to tell Git your name an email addres. You can also tell
+    it that you prefer to use Emacs. If you do not, it will use Vim.
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+    <code>git config --global user.name "&ltyour name&gt"</code>
+  </li>
+  <li class="enter">
+    <code>git config --global user.email &ltyour-email&gt</code>
+  </li>
+  <li class="enter">
+    <code>git config --global core.editor emacs</code>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <h3>Setting up a repository</h3>
+  <p>
+    Once you have let Git know who you are, you can set up a
+    repository. We will create a new directory in your home directory
+    called wp for Web Programming (i.e. <code>~/wp</code>) and set it
+    up as a Git repository. We will use that directory for the work we
+    do in this class.
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+    <code>cd</code>
+  </li>
+  <li class="enter">
+    <code>mkdir md</code>
+  </li>
+  <li class="enter">
+    <code>cd md</code>
+  </li>
+  <li class="enter">
+    <code>git init</code>
+  </li>
+  <li class="see">
+    <div class="code">
+nat@Linus:~/dev$ git init
+Initialized empty Git repository in /home/nat/md/.git/
+    </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <h3>Putting a file in Git</h3>
+  <p>
+    So far, we don't have anything in our directory, so there is
+    nothing to store in Git. Let's make a file and put it in the Git
+    repository.
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+    <code>cd ~/md</code>
+  </li>
+  <li class="enter">
+    <code>emacs README</code>
+  </li>
+  <li class="do">
+    Using emacs, write the following lines, then save the file
+    using c-x c-s.
+    <div class="code">
+This is the directory for Web Programming.
+It contains the my individual files for the class.
+    </div>
+  <li class="enter">
+    <code>git add README</code>
+  </li>
+  <li class="enter">
+    <code>git commit -m 'initial project version'</code>
+  </li>
+  <li class="see">
+    <div class="code">
+nat@Linus:~/md$ git commit -m 'initial project version'
+[master (root-commit) 36601df] initial project version
+ 1 file changed, 2 insertions(+)
+ create mode 100644 README
+    </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    Whenever you add a new file to the project, you will need to add
+    it to the list of files that are being tracked using <code>git
+    add</code>. Whenever you change the file, you will need to put it
+    in the repository using <code>git
+    commit</code>. The <code>-m</code> flag we used here adds an
+    initial message. In most cases, it will open an editor so you can
+    explain what changes you made. It may seem silly, but believe me
+    you will not remember what you did in this particular version
+    tomorrow.
+  </p>
+  <h3>Checking Status</h3>
+  <p>
+    You will want to check what you have backed up to Git and the
+    status of the files in the directories protected by Git. The
+    <code>status</code> command does this.
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+    <code>git status</code>
+  </li>
+  <li class="see">
+    <div class="code">
+nat@Linus:~/md$ git status
+On branch master
+nothing to commit, working directory clean
+    </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    You are on the master branch, and there is nothing to commit
+    because you have not changed any files in the directory. Let's
+    change the README file and see what happens.
+  </p>
+</div>
+<ol class="activity">
+  <li class="do">
+    Edit the README file to add the lines:
+    <div class="code">
+Contents:
+    README
+    </div>
+    Edit a new file with the name "test".
+  </li>
+  <li class="enter">
+    <code>git status</code>
+  </li>
+  <li class="see">
+    <div class="code">
+nat@Linus:~/md$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add &ltfile&gt..." to update what will be committed)
+  (use "git checkout -- $ltfile&gt..." to discard changes in working directory)
+
+	modified:   README
+
+Untracked files:
+  (use "git add &ltfile%gt..." to include in what will be committed)
+
+	test
+
+no changes added to commit (use "git add" and/or "git commit -a")
+    </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    You can see that now it says that README has been modified. and
+    that there is a new file that has not been included in the
+    project.
+  </p>
+  <p>
+    Next we will stage the README file to be committed,
+    using <code>git add README</code> (The <code>add</code> command
+    adds the file to the project and indicates that you want to save
+    this version of the file when you do the next commit). Finally, we
+    will remove the test file.
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+    <code>git add README</code>
+  </li>
+  <li class="enter">
+    <code>git commit</code>
+  </li>
+  <li class="see">
+    Emacs will open with the following information.
+    <div class="code">
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#	modified:   README
+#
+# Untracked files:
+#	test
+#
+    </div>
+  </li>
+  <li class="do">
+    Add the message "Testing commit." Save the file (c-x c-s)
+    and quit emacs (c-x c-c).
+  </li>
+  <li class="see">
+    <div class="code">
+nat@Linus:~/md$ git commit
+[master 6f66643] Testing commit
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+    </div>
+  </li>
+  <li class="enter">
+    <code>rm test</code>
+  </li>
+  <li class="enter">
+    <code>git status</code>
+  </li>
+  <li class="see">
+    <div class="code">
+nat@Linus:~/md$ git status
+On branch master
+Untracked files:
+  (use "git add &ltfile&gt..." to include in what will be committed)
+
+	test
+
+nothing added to commit but untracked files present (use "git add" to track)
+    </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository">
+	Getting Started: A description of version control using Git
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://git-scm.com/book/en/v2/Getting-Started-About-Version-Control">
+	Getting Started: A description of version control using Git
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository">
+	Git Basics: How to use Git to store your projects
+      </a>
+    </li>
+  </ul>
+</div>
+
+<hr>
+<address></address>
+<!-- hhmts start --><!-- hhmts end -->

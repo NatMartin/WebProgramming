@@ -12,10 +12,10 @@ clean:
 	$(RM) *~
 	$(RM) html/*~
 	$(RM) html/wp/*~
-	$(RM) html/css/*~
-	$(RM) html/js/*~
-	$(RM) html/labs/*~
-	$(RM) html/templates/*~
-	$(RM) html/labs/templates/*~
-	$(RM) html/lessons/*~
-	$(RM) html/lessons/templates/*~
+	$(RM) html/wp/css/*~
+	$(RM) html/wp/js/*~
+	$(RM) html/wp/labs/*~
+	$(RM) html/wp/templates/*~
+	$(RM) html/wp/labs/templates/*~
+	$(RM) html/wp/lessons/*~
+	$(RM) html/wp/lessons/templates/*~

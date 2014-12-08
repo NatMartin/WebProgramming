@@ -1,113 +1,203 @@
-	  <h1>The Internet and the World Wide Web</h1>
-	  <p>
-	    The Internet and the World Wide Web differ in the same way
-	    an aircraft carrier and an aircraft differ. The Internet
-	    carries the World Wide Web, but it carries a lot of other
-	    things too. The Internet is a protocol that supports the
-	    connection of multiple networks. These networks move
-	    the information. The World Wide Web is a protocol for
-	    requesting information over the interconnected networks
-	    and for displaying that information when it arrives. 
-	  </p>
-	  <h2>Client Server Architecture</h2>
-	  <p>
-	    A client-server architecture includes two programs: a
-	    client and a program. The client program requests
-	    information from the server program; the server program
-	    delivers the information. Though conceptually simple,
-	    client server programs are somewhat complicated: the
-	    server program must provide a means of contacting it. When
-	    a client contacts it, the server must switch communication
-	    to another channel to free the channel on which other
-	    program are listenting and start a new thread to handle
-	    the communication with the current client.
-	  </p>
-	  <p>
-	    The client server architecture separates concerns
-	    well. The server performs a simple computation and returns
-	    the result of that computation to the client. The client
-	    need know nothing about how the server computes the
-	    result; the server need know nothing about what the client
-	    does with the result.
-	  </p>
-	  <p>
-	    Clients communicate with servers in one of two
-	    ways <strong>syncronous</strong>
-	    and <strong>asynchronous</strong>. When a client
-	    communicates with the server synchronously, it request a
-	    result from the client, then waits until the client
-	    returns it. When a client commmunicates asynchronously, it
-	    continues working while it waits for the result. Programs
-	    that communicate synchronously are easier to write;
-	    synchronous calls are just like function
-	    calls. Asynchronous programs are more difficult to
-	    write. The client must provide a way to access the results
-	    once they are returned.
-	  <h2>The Internet</h2>
-	  <p>
-	    The Intenet is a set of interlocking protocols. It grew
-	    out of the ARPAnet, which was active in the 1970's and
-	    1980's. The ARPAnet was a US Military network that grew
-	    into a broad international scientific network. It was
-	    replaced by the Internet (a civialian network) under the
-	    influence of Al Gore's Congressional Committee.
-	  </p>
-	  <p>
-	    The <a href="">IETF (Internet Engineering Task Force)</a>
-	    manages in Internet Protocols as a set of RFC's (Request
-	    for Comments). It has no governing powers, rather, it
-	    publishes standards that anyone may implement. However,
-	    unless the protocols are implemeted exactly according to
-	    the IETF standards, the implementer's system will not
-	    connect to the internet. The interconnectivity of the
-	    Internet governs it.
-	  </p>
-	  <h3>Packet Switching</h3>
-	  <p>
-	    The Internet works by packet switching. Unlike a
-	    telephone, which works by circuit switching, the Internet
-	    protocol specifies that the sending computer break
-	    messages into packets and address each of these packets to
-	    the receiving computer. The receiving computer then puts
-	    the packets back together based on sequence numbers the
-	    sending computer provided.
-	  </p>
-	  <h3>Routing</h3>
-	  <p>
-	  </p>
-	  <h3>The World Wide Web</h3>
-	  <p>
-	  </p>
-	  <h3>References</h3>
-	  <ul class="references">
-	    <li class="ref">
-	      <a href="http://en.wikipedia.org/wiki/Minicomputer">
-		Minicomputer
-	      </a>
-	    </li>
-	    <li class="ref">
-	      <a href="http://en.wikipedia.org/wiki/Microcomputer">
-		Microcomputer
-	      </a>
-	    </li>
-	    <li class="ref">
-	      <a href="http://en.wikipedia.org/wiki/Personal_computer">
-		Personal Computer
-	      </a>
-	    </li>
-	    <li class="ref">
-	      <a href="http://en.wikipedia.org/wiki/The_Mother_of_All_Demos">
-		The Mother of All Demos
-	      </a>
-	    </li>
-	    <li class="ref">
-	      <a href="http://en.wikipedia.org/wiki/Software">
-		Software
-	      </a>
-	    </li>
-	    <li class="ref">
-	      <a href="">
-
-	      </a>
-	    </li>
-	  </ul>
+<div class="wp-text-area">
+  <h1>The Internet and the World Wide Web</h1>
+  <p>
+    The Internet and the World Wide Web differ in the same way an
+    aircraft carrier and an aircraft differ. The Internet carries the
+    World Wide Web, but it carries a lot of other things too. The
+    Internet is based on a protocol that supports the connection of
+    multiple networks. These networks move the information. The World
+    Wide Web is a protocol for requesting information over the
+    interconnected networks and for displaying that information when
+    it arrives.
+  </p>
+  <h2>Client Server Model</h2>
+  <p>
+    Both the Internet and the World Wide Web use the client-server
+    model.
+  </p>
+  <p>
+    A client-server model includes two programs: a client and a
+    program. The client program requests information from the server
+    program; the server program delivers the information. Though
+    conceptually simple, client server programs are somewhat
+    complicated: the server program must provide a means of contacting
+    it. When a client contacts it, the server must switch
+    communication to another channel to free the channel on which
+    other program are distending and start a new thread to handle the
+    communication with the current client.
+  </p>
+  <p>
+    The client-server model separates concerns well. The server
+    performs a simple computation and returns the result of that
+    computation to the client. The client need know nothing about how
+    the server computes the result; the server need know nothing about
+    what the client does with the result.
+  </p>
+  <p>
+    Clients communicate with servers in one of two
+    ways <strong>synchronous</strong>
+    and <strong>asynchronous</strong>. When a client communicates with
+    the server synchronously, it request a result from the client,
+    then waits until the client returns it. When a client
+    communicates asynchronously, it continues working while it waits
+    for the result. Programs that communicate synchronously are easier
+    to write; synchronous calls are just like function
+    calls. Asynchronous programs are more difficult to write. The
+    client must provide a way to access the results once they are
+    returned.
+  </p>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Client%E2%80%93server_model">
+	Client Server Model (Wikipedia)
+      </a>
+    </li>
+  </ul>
+  <h2>The Internet</h2>
+  <p>
+    The Internet is a set of interlocking protocols. It grew out of the
+    ARPAnet, which was active in the 1970's and 1980's. The ARPAnet
+    was a US Military network that grew into a broad international
+    scientific network. It was replaced by the Internet (a civilian
+    network) under the influence of Al Gore's Congressional Committee.
+  </p>
+  <p>
+    The <a href="">IETF (Internet Engineering Task Force)</a> manages
+    in Internet Protocols as a set of RFC's (Request for Comments). It
+    has no governing powers, rather, it publishes standards that
+    anyone may implement. However, unless the protocols are implemented
+    exactly according to the IETF standards, the implementer's system
+    will not connect to the internet. The inter-connectivity of the
+    Internet governs it.
+  </p>
+  <p>
+    The Internet uses two protocols, TCP (Transmission Control Protocol)
+    and IP (Internet Protocol), which are usually shortened to TCP/IP.
+  </p>
+  <h3>Packet Switching</h3>
+  <p>
+    IP specifies how computers share data. It is a packet switching
+    protocol, which means any communication is broken into fixed sized
+    chunks of data. IP specified the format of IP addresses such as
+    familiar four number address for IPv4 (e.g. 192.168.0.1). These
+    addresses are currently being replace by a IPv6 (there is no
+    IPv5).
+  </p>
+  <p>
+    The addresses specify how to find the computer on the
+    network. Each network has an designated internet address, which is
+    associated with the network's router. The router then translate
+    the external address using NAT (Network Address Translation) into
+    an address that the internet network can use.
+  </p>
+  <p>
+    The traditional Internet addresses (e.g. www.wikipedia.com) are
+    translated into numerical IP address using a (DNS) Domain Name
+    Server, which accepts the named address and returns the
+    corresponding IP address. These names are coordinated in a
+    distributed fashion whereby each DNS has other DNS servers that it
+    contacts for updates. This way changing the name on a single DNS
+    can propagate to the entire network.
+  </p>
+  <p>
+    IP uses packet switching. Unlike a telephone, which works by
+    circuit switching, the Internet protocol specifies that the
+    sending computer break messages into packets and address each of
+    these packets to the receiving computer. The receiving computer
+    then puts the packets back together based on sequence numbers the
+    sending computer provided. Each packet has a payload consisting of
+    the data to be sent and a header that contains the destination
+    address, the source address, and other meta-data needed to put the
+    message back together. Each packet is sent out to the network's
+    router which forwards it to other routers until the packet reaches
+    its target.
+  </p>
+  <p>
+    TCP is built on top of IP. It takes the data stream being sent,
+    breaks it into chunks adding meta-data that will allow it to
+    reconstitute the message on the other side. It then send each of
+    the chunks of data to the receiving computer. The TCP program on
+    the receiving computer then captures the packets coming in and
+    reconstitutes them into the stream that was sent. In this way, TCP
+    simulates a circuit switching network over a packet switching
+    network.
+  </p>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Internet">
+	Internet (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Internet_protocol_suite">
+	Internet Protocol Suite (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Internet_Protocol">
+	Internet Protocol (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Transmission_Control_Protocol">
+	Transmission Control Protocol
+      </a>
+    </li>
+  </ul>
+  <h3>The World Wide Web</h3>
+  <p>
+    Like the Internet, the World Wide Web (WWW) is a set of protocols the
+    implements a client-server model. The Web uses HTTP (Hypertext
+    Transmission Protocol) and HTML (Hypertext Markup Language). HTTP
+    specifies how computer communicate with each other over the Web,
+    and HTML specifies what they send each other.
+  </p>
+  <p>
+    HTTP is a request-response protocol for the Web's client-server
+    model. That is, it defines how the client sends a request to a
+    server and how the server responds to that request. It specifies
+    nine possible commands of which the most common are "GET", "PUT"
+    and "POST". The client sends a GET command with a file
+    specification and the server returns a header, and the data
+    associated with the file if it can find the file. If it cannot, it
+    returns a header with a "404" error. The client sends a PUT or a
+    POST with data as well as a file specification. When the server
+    receives the PUT or POST, it processes the data that comes with as
+    specified in the file associated with the command.
+  </p>
+  <p>
+    HTML is the format of the files that the server returns to the
+    browser. For the most part, it indicates what kind of information
+    is contained in the link. For example, an "H1" tag specifies that
+    the data contain is the top level heading of the document. What
+    made HTML important is the anchor tag "A". This tag treats its
+    contents as a hyperlink. When the user clicks on the content of
+    the tag, the browser issues a GET command for the file specified
+    in the href value.
+  </p>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/World_Wide_Web">
+	World Wide Web (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">
+	Hypertext Transfer Protocol (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/HTML">
+	Hypertext Markup Language (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="">
+	
+      </a>
+    </li>
+  </ul>
+</div>

@@ -1,5 +1,5 @@
 deploy: 
-	cp -r wp/* /var/www/html/wp
+	cp -r html/wp/* /var/www/html/wp
 
 push: commit
 	git push origin master

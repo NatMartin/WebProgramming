@@ -1,0 +1,176 @@
+<div class="wp-text-area">
+  <h1>Remote Hosting</h1>
+  <p>
+    Programming in teams requires different kinds of computer support
+    than does individual programming. Programming complexity increases
+    quickly as the length of the program increases because no one can
+    remember all of the interactions in the program. Programmers use
+    Modern languages and IDEs (Integrated Development Environments) to
+    control the complexity. This complexity reaches a new level when
+    multiple people work on the same program at the same time. Not
+    only does the programmer need to know his or her own changes he or
+    she needs to understand the changes made by everyone else in the
+    team. No programmer can understand all changes made by a team that
+    may number in the hundreds.
+  </p>
+  <p>
+    Tools exist to support programming. These tools are hosted
+    remotely to give access to all members of the team from their
+    working computers. The tools include:
+    <ul>
+      <li>
+	<strong>Distributed Source Control</strong> stores the code
+	for the team controlling what can be added to ensure that the
+	team's code always works.
+      </li>
+      <li>
+	<strong>Automated Build Software</strong> automates the
+	process of compiling, testing and deploying software to reduce
+	integration bugs.
+      </li>
+      <li>
+	<strong>Testing Suport Software</strong> automates the
+	end-to-end testing that can be automated and helps the testers
+	keep track of the tests that need to be performed.
+      </li>
+      <li>
+	<strong>Project Management Software</strong> keeps the team
+	coordinated.
+      </li>
+    </ul>
+    Typically, professional teams use sophisticated versions of these
+    tools. Here, we will use simple tools (or simple applications of
+    sophisticated tools) to stand in for them:
+    <ul>
+      <li>
+	Git as our distributed control system
+      </li>
+      <li>
+	Make as our automated build system
+      </li>
+      <li>
+	A LibraOffice Calc as our testing support system
+      </li>
+      <li>
+	AgileFant as our project management system
+      </li>
+    </ul>
+  </p>
+  <h2>Coordinating through Git</h2>
+  <p>
+    Git, the program you have been using for source control, helps
+    coordinate team work. When working in team, multiple people work
+    on the same code base at the same time. As people work on the code
+    base, they can introduce subtle bugs unless great care is taken to
+    test each new addition in the context of all previous additions.
+  </p>
+  <p>
+    For example, suppose Ashish changes a function that Betty's
+    function relies on. He tests the changes to make sure that Betty's
+    function still works before he checks it back in. In the mean
+    time, Betty also changes her function, she tests it against the
+    function that Ashish is in the process of changes to make sure it
+    still works before she checks it in. However, when they both check
+    in their work, the changes that Ashish has made break Betty's new
+    code. Now, the code no longer works, and it may be months before
+    the error is discovered. With luck, it will be discovered at the
+    demo, without luck, it will be discovered after both Ashish and
+    Betty have left the team and no one remembers what the code was
+    supposed to do.
+  </p>
+  <p>
+    Git provides a repository in which everyone stores their
+    code. Before it allows anyone to check new code in, it checks the
+    code that is being check in against the code in the repository and
+    to make sure that everything being checked in is compatible with
+    the latest version. If it is not, it will not allow the code to be
+    check in until it is compatible. Even if the team's code has
+    change in a different file, it will not allow you to check it
+    in. It will force you to check out the new code from the team's
+    version before you can check in your new code. You, of course,
+    should test your code against the team's version before checking
+    in your changes.
+  </p>
+  <p>
+    For example, If Ashish made his changes first, when Betty tried to
+    check in her code, she would have to check out his changes. She
+    would then test here changes against the new code, find and change
+    the incompatibilities.
+  </p>
+  <p>
+    The teams code should always work. If it does not, bad code will
+    be built on top of bad code. Eventually the code becomes so
+    corrupted that fixing any one of the bugs is likely to create
+    problems in other parts of the code. Unfortunately, that is the
+    state of may industrial code bases.
+  </p>
+  <p>
+    Remember, a principle of agile development is that the code base
+    always works. It may not do everything desired of it, but what it
+    does do, it does correctly. Test Driven Development helps insure
+    correctness at the unit level; team source control helps insure
+    correctness in end-to-end operation.
+  </p>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://git-scm.com/book/en/v2/Git-on-the-Server-The-Protocols">
+	Setting up a Git server on a remote host
+      </a>
+    <li class="ref">
+      <a href="http://git-scm.com/book/en/v2/Distributed-Git-Distributed-Workflows">
+	Git Distributed Workflows
+      </a>
+    </li>
+  </ul>
+  <h2>Automating activities using Make</h2>
+  <p>
+    Compiling and deploying programs became a complex, repetitive,
+    tedious and error-prone soon after the development of computers
+    sophisticated enough to compiled programs. The solution, as with
+    most computer problems was to write a program.
+  </p>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Make_%28software%29">
+	Make on Wikipedia
+      </a>
+    </li>
+  </ul>
+  <h2>Testing support using a Spreadsheet</h2>
+  <p>
+    In a team setting, end-to-end testing supports the team; unit
+    testing supports the individual programming because the most
+    common bugs in a team setting should be integration
+    bugs. Integration bugs occur when units that work well separately
+    fail when put together. The longer such bugs exist the harder they
+    are to find because the team loses assumptions on which the
+    program is based.
+  </p>
+  <p>
+    Protractor support automated end-to-end testing, but automated
+    testing only catches expected bugs. Manual testing catches
+    unexpected bugs. To catch all of the unexpected bugs, however,
+    manual testing needs tools that indicate what is expected. There
+    are automated tools to support manual testing, but for small
+    projects, spreadsheets are enough.
+  </p>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Software_testing">
+	Software Testing on Wikipedia
+      </a>
+    </li>
+  </ul>
+  <h2>Team Coordination using Agilefant</h2>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://agilefant.com/">
+	Agilefant web site
+      </a>
+    </li>
+  </ul>
+</div>

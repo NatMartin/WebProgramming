@@ -9,30 +9,31 @@
   </head>
 
   <!-- Labs -->
-  <body ng-controller="introCtrl">
+  <body ng-controller="teamServerCtrl">
 
     <!-- Labs Navigation Bar -->
     <div ng-include="'templates/navigation.tpl.html'"></div>
 
-    <!-- Lessons Jumbotron -->
+    <!-- Labs Jumbotron -->
     <div ng-include="'/wp/templates/head.tpl.html'"></div>
 
-    <!-- Lessons Body -->
+    <!-- Labs Body -->
     <div class="container">
       <div class="row">
 
-	<!-- Lessons Table of Content -->
+	<!-- Labs Table of Content -->
 	<div class="col-md-5">
 	  <div ng-include="'templates/toc.tpl.html'"></div>
 	</div>
 
-	<!-- Lesson: Introduction -->
-	<div class="col-md-7 wp-text-area">
-	  <div ng-include="'templates/teamGitText.tpl.html'"></div>
+	<!-- Labs: Introduction -->
+	<div class="col-md-7">
+	  <div ng-include="'templates/teamServerText.tpl.html'"></div>
 	</div>
       </div>
+      <!-- Labs: Instructions -->
       <div class="row">
-	<div ng-include="'templates/teamGitLab.tpl.html'"></div>
+	<div ng-include="'templates/teamServerLab.tpl.html'"></div>
       </div>
     </div>
 

@@ -1,5 +1,5 @@
 <div class="wp-text-area">
-  <h1>Setting up a Git Server</h1>
+  <h1>Setting up a Git Server on a Remote Host</h1>
   <p>
     To set up team source control with git, you need a server that all
     of the team members can access. This means that the server's host
@@ -53,6 +53,20 @@
 </ol>
 <div class="code">
 </div>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://git-scm.com/book/en/v2/Git-on-the-Server-The-Protocols">
+	Setting up a Git server on a remote host
+      </a>
+    <li class="ref">
+      <a href="http://git-scm.com/book/en/v2/Distributed-Git-Distributed-Workflows">
+	Git Distributed Workflows
+      </a>
+    </li>
+  </ul>
+<h1>Using Make to automate programming tasts</h1>
+<h1>Using a Spreadsheet to manage testing</h1>
 <div class="wp-text-area">
   <h3>References</h3>
   <ul class="references">

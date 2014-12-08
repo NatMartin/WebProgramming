@@ -1,0 +1,466 @@
+<div class="wp-text-area">
+  <h1>Setting up a Git Server on a Remote Host</h1>
+  <p>
+    To set up team source control with git, you need a server that all
+    of the team members can access. This means that the server's host
+    will need to be on a computer that is always accessible. While it
+    is possible that one of the members of a team can host the team's
+    server on their computer, hosting on the server on a separate
+    computer makes security easier. Here, we will set up the server on
+    a separate host.
+  </p>
+  <p>
+    Setting up a server on a separate host requires that each person
+    needs access to the host. This means that the host will have to
+    have an account for each person on the team. Only one version of
+    the repository exists on the host, and each member of the team has
+    access to it. To do this, the server needs a group that comprises
+    all of the team members. 
+  </p>
+  <p>
+    Since we are doing this with on Unix, git probably already runs on
+    the host, so we do not need to add it. We will, however, have to
+    set up a shared repository on the host. Once we have a shared
+    repository, we can then store the team code in that repository.
+  </p>
+  <p>
+    To access the code remotely, we will need to set up the host to
+    accept connectsion and serve the code to the team
+    members. Fortunately, in Unix SSH provides secure access and git
+    is designed to use this service.
+  </p>
+  <p>
+    In summary, we need to:
+    <ol>
+      <li>
+	Set up accounts for each person on the host.
+      </li>
+      <li>
+	Set up a shared git repository for the team on the host.
+      </li>
+      <li>
+	Set up each members git repository so that it will be able to
+	push new code to the repository on the host.
+      </li>
+    </ol>
+  </p>
+  <h2>Creating remote accounts</h2>
+  <p>
+    We will be accessing the remote accounts using ssh (Secure Shell)
+    a public key login scheme that is more secure than
+    passwords. Passwords are weak because they can be cracked using
+    brute force or they may be sniffed if they are sent in clear text
+    by accident. Using public keys is more secure.
+  </p>
+  <p>
+    To do this each user will have to create a public key on their own
+    computer and send the key to the person who will be setting up the
+    accounts. That is:
+    <ul>
+      <li>
+	Each user will create a key pair and send the public key to
+	the person who will be setting up the remote account.
+      </li>
+      <li>
+	The person setting up the remote account will create the user
+	account on the remote machine and set it up for remote login.
+      </li>
+    </ul>
+  </p>
+  <h3>Creating key pairs for SSH</h3>
+  <p>
+    You will first set up a key pair
+    using <code>ssh-keygen</code>. This command will produce two files
+    <code>id_rsa</code> and <code>id_rsa.pub</code> by default. Unless
+    you have a special reason for naming them anything other than the
+    default, choose it. The file <code>id_rsa</code> contains your
+    private key. Make sure you keep it private. Keep it in
+    your <code>~/.ssh</code> directory and make sure that the
+    permissions on that directory are <code>700</code> so that no one
+    but you can access the file. In fact, it is even better if you
+    keep your public key on an encrypted thumb drive, because root on
+    the computer can get access to your private key. The public key
+    can be given out freely. It is they key that other people user to
+    decrypt message you send to them and to make sure that you are the
+    person they are communicating with.
+  </p>
+  <p>
+    Public key encryption works because files encrypted with your
+    private key can only be decrypted using your public key and vice
+    versa. To communicate securely with a person, you send them your
+    public key, encrypt the message with your private key, then send
+    the encrypted message. Only people with your public key can see
+    what you sent. People who have your public key can reply back by
+    encrypting the message using your public key and only you can read
+    the message. Here we are using public key encryption to prove we
+    are who we say we are. To do that, we encrypt something known
+    using the private key and send it to the person we want to whom we
+    want to authenticate ourselves. If the message decrypts with the
+    public key, the person who received the message knows that we sent
+    it.
+  </p>
+  <p>
+    There are two points to this story. First, make sure that you send
+    your public key (i.e. id_rsa.pub), not your private key to the
+    person setting up your account. If you send the private key, not
+    only will it not work, your public key encryption system will be
+    compromised. Second, add your name to the name of the file that
+    contains the public key (e.g., nat_id_rsa.pub) because the person
+    setting up the accounts will get keys from everyone and will need
+    to keep them separate.
+  <p> 
+</div>
+<ol class="activity">
+  <li class="do">
+    Move to your .ssh directory. Create one if you have not
+    already. If you create it make sure you protect it by
+    doing <code>chmod 700 .ssh</code>
+  </li>
+  <li class="enter">
+    <code>ssh-keygen -t rsa -C "&ltyour email address&gt"</code>
+  </li>
+  <li class="enter">
+    <code>cd ~</code>
+  </li>
+  <li class="enter">
+    <code>mkdir my-public-key</code>
+  </li>
+  <li class="enter">
+    <code>chmod 777 my-public-key</code>
+  </li>
+  <li class="enter">
+    <code>cp .ssh/rsa_id.pub my-public-key/&ltyour name&gt_rsa_id.pub</code>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <h3>Setting up the remote account</h3>
+  <p>
+    To set up an accounts on the remote host. This can be any computer
+    connected to the internet. We assume that Linux has be loaded on
+    the host.
+  </p>
+  <p>
+    To do this lab, you will need <code>sudo</code> priviledges on the
+    host that you are using. Sudo priviledges give you the capability
+    to perform restricted commands. These commands are restricted
+    because they can cause damage to other users on the
+    computer. You must take great care when using <code>sudo</code>.
+  </p>
+  <p>
+    To see if you have sudo priviledges:
+</div>
+<ol class="test">
+  <li class="do">
+    Log in to a user account on the remote host.
+  </li>
+  <li class="enter">
+    <code>less /etc/sudoers</code>
+  </li>
+  <li class="see">
+    <code>/etc/sudoers: Permission denied</code>
+  </li>
+  <li class="enter">
+    <code>sudo less /etc/sudoers</code>
+  </li>
+  <li class="see">
+    <div class="code">
+## Sudoers allows particular users to run various commands as
+## the root user, without needing the root password.
+##
+## Examples are provided at the bottom of the file for collections
+## of related commands, which can then be delegated out to particular
+## users or groups.
+## 
+## This file must be edited with the 'visudo' command.
+    </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    This test, if it works, first tries to look
+    at <code>/etc/sudoers</code>, a file that only root can read. It
+    tells you that you do not have permissions to look at it. You then
+    try it with <code>sudo</code> and it shows you the file.
+  </p>
+  <p>
+    Once we know that we have sudo permissions on the host we can now
+    set up the git server for the team. You will first need to create
+    a group for the team, then create an account for each member of
+    the team on the remote server.
+</div>
+<ol class="activity">
+  <li class="do">
+    Log in to a user account on the remote host that
+    has <code>sudo</code> priviledges.
+  </li>
+  <li class="do">
+    Create a group for the team using the command <code>addgroup
+    &ltteam&gt</code> where &ltteam&gt is the name of the team. The
+    command <code>addgroup</code> requires root priviledges.
+  </li>
+  <li class="do">
+    For each users you want to add do the following steps. In the
+    instructions below the new user is called where
+    &ltnewuser&gt. Make sure you use the name of the user instead.
+    <ol>
+      <li class="do">
+	For each users you want to add, enter <code>sudo adduser
+	  &ltnewuser&gt</code>.
+      </li>
+      <li class="do">
+	Switch to the new accout using <code>sudo su &ltnewuser&gt</code>.
+      </li>
+      <li class="do">
+	Check to see that you are logged on as &ltnewuser&gt by entering
+	<code>whoami</code> and seeing <code>&ltnewuser&gt</code>
+      </li>
+      <li class="enter">
+	<code>cd</code>
+      </li>
+      <li class="enter">
+	<code>mkdir .ssh</code>
+      </li>
+      <li class="enter">
+	<code>chmod 700 .ssh</code>
+      </li>
+      <li class="enter">
+	<code>touch .ssh/authorized_keys</code>
+      </li>
+      <li class="enter">
+	<code>chmod 600 .ssh/authorized_keys</code>
+      </li>
+      <li class="do">
+	If the public key file that &ltnewuser&gt gave you is called
+	&ltnewuser_id-rsa&gt. Copy that file to <code>.ssh</code>.
+      </li>
+      <li class="do">
+	Append the key to <code>authorized_keys</code> by
+	entering <code>cat &ltnewuser_id-rsa&gt &gt&gt
+	  .ssh/authorized_keys</code> If the public key file that
+	&ltnewuser&gt gave you is called &ltnewuser_id-rsa&gt. Copy that
+	file to <code>.ssh</code>.
+      </li>
+      <li class="do">
+	Append the key to <code>authorized_keys</code> by
+	entering <code>cat &ltnewuser_id-rsa&gt &gt&gt
+	  .ssh/authorized_keys</code> If the public key file that
+	&ltnewuser&gt gave you is called &ltnewuser_id-rsa&gt. Copy that
+	file to <code>.ssh</code>.
+      </li>
+      <li class="do">
+	Add the new user to the teams group using the
+	command <code>sudo gpasswd -a &ltnewuser&gt &ltteam&gt</code>
+      </li>
+    </ol>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <h3>Creating shared git server</h3>
+  <p>
+    After you have created the users and added them to the team group,
+    you will need to create a directory to store the teams
+    projects. You will set up a bare git repository in that
+    directory. A bare repository does not have a working
+    directory. This is important because you do not want anyone
+    working in the shared directory. Here, we use &ltteam&gt as the
+    name of the group and &ltteam project&gt as the name of the team's
+    project.
+  </p>
+  <p>
+    Once the shared repository is set up, someone will need to put
+    their files in the directory. After than everyone in the team can
+    clone the shared directory.
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+    <code>mkdir /opt/git/&ltteam project&gt.git</code>
+  </li>
+  <li class="enter">
+    <code>chgrp &ltteam&gt /opt/git/&ltteam project&gt.git</code>
+  </li>
+  <li class="enter">
+    <code>cd /opt/git/&ltteam project&gt.git</code>
+  </li>
+  <li class="enter">
+    <code>git init --bare --shared</code>
+  </li>
+  <li class="do">
+    Go to your personal git repository on your personal machine. Add a
+    remote repository to your personal account using the
+    command <code>git remote add origin
+    &gtusername&lt@&gtserver&lt:&ltteam project&gt.git/opt/git</code>.
+    Add it to the team's repository using the command <code>git push
+    origin master</code>. For example:
+      <div class="code">
+nat@local> git remote add origin nat@remote.example.com:/opt/git/team.git
+nat@local> git push origin master
+      </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    Now you have a git server running on a remote host that all of the
+    members of the team can access. There are several different ways
+    this server can be used. The easiest it to set up two different
+    streams: one in which you work and one in which you test. The
+    stream that you test in will always have working local code
+    whereas the stream that you work in will sometimes have code that
+    does not yet work. To check in, you first put everything in the
+    staging area, test it, them, when you are convinced that
+    everything works, push it back to the server.
+  </p>
+  <p>
+    This is a simple system that works relatively well in a small
+    group where everyone takes responsibility for the code. In larger
+    groups, a person should be designated to make sure everthing works
+    before it is returned to the server. 
+    <a href="http://git-scm.com/book/en/v2/Distributed-Git-Distributed-Workflows">
+      Git Distributed Workflows
+    </a> describes two such arrangments.
+  </p>
+</div>
+<div class="wp-text-area">
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://git-scm.com/book/en/v2/Git-on-the-Server-The-Protocols">
+	Setting up a Git server on a remote host
+      </a>
+    <li class="ref">
+      <a href="http://git-scm.com/book/en/v2/Distributed-Git-Distributed-Workflows">
+	Git Distributed Workflows
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="wp-text-area">
+  <h1>Using Make to automate programming tasts</h1>
+  <p>
+    Make provides a set of rules that lets you define scripts to do
+    these tasks. When you enter the name of one of these programs,
+    Make executes the script. In addition, you may specify
+    preconditions, which, if not met, will cause Make to execute
+    scripts that will satisfy the preconditions.
+  </p>
+  <p>
+    It is useful because it lets you easily automate common tasks. For
+    example, it is easy to automate the task of checking in your
+    work. For example, the make file below is the one I use for this
+    web site. To make clean, the file removes all of the backup files
+    that emacs leaves. When i commit, I first make clean, then add and
+    commit. To make push, I commit first, then push the code to the
+    origin. Make deploy is used on the web server. It copies the files
+    from the directories I use on my local computer to the location
+    requires by Apache.
+  </p>
+</div>
+<div class="code">
+deploy: 
+	cp -r wp /var/www/html
+	cp -r css /var/www/html
+	cp -r js /var/www/html
+	cp -r templates /var/www/html
+	cp index.html /var/www/html/wp 
+
+push: commit
+	git push origin master
+
+commit: clean
+	git add -A *
+	git commit
+
+clean:
+	$(RM) *~
+	$(RM) html/*~
+	$(RM) html/css/*~
+	$(RM) html/js/*~
+	$(RM) html/labs/*~
+	$(RM) html/templates/*~
+	$(RM) html/labs/templates/*~
+	$(RM) html/lessons/*~
+	$(RM) html/lessons/templates/*~
+</div>
+<ol class="activity">
+  <li class="enter">
+  </li>
+  <li class="do">
+  </li>
+  <li class="enter">
+  </li>
+  <li class="do">
+  </li>
+</ol>
+<div class="wp-text-area">
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Make_%28software%29">
+	Make on Wikipedia
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://www.gnu.org/software/make/manual/make.html">
+	GNU Make manual
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="wp-text-area">
+  <h1>Using a Spreadsheet to manage testing</h1>
+  <p>
+    Integration testing runs a program the way a user will. Its
+    difficulty resides in the necessity of standing for all users. It
+    must be able to test all aspects of the program. The simplest tool
+    for tracking features to be tested is simply a checklist of those
+    features that the tester executes. In addition to a the feature,
+    it helps to provide details about how to test the feature.
+  </p>
+  <p>
+    The simplest test case spreadsheet has a column that numbers the
+    test case to give it a unique tag. It also has several columns
+    categorizing the test (e.g., which aspect of the program does it
+    cover, which browser is it run on) so the results can be
+    analyzed. It has a column that gives the spreadsheet a descriptive
+    name, a column that contains the requirement or story that it
+    tests, a column that tells the tester how to run the test, and a
+    column that describes the expected results. Additional columns may
+    be added for each iteration through the test case.
+  </p>
+  <p>
+    Spreadsheets suffice for small simple programs, but for larger
+    project Quality Assurance Software should be used.
+  </p>
+  <p>
+    Below is an example of a spreadsheet that describes a manual test
+    case. These tests are probably better run as automated tests using
+    protractor, but one might also include them as manual test cases
+    to have a human look at the results.
+  </p>
+</div>
+  <img src="img/testCase.png" alt="Image of Test Case Spreadsheet">
+<div class="wp-text-area">
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Software_testing">
+	Wikipedia on Software Testing
+      </a>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Manual_testing">
+	Wikipedia on Manual Software Testing
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://testlink.org/">
+	Testlink: an open source software testing solution
+      </a>
+    </li>
+  </ul>
+</div>
+
+<hr>
+<address></address>
+<!-- hhmts start --><!-- hhmts end -->

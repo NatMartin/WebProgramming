@@ -50,6 +50,10 @@ wp.controller("mongoCtrl", function($scope) {
     $scope.title="Databases"
 });
 
+wp.controller("teamServerCtrl", function($scope) {
+    $scope.title="Team Server"
+});
+
 wp.controller("agilefantCtrl", function($scope) {
     $scope.title="Scrum"
 });
@@ -86,10 +90,6 @@ wp.controller("staticWebCtrl", function($scope) {
 
 wp.controller("activeMobileWebCtrl", function($scope) {
     $scope.title="Active and Mobile Web"
-});
-
-wp.controller("activeMobileWebCtrl", function($scope) {
-    $scope.title="Operating Systems"
 });
 
 wp.controller("cleanCodeCtrl", function($scope) {

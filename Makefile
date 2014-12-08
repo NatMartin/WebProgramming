@@ -1,9 +1,5 @@
 deploy: 
-	cp -r wp /var/www/html
-	cp -r css /var/www/html
-	cp -r js /var/www/html
-	cp -r templates /var/www/html
-	cp index.html /var/www/html/wp 
+	cp -r wp/* /var/www/html/wp
 
 push: commit
 	git push origin master
@@ -15,6 +11,7 @@ commit: clean
 clean:
 	$(RM) *~
 	$(RM) html/*~
+	$(RM) html/wp/*~
 	$(RM) html/css/*~
 	$(RM) html/js/*~
 	$(RM) html/labs/*~

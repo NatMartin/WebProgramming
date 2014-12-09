@@ -146,7 +146,7 @@
       </a>
     </li>
   </ul>
-  <h3>The World Wide Web</h3>
+  <h2>The World Wide Web</h2>
   <p>
     Like the Internet, the World Wide Web (WWW) is a set of protocols the
     implements a client-server model. The Web uses HTTP (Hypertext
@@ -154,10 +154,11 @@
     specifies how computer communicate with each other over the Web,
     and HTML specifies what they send each other.
   </p>
+  <h3>HTTP</h3>
   <p>
-    HTTP is a request-response protocol for the Web's client-server
-    model. That is, it defines how the client sends a request to a
-    server and how the server responds to that request. It specifies
+    HTTP defines a request-response protocol for the Web's client-server
+    model. That is, it specifies how the client sends a request to a
+    server and how the server responds to that request. It describes
     nine possible commands of which the most common are "GET", "PUT"
     and "POST". The client sends a GET command with a file
     specification and the server returns a header, and the data
@@ -168,6 +169,16 @@
     specified in the file associated with the command.
   </p>
   <p>
+    HTTP covers a well defined and relatively simple space. It says
+    how to send and retrieve documents over the Web. It simplicity,
+    coupled with the difficulty of retooling every Web server and
+    rewriting every Web browser has given it remarkable
+    stability. HTTP 1.0 was released in 1996, followed later that same
+    year by HTTP 1.1 containing some tweaks to the standard. Since
+    then, the only update has been a reorganization of the RFC into
+    five RFCs in 2007. We still use HTTP 1.1.
+  <h3>HTML</h3>
+  <p>
     HTML is the format of the files that the server returns to the
     browser. For the most part, it indicates what kind of information
     is contained in the link. For example, an "H1" tag specifies that
@@ -176,6 +187,34 @@
     contents as a hyperlink. When the user clicks on the content of
     the tag, the browser issues a GET command for the file specified
     in the href value.
+  </p>
+  <p>
+    HTML has a livlier history than does HTTP because it specifies the
+    format for documents, a less easily defined concept that fetching
+    information. Moreover, instead of being implemented by servers,
+    HTML is implemented by browsers, which are produced by a
+    collection of commercial and non-commercial companies. These
+    companies compete on the features they provide and, without
+    changes to HTML, it is difficult to provide novel features. The
+    desire to add new tags to HTML balances again the need to have
+    people use these new tags. Since people use many different
+    browsers, document that have tags supported by only one browser
+    will display incorrectly in all of the other browsers providing a
+    disincentive for authors to use these new tags. In the early days
+    of the Web, Microsoft Internet Explorer dominated the browser
+    market allowing Microsoft to define standard behavior. Now,
+    however, enough people use other browsers to give value to writing
+    according to the standard as defined by official standards.
+  </p>
+  <p>
+    As an unfortunate legacy of the time when it dominated the browser
+    market, Internet Explorer still supports the official standard
+    differently from all other browsers complicating the lives of Web
+    authors. When Web browsers request a document, they indicate what
+    kind of browser they are. Sometimes Web authors use this
+    information to display different information depending on the
+    browser requesting it. More commonly now, Web authors use
+    libraries that manage the differences between browsers.
   </p>
   <h3>References</h3>
   <ul class="references">

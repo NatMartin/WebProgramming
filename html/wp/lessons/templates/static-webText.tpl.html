@@ -91,8 +91,96 @@
     almost all of the text that the browser displays.
   </p>
   <p>
-    The body contains two types of elements: block and inline elements.
+    The body contains two types of elements: block and inline
+    elements. Block elements are areas on the page whereas inline
+    elements are sequences of text. For example, a paragraph is a block
+    element whereas an anchor is an inline element. Inline elements
+    must be inside block elements.
   </p>
+  <p>
+    The HTML below describes a complete web page. It first indicates
+    the type of HTML it is using (HTML5 in this case). The head has
+    only a title in it which will appear on the tab in the
+    browser. The body includes a level 1 header, "Example," then a
+    paragraph which includes a strongly emphasized word.
+    <div class="code">
+&lt!DOCTYPE html&gt
+&lthtml&gt
+  &lthead&gt
+    &lttitle&gtExample&lt/title&gt
+  &lt/head&gt
+  &ltbody&gt
+    &lth1&gtExample&lt/h1&gt
+    &ltp&gt
+      Hello, &ltstrong&gtWorld!&lt/strong&gt
+    &lt/p&gt
+  &lt/body&gt
+&lt/html&gt
+    </div>
+    It is a small web page, but shows the general outline.
+  </p>
+  <p>
+    HTML ignores the indentation and white space in the file, but the
+    indentation is important. It helps the author keep track of the
+    various parts of the document. Each block element should be on a
+    new line, indented to make clear where the block begins and
+    ends. Emacs will help you do this. When you hit the tab-key on a
+    new line, Emacs will indent the line in accordance with the HTML
+    that has come before. This indentation quickly shows you when you
+    have left out a tag. When then indentation does not match what you
+    expected, go back to figure out why your understanding of the file
+    and Emacs' differ.
+  </p>
+  <h3>DOM description of the Document</h3>
+  <p>
+    The Document Object Model (DOM) is the three of HTML element that
+    is specified by the HTML document. It is what is shown on the
+    browser. It allows one to refer to particular parts of the
+    document when using scripting languages. You can specify a name
+    for any element in the DOM by adding the attribute <code>id</code>
+    to any HTML tag. You can specify a name for a group of elements in
+    the DOM by using the attrigute <code>class</code>.
+  </p>
+  <p>
+    For example, the code below has ids and classes added to the tags.
+    <div class="code">
+&lt!DOCTYPE html&gt
+&lthtml&gt
+  &lthead id="docHead" &gt
+    &lttitle id="docTitle" class="headItem" &gt
+      Example
+    &lt/title&gt
+  &lt/head&gt
+  &ltbody id="docBody" &gt
+    &lth1 id="docHeader" class="bodyItem" &gt
+      Example
+    &lt/h1&gt
+    &ltp id="docPg" class="bodyItem" &gt
+      Hello, &ltstrong&gtWorld!&lt/strong&gt
+    &lt/p&gt
+  &lt/body&gt
+&lt/html&gt
+    </div>
+    The head is name "docHead", the body is name "docBody". All of the
+    tags in the head are added to the class "headItem" whereas all of
+    the items in the body are added to the class "bodyItem". Objects
+    may belong to more than one class (the classes are listed in the
+    quotation marks separated by spaces. (e.g. <code> class="headItem
+    bodyItem"</code>)
+  <h3>CSS for Document Sharing </h3>
+  <p>
+    CSS (Cascading Style Sheets) is a language for specifying the
+    appearance of HTML pages. It allows the separation of the content
+    of the document from appearance of the document, allowing the
+    author to concentrate on one thing at a time.
+  </p>
+  <p>
+    CSS allows one to specify the way a particular tag will look. For
+    example, you can change the way to different headers look or you
+    can specify that strong emphasis should be red text. CSS
+    directives are implemented in the browser like HTML, so the
+    browser still had leeway to implement them.
+  <p>
   <h3>References</h3>
   <ul class="references">
     <li class="ref">
@@ -105,16 +193,97 @@
 	HTML Tag Reference (W3 Schools)
       </a>
     <li class="ref">
-      <a href="">
-	
+      <a href="http://en.wikipedia.org/wiki/Cascading_Style_Sheets">
+	CSS (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://www.w3schools.com/cssref/default.asp">
+	CSS Reference (W3 Schools)
       </a>
     </li>
   </ul>
   <h2>Writing Documents for the Web</h2>
   <p>
-    The document should only indicate what the elements in the
-    document are; the browser know better how to display them.
+    HTML should only indicate what the elements in the document
+    are. That is, it should explain what the document elements are,
+    not how they should appear on the screen.
   </p>
+  <p>
+    For example, there are two tags <code>&ltstrong&gt</code>
+    and <code>&ltb&gt</code>. The first indicates that the author
+    wants strong emphasis of the enclosed text, the second says the
+    author wants the enclosed text to be bold. Usually, both commands
+    change the text's appearance in the same
+    way. However, <code>&ltstrong&gt</code> should always be preferred.
+  </p>
+  <p>
+    There are three reasons
+    for this:
+    <ul>
+      <li>
+	The browser knows what kind of device it is on: the size and
+	resolution of the screen, the colors it can display, etc. It
+	can make better decisions about how best to display the
+	document if it knows the authors intention. If it only knows
+	how the author wants it to be displayed it cannot make
+	intelligent choices.
+      </li>
+      <li>
+	If you format your documents using tags that tell what the
+	elements in the document are, you can change the appearance of
+	these items using CSS. For example, if you indicate strong
+	emphasis, you can make red the text with strong emphasis. It
+	makes less sense to change bold to red, and if you actually
+	need to have both bold and strong emphasis, you can change one
+	without changing the other.
+      </li>
+      <li>
+	You know what kind of document element you are writing, but
+	you cannot what it should look like until you see it. On the
+	Web, you only see the appearance of a document after you put
+	it on the web.
+      </li>
+    </ul>
+  </p>
+  <h3>&ltdiv&gt and &ltspan&gt</h3>
+  <p>
+    Two of the most useful commands in HTML, &ltdiv&gt and &ltspan&gt,
+    do nothing in themselves. Instead, they allow the user to specify
+    certain elements of the code so these elements can be modified
+    using CSS. In essence, these commands allow you to generate your
+    own elements. &ltdiv&gt is a block tag and &ltspan&gt and
+    inline tag.
+  </p>
+  <p>
+    When writing HTML, focus on the meaning of the text not the
+    appearance. Put the elements in appropriate tags. HTML will give
+    you the basic tools to break up your work. You can put in headings
+    and illustrations and captions, but some elements are specific to
+    your writing. These is where &ltdiv&gt and &ltspan&gt. You can use
+    these tags to call out particular elements in your writing. For
+    example, you may want to specify a particular topic. To do this,
+    enclose those elements with &ltdiv&gt tags and give it a class
+    name. The class name lets you call out a particular set of
+    elements in your text. Later you can changing the styling of these
+    elements without changing any of the other elements. If you want
+    to specify a particular sequence of works use the &ltspan&gt tags.
+  </p>
+  <p>
+    One writes web pages to communicate. Use the &ltdiv&gt and
+    &ltspan&gt tags to indicate what the section is trying to
+    communicate (E.g., a reference, a piece of code, a set of
+    instructions). You can later go back and add formatting to make
+    the intention clearer in the Web browser
+  </p>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="">
+	
+      </a>
+    </li>
+  </ul>
   <h2>The Limits of Writing Documents</h2>
   <p>
     Initially, Web documents were written by authors to share
@@ -124,15 +293,13 @@
   </p>
   <p>
     In addition, tools for accepting input a providing that input to
-    programs were developed.
+    programs were developed. Eventually, the Web took over most
+    client-server model applications. The browser is a container on
+    the client computer that can be programmed using HTML, CSS, and
+    JavaScript to write the client side more easily. Web server programs
+    provide containers on the server side to do the same thing using a
+    multitude of languages.
   </p>
-  <h3>References</h3>
-    <li class="ref">
-      <a href="">
-	
-      </a>
-    </li>
-  </ul>
   <h3>References</h3>
   <ul class="references">
     <li class="ref">

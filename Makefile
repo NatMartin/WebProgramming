@@ -1,4 +1,5 @@
 deploy: 
+	git pull
 	cp -r html/wp/* /var/www/html/wp
 
 push: commit

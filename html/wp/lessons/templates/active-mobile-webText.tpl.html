@@ -1,0 +1,248 @@
+<div class="wp-text-area">
+  <h1>Web 2.0 and Beyond</h1>
+  <p>
+    The term Web 2.0 became popular in the first decade of the
+    twenty-first century. It describes the changes that took place as
+    people realized that the Web could do more than serve Academic
+    papers. It does not describe any new technology. Rather, it
+    describes the use that people put to the client-server model
+    underlying the Web. Web 2.0 applications include social
+    networking, blocks, wikis, etc. They all rely on the ability
+    intrinsic in the web server to accept information from client.
+  </p>
+  <p>
+    The technology required to support Web 2.0 services are implicit
+    in the first specifications of HTML and HTTP. This technology
+    include forms with "GET", "PUT" and "POST" attributes. The forms allow
+    the user to enter information into the web page, the PUT and POST
+    attributes specify how this information is sent back to the Web
+    server. Even the original "GET" method can return information to
+    the server encoded in the URL.
+  </p>
+  <h3>Birth of JavaScript</h3>
+  <p>
+    The browser, Mosaic, changed the web from a site to share academic
+    papers to a popular personal publishing platform. It was the first
+    a widely available Web browser that showed text, video, audio and
+    graphics in the same window. It was developed at the National
+    Center for Super-computing Applications in Illinois, so it was
+    also free.
+  </p>
+  <p>
+    Marc Andreesen, one of the co-developers of the application
+    graduated the University of Illinois and started a company called
+    Netscape which produced Netscape Navigator. Initially, Netscape
+    was successful: soon after it's IPO in 1995, it was valued at $2.9
+    billion, the first of the hugely profitable Internet
+    companies. However, Internet Explorer was released in 1995, and
+    emerged victorious from the browser wars in 1998, largely because
+    Microsoft shipped it with Windows 97. In 1998, Netscape release
+    Mozilla, and open source version of their code, which gave rise to
+    Firefox.
+  </p>
+  <p>
+    The years of Netscape's dominance saw the birth of the dynamic
+    web. In particular, Netscape produce JavaScript, which was adopted
+    as the standard scripting language for the Web.
+  </p>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Web_2.0">
+	Web 2.0 (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Dynamic_HTML">
+	Dynamic HTML (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="">
+	
+      </a>
+    </li>
+  </ul>
+  <h1>Client, Server and Database</h1>
+  <p>
+    There are three elements to the Dynamic Web. The client is a
+    browser that supports HTML to provide the forms into which the
+    user enters data and JavaScript that manipulates the data before
+    it is sent back to the Web server.
+  </p>
+  <p>
+    The Web server is the second element in the Dynamic Web. It
+    accepts the information sent from the browser and decides what do
+    with it. Web servers may run man different languages, including
+    JavaScript. Generally, the Web server remembers
+  </p>
+  <p>
+    A database server provides the needed third element. The database
+    stores the data returned by the user so it persists over multiple
+    visits from the user. A DBMS (Database Management System) returns
+    the data in responce to queries from the Web Server. The Database
+    Server provides the communication link between the Web Server and
+    the Database Server.
+  </p>
+  <h2>Client: Forms, JavaScript and Ajax</h2>
+  <p>
+    The browser is the client. It interprets HTML, CSS and JavaScript
+    producing the information on the browser window. The early web
+    only display information, so it only needed to transform the
+    HTML into graphics that appear on the window. The Dynamic Web
+    provides scripting through JavaScript. Using JavaScript,
+    programmers can change the styling of the page, interact with
+    information entered by the user through forms, and send
+    information back to the server.
+  </p>
+  <h3>Forms</h3>
+  <p>
+    Forms allow HTML to specify input from the user. You can define
+    the type of input that you expect from the user (e.g. text,
+    checkbox, etc.). You can also specify a submit button and, when
+    the user hit the submit button an HTTP request is sent to the Web
+    Server.
+  </p>
+  <p>
+    <div class="code">
+&lt!DOCTYPE html&gt
+&lthtml&gt
+  &lthead id="docHead" &gt
+    &lttitle id="docTitle" class="headItem" &gt
+      Form
+    &lt/title&gt
+  &lt/head&gt
+  &ltbody id="docBody" &gt
+    &lth1 id="docHeader" class="bodyItem" &gt
+      Form
+    &lt/h1&gt
+    &ltp id="docPg" class="bodyItem" &gt
+      Hello, &ltstrong&gtWorld!&lt/strong&gt
+    &lt/p&gt
+  &lt/body&gt
+&lt/html&gt
+    </div>
+  </p>
+  <h3>Get, PUT and POST</h3>
+  <p>
+    
+  </p>
+  <h3>JavaScript</h3>
+  <h3>Features of JavaScript</h3>
+  <p>
+    Despite its name, JavaScript is nothing like Java (in fact,
+    officially its name is ECMAScript, but few people call it
+    that). Java is a strongly typed language that is compiled into
+    byte code to run as an application program. JavaScript is a weakly
+    typed language that is interpreted in the browser. Their syntax is
+    similar, but most computer languages since C have had similar
+    syntax.
+  </p>
+  <p>
+    JavaScript is different from other languages in the following
+    ways.
+    <ul>
+      <li>
+	Like many scripting languages, uses dynamic typing in which
+	the type of a variable is determined by its content. That is,
+	you can assign an integer to a variable then a couple of lines
+	later, assign a string to it. The "feature" can lead to mean
+	hard-to-find bugs.
+      </li>
+      <li>
+	It is also completely object based: everything is an
+	object. Both the string and the integer you assign to a
+	variable are objects.
+      </li>
+      <li>
+	Functions are first class objects in JavaScript. You can
+	assign a function to a variable and call the function based on
+	that variable. In fact, functions are also objects which
+	methods such as .call() defined on them.
+      </li>
+      <li>
+	Unlike most object-oriented languages, JavaScript is based on
+	prototypes rather than classes. Objects are defined by other
+	objects which server as a prototype rather than being defined
+	by a class. In JavaScript you can create a new object either
+	by defining it directly in the code or by defining it based on
+	a different object using <code>Object.create()</code>. For
+	example:
+	<div class="code">
+var foo = {one: 1, two: 2};
+var bar = Object.create(foo);
+bar.three = 3;
+bar.three == bar.one + bar.two;
+foo.three // is undefined
+	</div>
+	Here foo is an object defined directly in the code and bar is
+	defined from foo. The bar object is them modified by adding a
+	new attribute, <code>three</code>. The foo object does not
+	have the new attribute.
+      </li>
+  <h3>Ajax</h3>
+  <p>
+  </p>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Form_%28HTML%29">
+	HTML Forms (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/JavaScript">
+	JavaScript (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Prototype-based_programming">
+	Prototype-based Programming (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Ajax_%28programming%29">
+	Ajax (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="">
+	
+      </a>
+    </li>
+  </ul>
+  <h2>Web Server: </h2>
+  <p>
+  </p>
+  <h2>The Database</h2>
+  <p>
+  </p>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Common_Gateway_Interface">
+	Common Gateway Interface (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Netscape">
+	Netscape (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="">
+	
+      </a>
+    </li>
+    <li class="ref">
+      <a href="">
+	
+      </a>
+    </li>
+    <li class="ref">
+      <a href="">
+	
+      </a>
+    </li>
+  </ul>
+</div>

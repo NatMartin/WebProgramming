@@ -19,7 +19,7 @@
     server. Even the original "GET" method can return information to
     the server encoded in the URL.
   </p>
-  <h3>Birth of JavaScript</h3>
+  <h2>Birth of JavaScript</h2>
   <p>
     The browser, Mosaic, changed the web from a site to share academic
     papers to a popular personal publishing platform. It was the first
@@ -47,6 +47,11 @@
   </p>
   <h3>References</h3>
   <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Netscape">
+	Netscape (Wikipedia)
+      </a>
+    </li>
     <li class="ref">
       <a href="http://en.wikipedia.org/wiki/Web_2.0">
 	Web 2.0 (Wikipedia)
@@ -104,31 +109,39 @@
     Server.
   </p>
   <p>
-    <div class="code">
-&lt!DOCTYPE html&gt
-&lthtml&gt
-  &lthead id="docHead" &gt
-    &lttitle id="docTitle" class="headItem" &gt
-      Form
-    &lt/title&gt
-  &lt/head&gt
-  &ltbody id="docBody" &gt
-    &lth1 id="docHeader" class="bodyItem" &gt
-      Form
-    &lt/h1&gt
-    &ltp id="docPg" class="bodyItem" &gt
-      Hello, &ltstrong&gtWorld!&lt/strong&gt
-    &lt/p&gt
-  &lt/body&gt
-&lt/html&gt
-    </div>
   </p>
-  <h3>Get, PUT and POST</h3>
+  <h3>GET, PUT and POST</h3>
   <p>
-    
+    There are three ways to send information to the server: GET, PUT
+    and POST. The GET command encode the form information in the URL
+    is send. For example the command <input type="text" name="name"
+    value="Nat"> will send the URL
+    "http://www.example.com/url.html?name=Nat". That is, GET encodes
+    the
+    information collected by returning the page's URL followed by a
+    '?' followed by the data. Characters relevant to URLs are replaced
+    by a '%' followed by their ASCII values.
+  </p>
+  <p>
+    PUT and POST send information back as the body of the message. The
+    advantage of GET is the information is encoded in a way that is
+    easy to parse and manipulate, whereas PUT and POST require
+    encoding and decoding. However, GET can only send limited amounts
+    of information whereas PUT and POST have no such limits.
+  </p>
+  <p>
+    PUT and POST differ in the intention they express. The behavior is
+    implemented by the server, but PUT is meant to be used to upload a
+    new web page. The content of the request is placed in the URL
+    specified. If there is information in that place, the PUT is taken
+    to be an update and the old information is replaced with the new.
+  </p>
+  <p>
+    POST, unlike PUT, is taken to be information that is to be used to
+    update a site. The idea is that POST is information that is posted
+    to a site as comments; PUT is an update of the site.
   </p>
   <h3>JavaScript</h3>
-  <h3>Features of JavaScript</h3>
   <p>
     Despite its name, JavaScript is nothing like Java (in fact,
     officially its name is ECMAScript, but few people call it
@@ -138,6 +151,7 @@
     similar, but most computer languages since C have had similar
     syntax.
   </p>
+  <h3>Features of JavaScript</h3>
   <p>
     JavaScript is different from other languages in the following
     ways.
@@ -180,8 +194,20 @@ foo.three // is undefined
 	new attribute, <code>three</code>. The foo object does not
 	have the new attribute.
       </li>
+  </p>
   <h3>Ajax</h3>
   <p>
+    By default, Web works synchronously: when a command is sent, the
+    Web Browser waits until it receives a response before
+    continuing. AJAX (Asynchronous JavaScript And XML) is a system
+    that allows browsers to send requests and continue
+    processing. Despite the name, JSON data structures are usually
+    sent using Ajax because JSON is easier to parse in JavaScript.
+  </p>
+  <p>
+    Ajax was developed over the end of the 1990's and early 2000's. It
+    was announced in 2005 and standardized by the World Wide Web
+    Consortium in 2006. It is now supported in all major browsers.
   </p>
   <h3>References</h3>
   <ul class="references">
@@ -211,11 +237,44 @@ foo.three // is undefined
       </a>
     </li>
   </ul>
-  <h2>Web Server: </h2>
+  <h2>Web Server</h2>
   <p>
+    The Web Server simply provides web pages when it receives a GET
+    command. It does not change anything on the server, so this
+    command is called "safe". It does change the content when it
+    receives a PUT or a POST command, so these commands are called
+    "unsafe". It must take care that the web site is not damaged when
+    it processes a PUT or a POST command.
   </p>
-  <h2>The Database</h2>
   <p>
+    When information is sent back to the web server, it needs to be
+    processed. The server uses many different technologies to process
+    the information because HTML and HTTP provide a clean interface
+    against for its output. 
+  </p>
+  <p>
+    In the early days, information was processed using a Common
+    Gateway Interface. This interface specified certain directories as
+    containing script that were used to process information sent back
+    by web pages. The scripts in this directory were run when
+    requested and web page that the script produced was returned.
+  </p>
+  <p>
+    By the late 1990's, Netscape has lost the browser wars to
+    Microsoft. Microsoft's solution to CGI problems was Active Server
+    Pages (ASP). Active server pages allowed programmers to create
+    HTML pages in a programming environment. Sun responded with Java
+    Servlets and Java Server Pages (JSP).
+  <p>
+    There are now several different server programming
+    systems. Apache, the most common, provides support for JSPs. Ruby
+    on Rails supports the programming language Ruby. Django supports
+    the programming language Python.
+  </p>
+  <p>
+    In this class we are using Node JS, a system that supports
+    JavaScript. Node JS allows the programmer to use the same language
+    on the server that he or she does on the client.
   </p>
   <h3>References</h3>
   <ul class="references">
@@ -225,23 +284,117 @@ foo.three // is undefined
       </a>
     </li>
     <li class="ref">
-      <a href="http://en.wikipedia.org/wiki/Netscape">
-	Netscape (Wikipedia)
+      <a href="http://en.wikipedia.org/wiki/Active_Server_Pages">
+	Active Server Pages (Wikipedia)
       </a>
     </li>
     <li class="ref">
-      <a href="">
-	
+      <a href="http://en.wikipedia.org/wiki/Java_Servlet">
+	Java Servlet (Wikipedia)
       </a>
     </li>
     <li class="ref">
-      <a href="">
-	
+      <a href="http://en.wikipedia.org/wiki/JavaServer_Pages">
+	Java Server Pages (Wikipedia)
       </a>
     </li>
     <li class="ref">
-      <a href="">
-	
+      <a href="http://en.wikipedia.org/wiki/Active_Server_Pages">
+	Active Server Pages (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Ruby_on_Rails">
+	Ruby on Rails (Wikipedia)
+      </a>
+    </li> 
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Django_%28web_framework%29">
+	Django (Wikipedia)
+      </a>
+    </li>
+  </ul>
+  <h2>The Database</h2>
+  <p>
+    The database provide a critical element in any computer
+    application. Computers comprise a memory, a processor and a user
+    interface. At a higher level of abstraction, the database supplies
+    the memory for the application.
+  </p>
+  <h3>SQL: Structured Query Language</h3>
+  <p>
+    SQL is the most common language used by DBMS's (Database
+    Management Systems). It was invented in the 1970s as a way to
+    store data in such a way that it could be retrieved without
+    specific assumptions about how the data would be used. It is a
+    relational data language, which means that is it constructed from
+    a set of tables. The tables are called relations and they
+    represent types of objects. Each row in the table represents an
+    object of that type. By focusing on representing types of things
+    and individual things, relational databases try by be agnostic
+    about the way the data is represented.
+  </p>
+  <h3>NoSQL: Not Only SQL</h3>
+  <p>
+    Object oriented databases were developed in the 1980's to support
+    object-oriented programming. These database represented types as
+    classes and individuals as objects.
+  </p>
+  <p>
+    NoSQL databases were designed to support the web. Document
+    oriented database return data that can be used to construct
+    documents that may be returned as HTML. By moving away from the
+    ideal of representing each individual object as its own thing,
+    these database management systems respond faster.
+  </p>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Database">
+	Database (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/SQL">
+	SQL (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/NoSQL">
+	NoSQL (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/MongoDB">
+	MongoDB
+      </a>
+    </li>
+  </ul>
+  <h1>Mobile Web</h1>
+  <p>
+    With the smart phone, computers have again changed their
+    form. They are now integrated into real world activities. Because
+    they are small enough to be used in normal activities, they tend
+    to be limited in the amout of information they can present. They
+    also tend to have limited access to the web because cellular
+    connections are often expensive and slow.
+  </p>
+  <p>
+    Currently, these limitations are ameliorated through JavaScript
+    and CSS Libraries. Bootstrap is a front end framework that makes
+    it easier to develop web pages that will work on both
+    laptop/desktop computers and on smart phones.
+  </p>
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Mobile_Web">
+	Mobile Web (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Bootstrap_%28front-end_framework%29">
+	Bootstrap (Wikipedia)
       </a>
     </li>
   </ul>

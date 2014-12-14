@@ -6,7 +6,7 @@ http.createServer(function (req, res) {
     console.log(req.method + ": " + req.url);
     var urlObj = url.parse(req.url, true, false);
     if (req.method == 'GET') {
-	console.log('Handeling Get request');
+	console.log('Handeling GET request');
 	if (urlObj.search == '') {
 	    fs.readFile(ROOT_DIR + urlObj.pathname, function (err, data) {
 		if (err) {
@@ -28,4 +28,5 @@ http.createServer(function (req, res) {
 	colsole.log('Handeling POST request');
     }
 }).listen(3030);
+
 

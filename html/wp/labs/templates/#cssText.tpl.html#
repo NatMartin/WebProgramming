@@ -1,0 +1,31 @@
+<div class="wp-text-area">
+<p>
+  Cascading Style Sheets provide formatting for web pages. HTML
+  describes the structure of the document so the web browser can
+  display it, but it relies on the web browser to make reasonable
+  choices. Since the HTML can represent anything, it needs to be
+  display in a very generic fashion. CSS lets the programmer instruct
+  the web browser about how the text should work.
+</p>
+<p>
+  Most of this lesson will be done at
+  <a href="http://www.w3schools.com">
+    W3 Schools.
+  </a>
+  W3 Schools is a web site run by a family from Norway which earns
+  money by placing advertizements on the site. By having you run
+  through their tutorial, rather than writing one of my own, I can
+  make sure that the tutorial stays up to date. It is an element of
+  DRY (Don't Repeat Yourself). The language is standard and their
+  tutorials are the most popular on the web. By using theirs, you
+  learn from a resource that is likely to be available and updated
+  when you need a refresher or when the language changes.
+</p>
+<ol class="activity">
+  <li class="do">
+    Work throug the lab at:
+    <a href="http://www.w3schools.com/html/default.asp">
+      W3 Schools.
+    </a>
+  </li>
+</ol>

@@ -1,0 +1,28 @@
+<div class="wp-text-area">
+  <h1>JavaScript and HTML Forms</h1>
+  <p>
+  </p>
+  <h2>JavaScript execution</h2>
+  <p>
+    JavaScript is a programming language: to execute, it needs to be
+    translated into machine code that the computer can
+    understand. This translation can occur anywhere, but JavaScripts
+    has spread because the first widely accepted browsers, Netscape
+    and Internet Explorer, accepted it as their scripting
+    language. Web designers could make much better web pages when they
+    used JavaScript, so they accepted it as the default script
+  </p>
+  <p>
+  </p>
+  <p>
+  </p>
+  <p>
+  </p>
+  <ul class="references">
+    <li class="ref">
+      <a href="">
+	
+      </a>
+    </li>
+  </ul>
+</div>

@@ -4,7 +4,7 @@ wp.controller("mainCtrl", function($scope) {
     $scope.title="Web Programming";
 });
 
-/* Labs */
+/* Lessons */
 
 wp.controller("lessonCtrl", function($scope) {
     $scope.title="Lessons"
@@ -58,7 +58,7 @@ wp.controller("agilefantCtrl", function($scope) {
     $scope.title="Scrum"
 });
 
-/* Lessons */
+/* Labs */
 
 wp.controller("labCtrl", function($scope) {
     $scope.title="Labs"

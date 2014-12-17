@@ -1,34 +1,16 @@
-.wp {
-    color: #333333;
-}
-
-.wp-navbar {
-//    background-color: #cc0000;
-//    color: #FFFFFF; //#669999;
-}
-
-.wp-navbar-brand {
-    color: #669999;
-}
-
-.wp-navbar > a:link {
-
-}
-
 .wp-text-area {
     border: solid 3px #333333;
     border-radius: 4px;
     background-color: #EEEEEE;
+    padding: 10px;
     max-width: 35em;
 }
 
-.wp-jumbotron {
+.wp-project {
     border: solid 3px #333333;
- }
-
-.content {
-    padding: 25px;
-    background-color: #FFFFCC;
+    border-radius: 4px;
+    background-color: #EEEEEE;
+    padding: 10px;
 }
 
 .references {
@@ -122,3 +104,27 @@ code {
     background-color: red;
     font-size: medium;
 }
+
+// Bootstrap customizations
+
+.wp {
+    color: #333333;
+}
+
+.wp-navbar {
+//    background-color: #cc0000;
+//    color: #FFFFFF; //#669999;
+}
+
+.wp-navbar-brand {
+    color: #669999;
+}
+
+.wp-navbar > a:link {
+
+}
+
+.wp-jumbotron {
+    border: solid 3px #333333;
+ }
+

@@ -35,7 +35,7 @@ wp.controller("bootstrapCtrl", function($scope) {
 });
 
 wp.controller("js1Ctrl", function($scope) {
-    $scope.title="Functional JavaScript"
+    $scope.title="JavaScript 1"
 });
 
 wp.controller("js2Ctrl", function($scope) {

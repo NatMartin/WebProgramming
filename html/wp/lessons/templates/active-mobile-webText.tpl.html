@@ -151,50 +151,6 @@
     similar, but most computer languages since C have had similar
     syntax.
   </p>
-  <h3>Features of JavaScript</h3>
-  <p>
-    JavaScript is different from other languages in the following
-    ways.
-    <ul>
-      <li>
-	Like many scripting languages, uses dynamic typing in which
-	the type of a variable is determined by its content. That is,
-	you can assign an integer to a variable then a couple of lines
-	later, assign a string to it. The "feature" can lead to mean
-	hard-to-find bugs.
-      </li>
-      <li>
-	It is also completely object based: everything is an
-	object. Both the string and the integer you assign to a
-	variable are objects.
-      </li>
-      <li>
-	Functions are first class objects in JavaScript. You can
-	assign a function to a variable and call the function based on
-	that variable. In fact, functions are also objects which
-	methods such as .call() defined on them.
-      </li>
-      <li>
-	Unlike most object-oriented languages, JavaScript is based on
-	prototypes rather than classes. Objects are defined by other
-	objects which server as a prototype rather than being defined
-	by a class. In JavaScript you can create a new object either
-	by defining it directly in the code or by defining it based on
-	a different object using <code>Object.create()</code>. For
-	example:
-	<div class="code">
-var foo = {one: 1, two: 2};
-var bar = Object.create(foo);
-bar.three = 3;
-bar.three == bar.one + bar.two;
-foo.three // is undefined
-	</div>
-	Here foo is an object defined directly in the code and bar is
-	defined from foo. The bar object is them modified by adding a
-	new attribute, <code>three</code>. The foo object does not
-	have the new attribute.
-      </li>
-  </p>
   <h3>Ajax</h3>
   <p>
     By default, Web works synchronously: when a command is sent, the
@@ -219,11 +175,6 @@ foo.three // is undefined
     <li class="ref">
       <a href="http://en.wikipedia.org/wiki/JavaScript">
 	JavaScript (Wikipedia)
-      </a>
-    </li>
-    <li class="ref">
-      <a href="http://en.wikipedia.org/wiki/Prototype-based_programming">
-	Prototype-based Programming (Wikipedia)
       </a>
     </li>
     <li class="ref">

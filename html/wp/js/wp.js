@@ -39,7 +39,7 @@ wp.controller("js1Ctrl", function($scope) {
 });
 
 wp.controller("js2Ctrl", function($scope) {
-    $scope.title="Object Oriented JavaScript"
+    $scope.title="JavaScript 2"
 });
 
 wp.controller("testingCtrl", function($scope) {

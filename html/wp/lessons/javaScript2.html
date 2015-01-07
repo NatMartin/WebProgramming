@@ -9,7 +9,7 @@
   </head>
 
   <!-- Lessons -->
-  <body ng-controller="xtemplateCtrl">
+  <body ng-controller="js2Ctrl">
 
     <!-- Lessons Navigation Bar -->
     <div ng-include="'templates/navigation.tpl.html'"></div>
@@ -20,32 +20,15 @@
     <!-- Lessons Body -->
     <div class="container">
       <div class="row">
-
+	
 	<!-- Lessons Table of Content -->
 	<div class="col-md-5">
 	  <div ng-include="'templates/toc.tpl.html'"></div>
 	</div>
-
+	
 	<!-- Lesson: Introduction -->
-	<div class="col-md-7 wp-text-area">
-	  <h1>Title</h1>
-	  <p>
-	  </p>
-	  <p>
-	  </p>
-	  <p>
-	  </p>
-	  <p>
-	  </p>
-	  <p>
-	  </p>
-	  <ul class="references">
-	    <li class="ref">
-	      <a href="">
-		
-	      </a>
-	    </li>
-	  </ul>
+	<div class="col-md-7">
+	  <div ng-include="'templates/js2Text.tpl.html'"></div>
 	</div>
       </div>
     </div>

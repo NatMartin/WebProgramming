@@ -1,6 +1,200 @@
 <div class="wp-text-area">
-  <h1></h1>
+  <h1>JavaScript Peculiarities</h1>
   <p>
+    JavaScripts birth as a scripting language has given JavaScript some
+    peculiar attributes. Shell scripting languages let people automate
+    simple operating system tasks such as setting up users and
+    groups. These programs tend to be temporary and short, so they
+    call for a language that gets the job done, but doesn't impose a
+    lot of structure. Since the were temporary and short, there was no
+    need to write them in such a way that others could extend and fix
+    them. These languages tend to have loose typing and forgiving syntax.  
+  </p>
+  <p>
+    JavaScript is designed in this way. Every element in JavaScript is
+    an object and all variables are references to objects. This means
+    that there is only one type of variable in JavaScript, which can
+    refer to any type of object. Even more surprising, these objects
+    can be changed at run time: members can be added, deleted or
+    changed. What's more, functions are also objects, which can be
+    assigned to variables and changed at run time. This freedom of
+    expression allows for very obscure JavaScript programs, which if
+    they are short and temporary is less of a problem. However,
+    JavaScript, because it has become ubiquitous on the web, has
+    become ubiquitous everywhere. As the dynamic and mobile webs
+    devloped, people began writing ever more complicated JavaScript
+    programms until they were no longer short and
+    temporary. Writing in JavaScript requires great discipline.
+  <h2>Features of JavaScript</h2>
+  <p>
+    JavaScript is different from other languages in the following
+    ways.
+    <ul>
+      <li>
+	Like many scripting languages, uses dynamic typing in which
+	the type of a variable is determined by its content. That is,
+	you can assign an integer to a variable then a couple of lines
+	later, assign a string to it. The "feature" can lead to mean
+	hard-to-find bugs.
+      </li>
+      <li>
+	It is also completely object based: everything is an
+	object. Both the string and the integer you assign to a
+	variable are objects.
+      </li>
+      <li>
+	Functions are first class objects in JavaScript. You can
+	assign a function to a variable and call the function based on
+	that variable. In fact, functions are also objects which
+	methods such as .call() defined on them.
+      </li>
+      <li>
+	Unlike most object-oriented languages, JavaScript is based on
+	prototypes rather than classes. Objects are defined by other
+	objects which server as a prototype rather than being defined
+	by a class. In JavaScript you can create a new object either
+	by defining it directly in the code or by defining it based on
+	a different object using <code>Object.create()</code>. For
+	example:
+	<div class="code">
+var foo = {one: 1, two: 2};
+var bar = Object.create(foo);
+bar.three = 3;
+bar.three == bar.one + bar.two;
+foo.three // is undefined
+	</div>
+	Here foo is an object defined directly in the code and bar is
+	defined from foo. The bar object is them modified by adding a
+	new attribute, <code>three</code>. The foo object does not
+	have the new attribute.
+      </li>
+  </p>
+  <h2>Writing in JavaScript</h2>
+  <p>
+    The discipline required to write good JavaScript is no different
+    from the discipline required to write any other language: the
+    discipline is diligent attention to the thought processes of your
+    reader. Your reader is not the computer, the computer only
+    understands machine code, so it never sees the object code; your
+    reader is the human being who has to fix the program.
+  </p>
+  <p>
+    Remember,
+    <ol>
+      <li>
+	Software only breaks when it is fixed.
+      </li>
+      <li>
+	Only useless software isn't broken.
+      </li>
+    </ol>
+    Software is a description of behavior, so it cannot break the way
+    physical objects break: the behavior it describes remains the
+    behavior it describes. Problems arise only when the behavior it
+    describes is not the behavior people want. But people are fickle:
+    they want one thing one day something else the next. What's more,
+    they are better that they don't want what you have than they are
+    at knowing they do want want you propose. It would be easier to
+    write software if people were not involved in using it, but, if no
+    one uses the software, it is useless.
+  </p>
+  <p>
+    So, when you write software, your audience is the readers who will
+    need to change the behavior of the program to fit the needs of
+    people who have never seen it before. Your first audience will be
+    yourself. If you write clear logical code, you will write faster
+    because you will spend less time figuring out what each snippet of
+    code does before moving on to the next snippet.
+  </p>
+  <p>
+    This is the easiest audience. If you pay attention, you can tell
+    when awkward code is slowing your progess. If you find yourself
+    going back a reading function to figure out what they do, you have
+    written awkward code. The names of the pieces of your code should
+    tell you everything you need to know about that piece of code.
+  </p>
+  <p>
+    Your second audience will be the other programmers you are working
+    with. Fortunately, you can read their minds. If you talk to them,
+    they will talk to you, displaying what is on their minds. If you
+    find that they need to ask you what a piece of code does, you have
+    written awkward code. Ask them what they do
+    not understand and you can improve your code.
+  </p>
+  <p>
+    Your third audience is the most difficult. These are the
+    programmers who come long after you have moved on to other
+    projects, but who need to fix your code. That they need to fix
+    your code is a tribute to its usefulness: it has lived long enough
+    for people to realize that they would like it to do something a
+    little different. However, these people cannot ask you questions
+    and you cannot fix the code to help them understand it. To support
+    these people, you will need to rely on your first two audiences,
+    principles of programming that have been developed over the years,
+    and conventions that all programmers follow.
+  </p>
+  <p>
+    A well written piece of code is a pleasure to read. It tells you
+    what you need to know before you know you need to know it. It
+    feels as that the clarity of the code only deepens as you read
+    it. Such code comes from the minds of truely gifted
+    programmers, just as the best writing comes from the mind of
+    gifted writers. Indeed in natural language is very like coding. As
+    Mark Twain said, "The pain of reading is inversly propotional to
+    the pair of writing."
+  </p>
+  <h2>Learn to write by reading</h2>
+  <p>
+    As with writing in a natural language, one learns to code by
+    reading other people's code. Through reading, you learn the basic
+    principles of well structured code. As you work through the lab
+    lesson, pay attention to the code. It is simple but it shows you
+    what professional programmers expect from code. At the same time,
+    try to think of how the code could be improved.
+  </p>
+  <p>
+    For example, the function the the first example in the tutorial
+    is:
+  </p>
+</div>
+    <div class="code">
+function changeImage() {
+    var image = document.getElementById('myImage');
+    if (image.src.match("bulbon")) {
+        image.src = "pic_bulboff.gif";
+    } else {
+        image.src = "pic_bulbon.gif";
+    }
+}
+    </div>
+<div class="wp-text-area">
+  <p>
+    No one would think that this is bad code. It is indented properly
+    and follows all of the conventions of good JavaScript code. The
+    opening braces for the blocks are on the line where the block
+    starts, and the closing brace matched to object associated with
+    the block.
+  </p>
+  <h3>Use descriptive names</h3>
+  <p>
+    Still, the code could be improved, as can all code. When improving
+    code, look first to the names you use. Names are the most
+    important element of clean code. Does the name of the function say
+    exacly what the function does? Do the names of the variable tell
+    exactly what the variable is supposed to hold. 
+  <p>
+    For example, the name of the function promices more than the
+    function delivers. It does change an image, but it has a much more
+    specific task. A better name would be "turnBulbOn". In subsequent
+    example, the function is called myFunction, which is a terrible
+    name. It is long, but tells nothing about what the function does.
+  </p>
+  <p>
+    As another example, the name image, could be more accurate. It is
+    not really and image, rather, it is a document element that
+    displays an image of a light bulb. A better name would be
+    "bulbImg" which indicates that it is an img element and that it is
+    supposed to be displaying a bulb.
   </p>
   <p>
   </p>
@@ -10,7 +204,20 @@
   </p>
   <p>
   </p>
+  <p>
+  </p>
+  <h3>References</h3>
   <ul class="references">
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/JavaScript">
+	JavaScript (Wikipedia)
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://en.wikipedia.org/wiki/Prototype-based_programming">
+	Prototype-based Programming (Wikipedia)
+      </a>
+    </li>
     <li class="ref">
       <a href="">
 	

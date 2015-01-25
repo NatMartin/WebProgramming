@@ -1,0 +1,253 @@
+<div class="wp-text-area">
+  <h2> Getting Ready </h2>
+  <p>
+    In this class, we will be using Unix-like operating
+    systems because:
+    <ul>
+      <li>
+	Probably most servers are hosted on Unix-like operating systems,
+	it is hard to say for sure.
+      </li>
+      <li>
+	Windows version of server programming hides a lot of the details
+	of how the server works; it is easier to understand how the
+	client and server work together on Unix-like systems.
+      </li>
+    </ul>
+  </p>
+  <p>
+    If you have a Macintosh, you are in luck, OS X is a Unix-like
+    system. You will have to learn to user the terminal program, but you
+    do not need to install a new OS. If you have a Windows system, you
+    will need to install Linux. Fortunately, this is not particularly
+    hard, and it only needs to be done once.
+  </p>
+
+  <h3> On the Macintosh </h3>
+  <p>
+    Getting ready to user a Unix-like system on the Mac is
+    easy. All you need to do is find the Terminal program and
+    pin it to your command bar.
+  </p>
+</div>
+<ol class="activity">
+  <li class="do">open your Applications folder</li>
+  <li class="do">
+    open the Utilities folder in the Applications folder
+  </li>
+  <li class="do">double click on the Terminal program</li>
+  <li class="see">A terminal program will open</li>
+</ol>
+
+<div class="wp-text-area">
+  <h3> On the PC </h3>
+  <p>
+    On the PC, things are more difficult. First, you are going to have
+    to install Linux on your computer. After that, the computer will ask
+    you which operating system you want to use when you log in. If you
+    choose Linux, you will get a Linux GUI. You can then start a
+    terminal window from the GUI. The following tutorial will guide you
+    through downloading and installing Ubuntu Linux on your
+    computer. There are many different versions of Linux; currently
+    Ubuntu is the easiest to install and use.
+  </p>
+  <h4> Install Linux </h4>
+  <p>
+    Linux comprises many distributions. A distribution is a copy of the
+    core of the operating system--the Linux Kernel--and the programs
+    that run on top of it--almost always the GNU stack. In Linux, and
+    almost all modern operating system, consist of a small core program
+    that does the work that needs to be done without interference from
+    other program such a switching from one program to another when
+    multitasking. On top of the kernal, other programs do most of the
+    work that we interact with. For example, the file system is a
+    program that runs on top of the kernal. Distributions provide ways
+    to install the operating system and support for it such as user
+    groups. They usually fund themselves through consulting about the
+    operating system.
+  </p>
+  <p>
+    Currently, as of 2014, Ubuntu is probably the easiest to
+    install. That being said, it is not particularly easy because there
+    are a many different software systems that have different
+    requirements. If you have a older windows operating system (pre
+    Windows 8) you are in luck; it is relatively easy to install. I
+    bought a Windows 8.1 Dell computer to run through this tutorial, and
+    it is difficult to install Linux. (But, for me, well worth it,
+    because I find Windows 8 one of my most frustrating experiences in
+    life.)
+  </p>
+  <p>
+    Ubuntu has information about how to install on recent PC at the page
+    on <a href="https://help.ubuntu.com/community/UEFI">UEFI</a>. This
+    is probably the most reliable place to find information about how to
+    install ubunto on your computer. It is maintained my the Ubuntu
+    community.
+  </p>
+  <p>
+    Step by step instructions for Windows 8 are available here. I
+    recommend going through them, because it is tricky. In fact, I
+    recommend going through these web sites rather than the instructions
+    here because, the give you better pictures.
+  </p>
+  <h3>References</h3>
+  <ul class="references">
+    <li>
+      <a href="http://www.everydaylinuxuser.com/2014/05/install-ubuntu-1404-alongside-windows.html">
+	Windows 8.1
+      </a>
+    </li>
+    <li>
+      <a href="http://www.everydaylinuxuser.com/2013/09/install-ubuntu-linux-alongside-windows.html">
+	Windows 8
+      </a>
+    </li>
+  </ul>
+</div>
+<h4>Get Ubuntu Linux</h4>
+
+<ol class="activity">
+  <li> Go to <a href="www.ubuntu.com">www.ubuntu.com</a>.  </li>
+  <li> Click on "Download Ubuntu." </li>
+  <li> Click on "Ubuntu Desktop"  </li>
+  <li> Choose the flavor from the drop down. You can find out what
+    type of computer you have by going to the Control Panel &gt System
+    and Security &gt System, or click on My PC (or this PC) and select
+    properties. It will tell you if you have a 64 bit computer. In
+    general it will be:
+  </li>
+  <ul>
+    <li>64-bit if you have a relatively new computer.  </li>
+    <li>32-bit computer if you have an old one.  </li>
+    <li>
+      64-bit Mac (AMD64) if you have a new Apple Computer, but if you
+      have a new Apple Computer running OS X you already have unix
+      running, so you don't need it.
+    </li>
+  </ul>
+  <li>Click on Download</li>
+</ol>
+
+<h4>Back up your computer </h4> 
+<p>
+  To back up your computer you will need at least an 8 GB pen drive
+  and probably a 16 GB pen drive. You can also back up to an external
+  hard drive.
+</p>
+
+<h5>On Windows 8.1</h5>
+
+<ol class="activity">
+  <li> 
+    On the Charms Bar select search. (You get to the Charms Bar by
+    moving the mouse to the upper left or right hand window corner or
+    clicking Windows-C.
+  </li>
+  <li>Search for File History</li>
+  <li> a Window will open shoing File History</li>
+  <li>
+    Turn on File History by clicking the Turn On button on the lower
+    right hand side.
+  </li>
+  <li>
+    It is probably a good idea to back up your operating system too.
+  </li>
+</ol>
+
+<div class="wp-text-area">
+  <h5> Create a bootable memory stick </h5>
+  <p>
+    Before you start, make sure that there is nothing you need on the
+    pen drive you are going to use. Everything on the pen drive will
+    be erased.
+  </p>
+</div>
+
+<ol class="activity">
+  <li>Go to
+    <a href="http://www.pendrivelinux.com/universal-usb-installer-easy-as-1-2-3/">
+      www.pendrivelinux.com
+    </a> and download the UUI.
+  </li>
+  <li>When the .exe file loads, run it. </li>
+  <li>Click I agree on the license agreement</li>
+  <li>Choose Ubuntu as your operating system.</li>
+  <li>Choose the file that contain the Ubuntu Operating System</li>
+  <li>Select your USB drive and click Create</li>
+  <li>A summary screen appears, cleck Yes.</li>
+</ol>
+
+<h5> Partition your Hard Drive to give Linux space </h5>
+
+<ol class="activity">
+  <li>
+    Find the Charms Bar and Search for Partitions. Choose Create and
+    format partitions when it appears.
+  </li>
+  <li>
+    When the Disk Management screen appears, right click on the OS
+    (C:) line and select Shrink volume
+  </li>
+  <li>
+    It will scan the disk and give you a box that will tell you the
+    amount of space on the disk, the amount by which you can shrink it
+    and the size after the shrink. Choose a number less than or equal
+    to the space to shrink in MB. I chose to shrink by the maximum
+    amount.
+  </li>
+  <li>
+    A lot of unallocation space will appear. Ubuntu will be installed
+    there.
+  </li>
+</ol>
+
+<div class="wp-text-area">
+  <h5>Turn off Fast Boot </h5>
+  <p>
+    Never mind. This doesn't seem to do any good.
+  </p>
+</div>
+
+<ol class="activity">
+  <li> Go to the Charm Bar and type Control Panel </li>
+  <li> Choose Power Options </li>
+  <li> Select "Choose what the power button does" </li>
+  <li> Click on "Change Settings on this Page" </li>
+  <li> Scroll down to :Shutdown Setting: and uncheck "Turn on fast
+    startup (Recommended)"
+  </li>
+</ol>
+
+<div class="wp-text-area">
+  <h5> Install the Operating System </h5>
+  <p>
+    You will need to know how much memory you have in your computer.
+  </p>
+</div>
+<ol class="activity">
+  <li> Choose a swap area of 50000 MB for the operating system, A
+    Logical partition whose location is "Beginning or this space",
+    Used as "Ext4 journaling file system", Mount point "/".
+  </li>
+  <li>
+    Choose a swap area of whatever is left minux twice the size of
+    your memory for the operating system, A Logical partition whose
+    location is "Beginning or this space", Used as "Ext4 journaling
+    file system", Mount point "/home".
+  </li>
+  <li>
+    Choose a swap aread of twice your memory area for swap space, A
+    Logical partition whose location is "Beginning or this space",
+    Used as "swap space", mount point will be grayed out.
+  </li>
+  <li> press "Install Now"</li>
+  <li>Choose your time zone and keyboard layout.</li>
+  <li>
+    Enter your name, a name for your computer, a user name, and a
+    password. (You will probably also want to require login.)
+  </li>
+  <li>
+    Ubuntu should load. With luck, you will be able to log into it
+    when you restart.
+  </li>
+</ol>

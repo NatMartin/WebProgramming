@@ -69,6 +69,19 @@ foo.three // is undefined
 	have the new attribute.
       </li>
   </p>
+  <p> 
+    Each of these features makes JavaScript programs different from
+    other languages.
+  </p>
+  <h3>Dynamic Typing</h3>
+  <p>
+    Most modern languages provides strong typing. That is, each
+    variable must be designated as containing only a certain type of
+    object: a variable may contain an integer or a character, but a
+    variable that may contain an integer may not contain a character
+    and vice versa. Typing is imposed by the compiler: both integers
+    and characters are sequences of binary digits, so whether they are
+    integers or characters depends only how the program uses them. 
   <h2>Writing in JavaScript</h2>
   <p>
     The discipline required to write good JavaScript is no different
@@ -100,18 +113,34 @@ foo.three // is undefined
   </p>
   <p>
     So, when you write software, your audience is the readers who will
-    need to change the behavior of the program to fit the needs of
-    people who have never seen it before. Your first audience will be
-    yourself. If you write clear logical code, you will write faster
-    because you will spend less time figuring out what each snippet of
-    code does before moving on to the next snippet.
+    need to change the behavior of the program. They will be changing
+    the code to fit the needs of people from the future. There are
+    three such audiences:
+    <ol>
+      <li>
+	Your future self: you will not remember the details of the
+	code you write today.
+      </li>
+      <li>
+	Your collegues: you will need help to get your code finished.
+      </li>
+      <li>
+	Strangers: When you have moved on to something else, if you
+	have written a good program, other people will need to update
+	it.
+      </li>
+    </ol>
   </p>
   <p>
-    This is the easiest audience. If you pay attention, you can tell
-    when awkward code is slowing your progess. If you find yourself
-    going back a reading function to figure out what they do, you have
-    written awkward code. The names of the pieces of your code should
-    tell you everything you need to know about that piece of code.
+    Your first audience will be yourself. If you write clear logical
+    code, you will write faster because you will spend less time
+    figuring out what each snippet of code does before moving on to
+    the next snippet.  This is the easiest audience. If you pay
+    attention, you can tell when awkward code is slowing your
+    progess. If you find yourself going back a reading function to
+    figure out what they do, you have written awkward code. The names
+    of the pieces of your code should tell you everything you need to
+    know about that piece of code.
   </p>
   <p>
     Your second audience will be the other programmers you are working
@@ -145,7 +174,7 @@ foo.three // is undefined
   </p>
   <h2>Learn to write by reading</h2>
   <p>
-    As with writing in a natural language, one learns to code by
+    As with writing in a natural language, one learns to write code by
     reading other people's code. Through reading, you learn the basic
     principles of well structured code. As you work through the lab
     lesson, pay attention to the code. It is simple but it shows you
@@ -181,26 +210,69 @@ function changeImage() {
     code, look first to the names you use. Names are the most
     important element of clean code. Does the name of the function say
     exacly what the function does? Do the names of the variable tell
-    exactly what the variable is supposed to hold. 
-  <p>
-    For example, the name of the function promices more than the
-    function delivers. It does change an image, but it has a much more
-    specific task. A better name would be "turnBulbOn". In subsequent
-    example, the function is called myFunction, which is a terrible
-    name. It is long, but tells nothing about what the function does.
+    exactly what the variable is supposed to hold.
   </p>
   <p>
-    As another example, the name image, could be more accurate. It is
-    not really and image, rather, it is a document element that
+    For example, the name image, could be more accurate. It is
+    not really an image, rather, it is a document element that
     displays an image of a light bulb. A better name would be
-    "bulbImg" which indicates that it is an img element and that it is
-    supposed to be displaying a bulb.
+    "lightImg" which indicates that it is an img element and that it
+    displays a light bulb.
   </p>
   <p>
+    This change improves the code, but not very much. It states
+    clearly what is held in the variable, but the code itself states
+    clearly what is held in the variable. If we named the variable
+    "x", a terrible name, it would not make the code much worse
+    because a fluent JavaScript reader can see from the code what the
+    variable really refers to.
+  <p>
+    An example, that improves the code more is renaming the function
+    itself. The name of the function promices more than the function
+    delivers: it does not change images, rather it changes a
+    particular image on the page from one to another. A better name
+    would be "lightSwitch", which inindicates that the function really
+    switches the state of the bulb. This particular function name also
+    relies calls up the image of a light switch. The intuitive name
+    makes the name of the img tag more evocative too. 
+  <p>
+    In subsequent examples, the function is called myFunction, which
+    is a terrible name. It is long, but tells nothing about what the
+    function does.
   </p>
   <p>
+    Naming functions is most important, because they may be used in
+    places far from their definition. Here, the only thing indicating
+    the purpose of the function is the name of the function. When
+    creating a function name, think about how to express to someone
+    who has never see your code what the function does. At the same
+    time, try to keep the name as short as possible. This sets up a
+    tension: you want the name to express clearly what the function
+    does in as few characters as possible.
+  </p>
+  <h3>Limit functions to one task</h3>
+  <p>
+    Paying attention to names will improve your code more than any
+    other single thing you can do, but functions need to be written so
+    they have short descriptive names. Here, the function is of the
+    right size. It fits on the page making it easy to understand what
+    the function does. More importantely, however, it does only one
+    thing. It turns on a light bulb, so it is easy to create a short
+    descriptive name for it.
   </p>
   <p>
+    In this example, the name and the function are easy to generate
+    and easy to name because they correspond to a particular physical
+    actions. More often, functions refer to actions that are internal
+    to the operation of the computer. In this case, making sure that
+    the that the function does only one thing is easy because they can
+    match intuitions about actions in the real world.
+  </p>
+  <p>
+    As a more complicated example consider a function that accepts a
+    new password: it accepts a new password and as the person repeats
+    it, the function changes the border of the box to red if the
+    characters fail to match.
   </p>
   <p>
   </p>

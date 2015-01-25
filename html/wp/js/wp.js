@@ -46,7 +46,7 @@ wp.controller("testingCtrl", function($scope) {
     $scope.title="Testing"
 });
 
-wp.controller("mongoCtrl", function($scope) {
+wp.controller("dbCtrl", function($scope) {
     $scope.title="Databases"
 });
 

@@ -1,3 +1,56 @@
+.syllabus {
+    border-style: solid;
+    border-width: 3px;
+    border-color: #333333;
+    border-radius: 4px;
+    padding : 0;
+}
+
+.tg {
+    border-collapse: separate !important;
+    border: solid 3px #333333;
+    border-radius: 4px;
+    background-color: #EEEEEE;
+    padding: 0;
+    margin: 0;
+}
+
+.tg td {
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    padding: 5px;
+    border-style:solid;
+    border-width:1px;
+    overflow:hidden;
+    word-break:normal;
+}
+
+.tg th {
+    font-family:Arial, sans-serif;
+    font-size:14px;
+    font-weight: bold;
+    padding: 5px;
+    border-style:solid;
+    border-width:1px;
+    overflow:hidden;
+    word-break:normal;
+}
+
+.tg .unitBoundary {
+    text-align:center;
+    font-weight: bold;
+    color: white;
+    background-color: #555555;
+    border : 0;
+}
+
+.tg .weekBoundary {
+    font-weight: bold;
+    background-color: #DDDDDD;
+}
+
+/* Text area: width limited */
+
 .wp-text-area {
     border: solid 3px #333333;
     border-radius: 4px;
@@ -5,6 +58,8 @@
     padding: 10px;
     max-width: 35em;
 }
+
+/* Project test: no width limit */
 
 .wp-project {
     border: solid 3px #333333;
@@ -71,9 +126,7 @@ code {
 }
 
 .see {
-//    white-space: pre;
-//    font-family: monospace, courier;
-//    font-size: small;
+
 }
 
 .do::before {
@@ -92,9 +145,10 @@ code {
 }
 
 .enter {
-//    white-space: pre;
-//    font-family: monospace, courier;
-//    font-size: small;
+/*    white-space: pre;
+      font-family: monospace, courier;
+      font-size: small;
+*/
 }
 
 .fix::before {
@@ -105,15 +159,13 @@ code {
     font-size: medium;
 }
 
-// Bootstrap customizations
+/* Bootstrap customizations */
 
 .wp {
     color: #333333;
 }
 
 .wp-navbar {
-//    background-color: #cc0000;
-//    color: #FFFFFF; //#669999;
 }
 
 .wp-navbar-brand {

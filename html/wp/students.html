@@ -1,0 +1,297 @@
+<!DOCTYPE HTML>
+<!--
+    Student Web Page
+-->
+<html ng-app="wp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/wp/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/wp/css/main.css" type="text/css">
+    <title>Web Programming</title>
+  </head>
+
+  <body ng-controller="sScheduleCtrl">
+
+    <div ng-include="'templates/navigation.tpl.html'"></div>
+
+    <!-- Jumbotron -->
+    <div ng-include="'templates/head.tpl.html'"></div>
+
+    <!-- Body -->
+    <div class="container">
+      <table class="tg">
+	<tr>
+	  <th>Date</th>
+	  <th>Day</th>
+	  <th>Topic</th>
+	  <th>Description</th>
+	</tr>
+	<tr>
+	  <td class="unitBoundary" colspan="4">
+	    Unit 1: Development of Computing and the World Wide Web
+	  </td>
+	</tr>
+	<tr>
+	  <td class="weekBoundary" colspan="4">Week 1</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">01/27/15</td>
+	  <td class="tg-031e">Tues</td>
+	  <td class="tg-031e">
+	    <a href="/wp/labs/os.html">
+	      Linux
+	    </a>
+	  </td>
+	  <td class="tg-031e">Put Linux on PC</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">01/29/15</td>
+	  <td class="tg-031e">Thurs</td>
+	  <td class="tg-031e">
+	    <a href="/wp/labs/emacs-git.html">
+	      Tools
+	    </a>
+	  </td>
+	  <td class="tg-031e">Emacs and Git</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">01/31/15</td>
+	  <td class="tg-031e">Sat</td>
+	  <td class="tg-031e">
+	    <a href="/wp/labs/nodejs.html">
+	      Server
+	    </a>
+	  </td>
+	  <td class="tg-031e">Install Node.js and write File Server</td>
+	</tr>
+	<tr>
+	  <td class="weekBoundary" colspan="4">Week 2</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">02/03/15</td>
+	  <td class="tg-031e">Tues</td>
+	  <td class="tg-031e">
+	    <a href="/wp/labs/html.html">
+	      HTML
+	    </a>
+	  </td>
+	  <td class="tg-031e">W3 Schools Tutorial (TOC)</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">02/05/15</td>
+	  <td class="tg-031e">Thurs</td>
+	  <td class="tg-031e">
+	    <a href="/wp/labs/css.html">
+	      CSS
+	    </a>
+	  </td>
+	  <td class="tg-031e">W3 Schools Tutorial (Format TOC)</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">02/07/15</td>
+	  <td class="tg-031e">Sat</td>
+	  <td class="tg-031e">JS 1</td>
+	  <td class="tg-031e">W3 Schools Tutorial</td>
+	</tr>
+	<tr>
+	  <td class="weekBoundary" colspan="4">Week 3</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">02/10/15</td>
+	  <td class="tg-031e">Tues</td>
+	  <td class="tg-031e">JS 2</td>
+	  <td class="tg-031e">Forms on Client</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">02/12/15</td>
+	  <td class="tg-031e">Thurs</td>
+	  <td class="tg-031e">Testing</td>
+	  <td class="tg-031e">Testing introduction: E2E, Unit; Manual, Automatic</td>
+	</tr>
+	<tr>
+	  <td class="tg-hgcj" colspan="4">Unit 2: Programming</td>
+	</tr>
+	<tr>
+	  <td class="weekBoundary" colspan="4">Week 4</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">02/17/15</td>
+	  <td class="tg-031e">Tues</td>
+	  <td class="tg-031e">Testing</td>
+	  <td class="tg-031e">Jasmine</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">02/19/15</td>
+	  <td class="tg-031e">Thurs</td>
+	  <td class="tg-031e">Database</td>
+	  <td class="tg-031e">Mongo</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">02/21/15</td>
+	  <td class="tg-031e">Sat</td>
+	  <td class="tg-031e">Team Server</td>
+	  <td class="tg-031e">Distributed Git, Make, Test Cases</td>
+	</tr>
+	<tr>
+	  <td class="weekBoundary" colspan="4">Week 5</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">02/24/15</td>
+	  <td class="tg-031e">Tues</td>
+	  <td class="tg-031e">Agile</td>
+	  <td class="tg-031e">Stories, TDD, PO, Refactoring</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">02/26/15</td>
+	  <td class="tg-031e">Thurs</td>
+	  <td class="tg-031e">Agilfant</td>
+	  <td class="tg-031e">Set up server</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">Holi 3/2-3/7</td>
+	  <td class="tg-031e"></td>
+	  <td class="tg-031e"></td>
+	  <td class="tg-031e"></td>
+	</tr>
+	<tr>
+	  <td class="unitBoundary" colspan="4">
+	    Unit 3: Developing Applications
+	  </td>
+	</tr>
+	<tr>
+	  <td class="weekBoundary" colspan="4">Week 6</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">03/10/15</td>
+	  <td class="tg-031e">Tues</td>
+	  <td class="tg-031e">Clean Code</td>
+	  <td class="tg-031e">Clean Code Book</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">03/12/15</td>
+	  <td class="tg-031e">Thurs</td>
+	  <td class="tg-031e">TDD</td>
+	  <td class="tg-031e">Test, Write, Refactor; Learn by testing</td>
+	</tr>
+	<tr>
+	  <td class="weekBoundary" colspan="4">Week 7</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">03/17/15</td>
+	  <td class="tg-031e">Tues</td>
+	  <td class="tg-031e">SBE</td>
+	  <td class="tg-031e">Specification by Example: Story and Test</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">03/19/15</td>
+	  <td class="tg-031e">Thurs</td>
+	  <td class="tg-031e">System Eng.</td>
+	  <td class="tg-031e">End of End Specification</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">03/21/15</td>
+	  <td class="tg-031e">Sat</td>
+	  <td class="tg-031e">TBD</td>
+	  <td class="tg-031e"></td>
+	</tr>
+	<tr>
+	  <td class="unitBoundary" colspan="4">
+	    Unit 4: Teamwork and Design</td>
+	</tr>
+	<tr>
+	  <td class="weekBoundary" colspan="4">Week 8</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">03/24/15</td>
+	  <td class="tg-031e">Tues</td>
+	  <td class="tg-031e">Form Teams</td>
+	  <td class="tg-031e">Team Name</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">03/26/15</td>
+	  <td class="tg-031e">Thurs</td>
+	  <td class="tg-031e">Design</td>
+	  <td class="tg-031e">User Centered Design</td>
+	</tr>
+	<tr>
+	  <td class="weekBoundary" colspan="4">Week 9</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">03/31/15</td>
+	  <td class="tg-031e">Tues</td>
+	  <td class="tg-031e">SW Design</td>
+	  <td class="tg-031e">Backlog</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">04/02/15</td>
+	  <td class="tg-031e">Thurs</td>
+	  <td class="tg-031e">HCI 1</td>
+	  <td class="tg-031e">Usability</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">04/04/15</td>
+	  <td class="tg-031e">Sat</td>
+	  <td class="tg-031e">HCI 2</td>
+	  <td class="tg-031e">Graphic Design</td>
+	</tr>
+	<tr>
+	  <td class="weekBoundary" colspan="4">Week 10</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">04/07/15</td>
+	  <td class="tg-031e">Tues</td>
+	  <td class="tg-031e">HCI 3</td>
+	  <td class="tg-031e">Ethnography</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">04/09/15</td>
+	  <td class="tg-031e">Thurs</td>
+	  <td class="tg-031e"></td>
+	  <td class="tg-031e"></td>
+	</tr>
+	<tr>
+	  <td class="weekBoundary" colspan="4">Week 11</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">04/14/15</td>
+	  <td class="tg-031e">Tues</td>
+	  <td class="tg-031e"></td>
+	  <td class="tg-031e"></td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">04/16/15</td>
+	  <td class="tg-031e">Thurs</td>
+	  <td class="tg-031e"></td>
+	  <td class="tg-031e"></td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">04/18/15</td>
+	  <td class="tg-031e">Sat</td>
+	  <td class="tg-031e"></td>
+	  <td class="tg-031e"></td>
+	</tr>
+	<tr>
+	  <td class="weekBoundary" colspan="4">Week 12</td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">04/21/15</td>
+	  <td class="tg-031e">Tues</td>
+	  <td class="tg-031e"></td>
+	  <td class="tg-031e"></td>
+	</tr>
+	<tr>
+	  <td class="tg-031e">04/23/15</td>
+	  <td class="tg-031e">Thurs</td>
+	  <td class="tg-031e">Presentations</td>
+	  <td class="tg-031e">Teams demo their programs</td>
+	</tr>
+      </table>
+    </div>
+    
+    <script src="/wp/js/jquery.min.js"></script>
+    <script src="/wp/js/bootstrap.min.js"></script>
+    <script src="/wp/js/angular.min.js"></script>
+    <script src="/wp/js/wp.js"></script>
+  </body>
+</html>

@@ -4,10 +4,18 @@ wp.controller("mainCtrl", function($scope) {
     $scope.title="Web Programming";
 });
 
-/* Lessons */
+wp.controller("fScheduleCtrl", function($scope) {
+    $scope.title="Faculty Schedule";
+});
 
-wp.controller("lessonCtrl", function($scope) {
-    $scope.title="Lessons"
+wp.controller("sScheduleCtrl", function($scope) {
+    $scope.title="Student Schedule";
+});
+
+/* Labs */
+
+wp.controller("labCtrl", function($scope) {
+    $scope.title="Labs"
 });
 
 wp.controller("osCtrl", function($scope) {
@@ -42,26 +50,22 @@ wp.controller("js2Ctrl", function($scope) {
     $scope.title="JavaScript 2"
 });
 
-wp.controller("testingCtrl", function($scope) {
-    $scope.title="Testing"
-});
-
-wp.controller("dbCtrl", function($scope) {
-    $scope.title="Databases"
-});
-
 wp.controller("teamServerCtrl", function($scope) {
     $scope.title="Team Server"
+});
+
+wp.controller("mongoCtrl", function($scope) {
+    $scope.title="MongoDB"
 });
 
 wp.controller("agilefantCtrl", function($scope) {
     $scope.title="Scrum"
 });
 
-/* Labs */
+/* Lessons */
 
-wp.controller("labCtrl", function($scope) {
-    $scope.title="Labs"
+wp.controller("lessonCtrl", function($scope) {
+    $scope.title="Lessons"
 });
 
 wp.controller("prefaceCtrl", function($scope) {
@@ -90,6 +94,14 @@ wp.controller("staticWebCtrl", function($scope) {
 
 wp.controller("activeMobileWebCtrl", function($scope) {
     $scope.title="Active and Mobile Web"
+});
+
+wp.controller("testingCtrl", function($scope) {
+    $scope.title="Testing"
+});
+
+wp.controller("dbCtrl", function($scope) {
+    $scope.title="Databases"
 });
 
 wp.controller("cleanCodeCtrl", function($scope) {

@@ -4,6 +4,10 @@ wp.controller("mainCtrl", function($scope) {
     $scope.title="Web Programming";
 });
 
+wp.controller("scheduleCtrl", function($scope) {
+    $scope.title="MRCE Schedule";
+});
+
 wp.controller("fScheduleCtrl", function($scope) {
     $scope.title="Faculty Schedule";
 });

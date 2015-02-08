@@ -3,6 +3,25 @@
 		In this lesson I will go through the development of the first program in the W3Schools JavaScript lessons.
 	</p>
 	<p>
+		Before we do this we will need to download two pictures from the server. To do this we will using <code>wget</code> to get the file from the server and <code>tar</code> to extract the files from the tar ball.
+	</p>
+</div>
+<ol class="activity">
+	<li class="enter">
+		cd ~/src/wp/html
+	</li>
+	<li class="enter">
+		wget 172.16.24.22/img.tar
+	</li>
+	<li class="enter">
+		tar -xvf img.tar
+	</li>
+	<li class="see">
+		When you do an ls, you should see the file img.tar and the directory img. The directory should have the two files we need.
+	</li>
+</ol>
+<div class="wp-text-area">
+	<p>
 		First, typing in the following code. This simple HTML should take about five minutes. You may write less, but <strong>do not write more</strong>. Save the code in <code>~/src/wp/html/lightbulb.html</code>
 	</p>
 </div>
@@ -42,7 +61,7 @@
 </div>
 <div class="wp-text-area">
 	<p>
-		Refresh the your broswer window to make sure it looks right. If it does, add a little more.	Do you see the picture of the lightbulb?
+		Refresh the your broswer window to make sure it looks right. If it does, add a little more.	Do you see the picture of the lightbulb? If so, you are ready to go on. Possible error are that the light bulb is not in the right directory. It needs to be in ~/src/wp/html/img. Or you might be asking for it from the wrong directory. It needs to be a relative path "img/pic_bulboff.gif". Or you may have left off the 'gif'.
 	</p>
 </div>
 <div class="code">
@@ -53,16 +72,21 @@
 	&lt/head&gt
 	&ltbody&gt
 		&lth1&gtJavaScript Changes Images&lt/h1&gt
-		&ltimg src="img/pic_bulboff.gif"&gt
+		&ltimg onclick="changeImage()" src="img/pic_bulboff.gif"&gt
 		&ltp&gt
 			Click the light bulb to turn on/off the light.
 		&lt/p&gt
+		&ltscript type="text/javascript"&gt
+		function changeImage() {
+			document.write("function called");
+		}
+		&lt/script>&gt	
 	&lt/body&gt
 &lt/html&gt
 </div>
 <div class="wp-text-area">
 	<p>
-		
+		What happens when you click on light bulb? Does the page go away and you see "function called". If so, the program worked.
 	</p>
 </div>
 <div class="code">
@@ -73,15 +97,53 @@
 	&lt/head&gt
 	&ltbody&gt
 		&lth1&gtJavaScript Changes Images&lt/h1&gt
-		&ltimg src="img/pic_bulboff.gif"&gt
+		&ltimg id="bulbImg" onclick="changeImage()" src="img/pic_bulboff.gif"&gt
 		&ltp&gt
 			Click the light bulb to turn on/off the light.
 		&lt/p&gt
+		&ltscript type="text/javascript"&gt
+		function changeImage() {
+			var image = document.getElementById('bulbImg');
+			image.src = "img/pic_bulbon.gif;
+		}
+		&lt/script>&gt	
 	&lt/body&gt
 &lt/html&gt
 </div>
 <div class="wp-text-area">
 	<p>
-		Do you see the light bul
+		Now when you click on the image, does the bulb turn on? If so, now change the logic so that it turns the bulb off too.
 	</p>
 </div>
+<div class="code">
+&lthtml&gt
+	&lthead&gt
+		&ltmeta charset=”utf-8”&gt
+		&lttitle&gtLightbulb example&lt/title&gt
+	&lt/head&gt
+	&ltbody&gt
+		&lth1&gtJavaScript Changes Images&lt/h1&gt
+		&ltimg id="bulbImg" onclick="changeImage()" src="img/pic_bulboff.gif"&gt
+		&ltp&gt
+			Click the light bulb to turn on/off the light.
+		&lt/p&gt
+		&ltscript type="text/javascript"&gt
+		function changeImage() {
+			var image = document.getElementById('bulbImg');
+			if (image.src.match(“bulbon”)) {
+				bulbImg.src = "img/pic_bulbon.gif"
+			} else {
+				bulbImg.src = “img/pic_bulboff.gif”
+			}
+		}
+		&lt/script>&gt	
+	&lt/body&gt
+&lt/html&gt
+</div>
+<div class="wp-text-area">
+	<p>
+		Good. You have completed the task for today.
+	</p>
+</div>
+
+

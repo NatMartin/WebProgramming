@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html ng-app="wp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/wp/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/wp/css/main.css" type="text/css">
+    <title>WP</title>
+  </head>
+
+  <!-- Labs -->
+  <body ng-controller="xtemplateCtrl">
+
+    <!-- Labs Navigation Bar -->
+    <div ng-include="'templates/navigation.tpl.html'"></div>
+
+    <!-- Jumbotron -->
+    <div class="container">
+      <div class="jumbotron wp-jumbotron">
+        <h1>JavaScript 2 adding Jasmine</h1>
+          <p>
+            Both the faculty and student classes have been moved to five days a week for thirty minutes, so the schedules not longer differ. The faculty meets at lunch time 11:30-12:00 and the students meet from 3:00-3:30. Time is short, so please try to arrive on time.
+          </p>
+      </div>
+    </div>
+
+
+    <!-- Labs Body -->
+    <div class="container">
+      <div class="row">
+
+        <!-- Labs Table of Content -->
+        <div class="col-md-5">
+          <div ng-include="'templates/toc.tpl.html'"></div>
+        </div>
+
+        <!-- Labs: Introduction -->
+        <div class="col-md-7">
+          <div ng-include="'templates/JS2Text.tpl.html'"></div>
+        </div>
+      </div>
+      
+      <!-- Labs: Instructions -->
+      <div class="row">
+        <div ng-include="'templates/JS2Lab.tpl.html'"></div>
+      </div>
+    </div>
+
+    <script src="/wp/js/jquery.min.js"></script>
+    <script src="/wp/js/bootstrap.min.js"></script>
+    <script src="/wp/js/angular.min.js"></script>
+    <script src="/wp/js/wp.js"></script>
+  </body>
+</html>

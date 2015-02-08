@@ -1,0 +1,106 @@
+<div class="wp-text-area">
+  <h2>JavaScript and Jasmine</h2>
+  <p>
+    We will be working on the <code>lightbulb.html</code> splitting it into <code>lightbulb.html</code> and <code>lightbulb.js</code>. Remove all of the code between the <code>&ltscript$gt</code> tags and put it in a new file called "lightbulb.js". The new file should have these contents:
+  </p>
+</div>
+<div class="code">
+function changeImage() {
+    var image = document.getElementById('myImage');
+    if (image.src.match("bulbon")) {
+        image.src = "img/pic_bulboff.gif";
+    } else {
+        image.src = "img/pic_bulbon.gif";
+    }
+}
+</div>
+<div class="wp-text-area">
+  <p>
+    Create a new directory in <code>~/src/wp/html</code> called <code>js</code>. That is the new directory will be <code>~/src/wp/html/js</code>
+  </p>
+  <p>
+    Next, we will replace the code with a pointer to the file that containes the code:   
+  </p>
+</div>
+<div class="code">
+&lthtml&gt
+  &lthead&gt
+    &ltmeta charset=”utf-8”&gt
+    &lttitle&gtLightbulb example&lt/title&gt
+  &lt/head&gt
+  &ltbody&gt
+    &lth1&gtJavaScript Changes Images&lt/h1&gt
+    &ltimg id="bulbImg" onclick="changeImage()" src="img/pic_bulboff.gif"&gt
+    &ltp&gt
+      Click the light bulb to turn on/off the light.
+    &lt/p&gt
+    &ltscript type="text/javascript" src="js/lightbulb.js"&gt
+    &lt/script&gt  
+  &lt/body&gt
+&lt/html&gt
+</div>
+<div class="wp-text-area">
+  <p>
+    Test to make sure that the program still works.
+  </p>
+  <p>
+    When the code in the new configuration works, we can try to write a JavaScript test. First, we will need to make a new SpecRunner to run our tests. Create a test runner file called <code>testLightbulb.js</code> in <code>~/src/wp/html</code> with the following HTML. It is very similar to SpecRunner.html, so it might be easier to copy and modify that.
+  </p>
+</div>
+<div class="code">
+&lt!DOCTYPE html&gt
+&lthtml&gt
+&lthead&gt
+  &ltmeta charset="utf-8"&gt
+  &lttitle&gtAlice's Lightbulb Test&lt/title&gt
+
+  &ltlink rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine-2.2.0/jasmine_favicon.png"&gt
+  &ltlink rel="stylesheet" href="jasmine/lib/jasmine-2.2.0/jasmine.css"&gt
+
+  &ltscript src="jasmine/lib/jasmine-2.2.0/jasmine.js"&gt&lt/script&gt
+  &ltscript src="jasmine/lib/jasmine-2.2.0/jasmine-html.js"&gt&lt/script&gt
+  &ltscript src="jasmine/lib/jasmine-2.2.0/boot.js"&gt&lt/script&gt
+
+  &lt!-- include source files here... --&gt
+  &ltscript src="js/lightbulb.js"&gt&lt/script&gt
+
+  &lt!-- include spec files here... --&gt
+  &ltscript src="spec/lightbulb-spec.js"&gt&lt/script&gt
+
+&lt/head&gt
+&lthtml&gt
+</div>
+<div class="wp-text-area">
+  <p>
+    Load the page. You should at least see the title.
+  </p>
+  <p>
+    Next wel will need to add a specification. This one will just check that we are really using Jasmine. All it will do is test that true is true.
+  </p>
+</div>
+<div class="code">
+describe ("lightbulb", function () {
+    it("is tested with Jasmine specs", function() {
+        expect(true).toBe(true);
+    });
+});
+</div>
+<div class="wp-text-area">
+  <p>
+    This code describes a lightbulb and runs the test "it is tested with Jasmine specs". When this works, I think we should call it a day. We have covered a lot of material in the last few days. 
+  </p>
+</div>
+<div class="wp-text-area">
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://jasmine.github.io/2.2/introduction.html">
+	       Jasmine Introduction
+      </a>
+    </li>
+  </ul>
+</div>
+
+<hr>
+<address></address>
+<!-- hhmts start --><!-- hhmts end -->

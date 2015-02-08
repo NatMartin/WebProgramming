@@ -1,0 +1,102 @@
+<div class="wp-text-area">
+  <h2>Dowloading Jasmine</h2>
+  <p>
+    Jasmine is a JavaScript program, which means that we can run it in out web browser. This makes it a great testing framework for the web. The tests we run are running in the JavaScript interpreter that the broswer will run our web pages.
+  </p>
+  <p>
+    Installing Jasmine involves getting the JavaScript files and installing them on our web page. We then include those pages on a web page with the JavaScript programs we have written and the specification of those JavaScript programs. To use Jasmine you need to write tests in JavaScript as well as the programs. This may seem like extra work, but in saves more work in the long run.
+  </p>
+  <p>
+    To get Jasmine we will first load it onto our computer from the server at 172.16.24.22 (I put it there over the weekend). You will then unzip it and put it in the appriate diretory
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+    <code>cd ~/src/wp</code>
+  </li>
+  <li class="enter">
+    <code>mkdir jasmine</code>
+  </li>
+  <li class="enter">
+    <code>cd jasmine</code>
+  </li>
+  <li class="enter">
+    <code>wget 172.16.24.22/jasmine.zip</code>  
+  </li>
+  <li class="enter">
+    <code>unzip jasmine.zip</code>
+  </li>
+  <li class="do">
+    Make sure your server is running, then open a Web browser and navigate to localhost:3000/jasmine/SpecRunner.html.
+  </li>
+</ol>
+<div class="wp-text-area">
+  <h2>Looking at what we have</h2>
+  <p>
+    Open <code>~/src/wp/jasmine/SpecRunner.html</code>. You will see an odd looking html page. I had only a head; no body. The head loads a number of CSS and JavaScript files. The head looks like this:
+  </p>
+</div>
+<div class="code">
+&lthead&gt
+  &ltmeta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt
+  &lttitle&gtJasmine Spec Runner v2.0.2&lt/title&gt
+
+  &ltlink rel="shortcut icon" type="image/png" href="lib/jasmine-2.0.2/jasmine_favicon.png"&gt
+  &ltlink rel="stylesheet" type="text/css" href="lib/jasmine-2.0.2/jasmine.css"&gt
+
+  &ltscript type="text/javascript" src="lib/jasmine-2.0.2/jasmine.js"&gt&lt/script&gt
+  &ltscript type="text/javascript" src="lib/jasmine-2.0.2/jasmine-html.js"&gt&lt/script&gt
+  &ltscript type="text/javascript" src="lib/jasmine-2.0.2/boot.js"&gt&lt/script&gt
+
+  &lt!-- include source files here... --&gt
+  &ltscript type="text/javascript" src="src/Player.js"&gt&lt/script&gt
+  &ltscript type="text/javascript" src="src/Song.js"&gt&lt/script&gt
+
+  &lt!-- include spec files here... --&gt
+  &ltscript type="text/javascript" src="spec/SpecHelper.js"&gt&lt/script&gt
+  &ltscript type="text/javascript" src="spec/PlayerSpec.js"&gt&lt/script&gt
+
+&lt/head&gt
+</div>
+<div class="wp-text-area">
+  <p>
+    The lines that are surrounded by <code>script</code> tags are JavaScript programs. The top three <code>jasmine.js</code>, <code>jasmine-html.js</code> and <code>boot.js</code> are the JavaScript code that runs Jasmine. The next two <code>Player.js</code>, and <code>Song.js</code> are the application being tested by the example program. The last two, <code>SpecHelper.js</code> and <code>PlayerSpec.js</code> are the specification files. The last two contating the Jasmine code.
+  </p>
+  <p>
+    For example, a short snippet of the PlaySpec code shows the sturcture of Jasmine programs.
+  </p>
+</div>
+<div class="code">
+describe("Player", function() {
+  var player;
+  var song;
+
+  beforeEach(function() {
+    player = new Player();
+    song = new Song();
+  });
+
+  it("should be able to play a Song", function() {
+    player.play(song);
+    expect(player.currentlyPlayingSong).toEqual(song);
+  });
+</div>
+<div class="wp-text-area">
+  <p>
+    Each Jasmine spec describes some piece of the program, usually a class. Here, we are describing the Player class. The description takes the name of the thing that is being descibed and a function as a parameter. The function can set up variables and functions just like any other JavaScript function. The most important are the "it" functions. These functions are the tests. Here there is one test, which takes a string as it's first argument and a second as its second argument. The string describes what the function is testing. Here the Player object "should be able to play a Song". To see if it can play a song, it runs the program. The expect functions in either succeed or fail. If all of the expect functions succeed, the funciton succeeds and the test is passed. If one of them fails, it notes that that function did not pass. For example, here if the song currently being playsed is not the song the player was told to play, the test of playing a song fails.
+  </p>
+</div>
+<div class="wp-text-area">
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://jasmine.github.io/2.0/introduction.html">
+      	Jasmine Reference
+      </a>
+    </li>
+  </ul>
+</div>
+
+<hr>
+<address></address>
+<!-- hhmts start --><!-- hhmts end -->

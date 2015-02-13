@@ -87,7 +87,40 @@ describe ("lightbulb", function () {
 </div>
 <div class="wp-text-area">
   <p>
-    This code describes a lightbulb and runs the test "it is tested with Jasmine specs". When this works, I think we should call it a day. We have covered a lot of material in the last few days. 
+    This code describes a lightbulb and runs the test "it is tested with Jasmine specs". When this works, I think we can go on to write a real test. 
+  </p>
+  <p>
+    To run the real test, you will first need to add the body from
+    lightbulb.html to SpecRunner.html. In reality, the only thing you
+    need to add is the <code>img</code> tag. But go ahead and add the entire body. When you are done, you should see the lightbulb from <code>lightbulb.html</code> in the window above the jasmine test runner. It will still show that it passed one test, but it will also show the lightbulb.
+  </p>
+  <p>
+    Now we can add our test to the <code>lightbulb-spec.js</code>. To do this we will update the lightbulb spec to include a test that it turns the light one as shown below:
+  </p>
+</div>
+<div class="code">
+describe ("lightbulb", function () {
+
+    it("is tested with Jasmine specs", function() {
+        expect(true).toBe(true);
+    });
+
+    it("turns on the bulb",function() {
+        var image = document.getElementById('myImage');
+        image.src = "img/pic_bulboff.gif";
+        expect(image.src).toMatch("img/pic_bulboff.gif");
+        changeImage();
+        expect(image.src).toMatch("img/pic_bulbon.gif");
+    });
+});
+</div>
+<div class="wp-text-area">
+  <p>
+    We have added a new test (i.e., an <code>it</code> function) to our spec. This new test first gets the document element <code>myImage</code>. This is why we need to add the body of lightbulb to our document. In truth, the only thing we need to add is a <code>&ltimg&gt</code> tag with an attributes of <code>id="myImage"</code> so the function does not throw an error when we try to get that element from the page. The next thing we do is set the image to <code>pic_bulboff.gif</code> to set the page to a known state before we run the test. We check that the image is actually changes with the line <code>expect(image.src).toMatch("img/pic_bulboff.gif");</code> We then call the function <code>changeImage()</code>. After calling the function we use <code>expect(image.src).toMatch("img/pic_bulbon.gif");</code> to check that the function changed the image source.
+  </p>
+  <h2>You try it</h2>
+  <p>
+    Write a new test, <code>it("turns off the bulb", ...</code> to test that <code>changeImage will also turn off the bulb.</code>
   </p>
 </div>
 <div class="wp-text-area">

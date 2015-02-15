@@ -1,0 +1,232 @@
+<div class="wp-text-area">
+  <h2>Protractor</h2>
+  <p>
+    Protractor does end-to-end testing for HTML and Angular. It uses a system called Selenium, which acts like a server. instead of serving HTML, CSS and JavaScript files to the browser for display, it calls special functions in the browser library to ask what the browser is showing. It does not actually see what is showing on the screen, so appearance needs to be done manually.
+  </p>
+  <p>
+    Protractor is a NodeJS program, so NPM installs it. The Node Package Manager (NPM) is a program that will install NodeJS applications and all of packages they require. Installing the required packages along with the desired packages makes mantaining NodeJS projects much easier. NPM installs packages either globally by using the <code>-g</code> flag or locally without the flag. If they are installed globally, they can be used anywhere; if they are installed locally, you will need to tell the system where to find the programs. We will install the programs locally because it does not require <code>sudo</code> rights. We will install them in <code>~/dev</code>. We will then add the paths to the programs in our <code>$PATH</code> directory.
+  </p>
+</div>
+<h3> Installation </h3>
+<ol class="test">
+  <li class="do">
+    Install NPM, the Node Package Manager: <code>sudo apt-get install npm</code>
+  </li>
+  <li class="see">
+    <div class="code">
+nat@Linus:~/dev/modules/protractor$ npm --version
+1.3.10
+    </div>
+  </li>
+  <li class="do">
+    First initialize the npm.
+    <div class="code">
+nat@Linus:~/dev$ npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sane defaults.
+
+See `npm help json` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install &ltpkg&gt --save` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+name: (dev) 
+version: (0.0.0) 
+description: General Development
+entry point: (index.js) 
+test command: 
+git repository: 
+keywords: 
+author: Nathaniel G. Martin
+license: (BSD-2-Clause) 
+About to write to /home/nat/dev/package.json:
+
+{
+  "name": "dev",
+  "version": "0.0.0",
+  "description": "General Development",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "protractor": "~1.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nathaniel G. Martin",
+  "license": "BSD-2-Clause"
+}
+
+
+Is this ok? (yes) yes
+    </div>
+  </li>
+  <li class="do">
+    <div class="code">
+nat@Linus:~/dev/modules/protractor$ cd ~/dev
+nat@Linus:~/dev$ npm install protractor
+npm http GET https://registry.npmjs.org/protractor
+npm http 304 https://registry.npmjs.org/protractor
+    </div>
+... Several lines deleted ...
+    <div class="code">
+protractor@1.3.1 node_modules/protractor
+|-- jasminewd@1.1.0
+|-- saucelabs@0.1.1
+|-- q@1.0.0
+|-- minijasminenode@1.1.1
+|-- optimist@0.6.1 (wordwrap@0.0.2, minimist@0.0.10)
+|-- adm-zip@0.4.4
+|-- glob@3.2.11 (inherits@2.0.1, minimatch@0.3.0)
+|-- source-map-support@0.2.7 (source-map@0.1.32)
+|-- lodash@2.4.1
+|-- request@2.36.0 (json-stringify-safe@5.0.0, forever-agent@0.5.2, aws-sign2@0.5.0, qs@0.6.6, oauth-sign@0.3.0, tunnel-agent@0.4.0, node-uuid@1.4.1, mime@1.2.11, form-data@0.1.4, tough-cookie@0.12.1, hawk@1.0.0, http-signature@0.10.0)
+|__ selenium-webdriver@2.43.5 (tmp@0.0.24, xml2js@0.4.4)
+    </div>
+  </li>
+</ol>
+
+<div class="wp-text-area">
+  <p>
+    This will install Protractor and the packages it requires. However, to run Protractor, you will need to run Selenium and to run Selenium, you will need to run the Java Development Kit (JDK).
+  </p>
+  <h3>Install Selenium</h3>
+  <p>
+    Selenium is a stand-along program that is used to test web
+    sites. It uses browsers as servers, instead of clients. That is, it calls the browser and asks the browser to interpt the web page and inspects the interpreted web page for elements.
+  </p>
+  <h4>Install Java</h4>
+  <p>
+    First, you will need to install the Java Development Kit (JDK) if you do not have it. First check to see if you have it.
+  </p>
+</div>
+
+<ol class="test">
+  <li class="enter">
+    <code>java -version</code>
+  </li>
+  <li class="see">
+    <div class="code">
+java version "1.7.0_65"
+OpenJDK Runtime Environment (IcedTea 2.5.2) (7u65-2.5.2-3~14.04)
+OpenJDK 64-Bit Server VM (build 24.65-b04, mixed mode)
+    </div>
+    Make sure you see JDK.
+  </li>
+</ol>
+
+<div class="wp-text-area">
+  <p>
+    If you do not see the JDK, install it using <code>apt-get</code>
+  </p>
+</div>
+
+<ol class="activity">
+  <li class="enter">
+    <code>sudo apt-get install default-jdk</code>
+  </li>
+</ol>
+
+<div class="wp-text-area">
+  <p>
+    After you have done this test to see whether Java is installed. This will install a version of Java 7. Java 8 is the most recent version, and Oracle Java is the cannonical implementation. Installing Oracle Java is somewhat more difficult, though not a lot more difficult. Instructions for installing Oracle Java 8 are at
+    <a href="http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html">
+      Webupd8
+    </a>.
+  </p>
+  <h4>Finishing Up</h4>
+  <p>
+    With Java installed, you can install Selenium. To do this go do <code>~/dev/node_modules/protractor/bin</code> and execute <code>webdriver-manager</code> twice: first with the parameter <code>update</code> then with the parameter <code>start</code>. The first time will load all of thenecessary files, the second time will start the server.
+  </p>
+</div>
+
+<ol class="activity">
+  <li class="enter">
+    <code>cd ~/dev/node_modules/protractor/bin</code>
+  </li>
+  <li class="enter">
+    <code>./webdriver-manager update</code>
+  </li>
+  <li class="see">
+    <div class="code">
+nat@Linus:~/dev/node_modules/protractor/bin$ ./webdriver-manager update
+Updating selenium standalone
+downloading https://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar...
+Updating chromedriver
+downloading https://chromedriver.storage.googleapis.com/2.10/chromedriver_linux64.zip...
+chromedriver_2.10.zip downloaded to /home/nat/dev/node_modules/protractor/selenium/chromedriver_2.10.zip
+selenium-server-standalone-2.43.1.jar downloaded to /home/nat/dev/node_modules/protractor/selenium/selenium-server-standalone-2.43.1.jar
+    </div>
+  </li>
+  <li class="enter">
+    <code>./webdriver-manager start</code>
+  </li>
+  <li class="see">
+    <div class="code">
+nat@Linus:~/dev/node_modules/protractor/bin$ webdriver-manager start
+webdriver-manager: command not found
+nat@Linus:~/dev/node_modules/protractor/bin$ ./webdriver-manager start
+seleniumProcess.pid: 8756
+12:18:47.911 INFO - Launching a standalone server
+Setting system property webdriver.chrome.driver to /home/nat/dev/node_modules/protractor/selenium/chromedriver
+12:18:47.989 INFO - Java: Oracle Corporation 24.65-b04
+12:18:47.990 INFO - OS: Linux 3.13.0-37-generic amd64
+12:18:48.016 INFO - v2.43.1, with Core v2.43.1. Built from revision 5163bce
+12:18:48.136 INFO - Default driver org.openqa.selenium.ie.InternetExplorerDriver registration is skipped: registration capabilities Capabilities [{platform=WINDOWS, ensureCleanSession=true, browserName=internet explorer, version=}] does not match with current platform: LINUX
+12:18:48.270 INFO - RemoteWebDriver instances should connect to: http://127.0.0.1:4444/wd/hub
+12:18:48.272 INFO - Version Jetty/5.1.x
+12:18:48.274 INFO - Started HttpContext[/selenium-server/driver,/selenium-server/driver]
+12:18:48.275 INFO - Started HttpContext[/selenium-server,/selenium-server]
+12:18:48.276 INFO - Started HttpContext[/,/]
+12:18:48.315 INFO - Started org.openqa.jetty.jetty.servlet.ServletHandler@46a60ffc
+12:18:48.316 INFO - Started HttpContext[/wd,/wd]
+12:18:48.324 INFO - Started SocketListener on 0.0.0.0:4444
+12:18:48.324 INFO - Started org.openqa.jetty.jetty.Server@73cdf021
+    </div>
+  </li>
+  <li class="do">
+    End the program by hitting <code>ctrl-c</code>.  That is, hold down the control key while hitting the 'c' key.
+  </li>
+  <li class="see">
+    <div class="code">
+^CStaying alive until the Selenium Standalone process exits
+12:19:02.353 INFO - Shutting down...
+Selenium Standalone has exited with code 130
+    </div>
+  </li>
+</ol>
+
+<div class="wp-text-area">
+  <h3> References </h3>
+  <ol class="refs">
+    <li class="ref">
+      <a href="http://angular.github.io/protractor/#/">
+        The Protractor web site
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://angular.github.io/protractor/#/tutorial">
+        The Protractor Tutorial
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://angular.github.io/protractor/#/toc">
+        Table of Content of Protractor Documentation
+      </a>
+    </li>
+    <li>
+      <a href="http://www.ng-newsletter.com/posts/practical-protractor.html">
+        Practical End-to-end Testing with Protractor.
+      </a>
+    </li>
+  </ol>
+</div>
+
+<hr>
+<address></address>
+<!-- hhmts start --><!-- hhmts end -->

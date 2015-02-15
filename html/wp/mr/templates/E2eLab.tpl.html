@@ -1,15 +1,73 @@
 <div class="wp-text-area">
-  <h2>Manual End to End Testing</h2>
+  <h2>Manual, End to End Testing</h2>
   <p>
-    Manual End to End Testing (ME2E) relies on a clear understanding of what the user does and what the user should expent with he or she does that. Often, one of the best tools for ME2E testing are illustrations of what the user interface should be. Spreadsheet are another useful tool for ME2E testing. Here, we will provide an example of ME2E testing using spreadsheets.
+    Manual, End to End Testing (ME2E) relies on a clear understanding of what the user does and what the user should expent with he or she does that. Often, one of the best tools for ME2E testing are illustrations of what the user interface should be. Spreadsheet are another useful tool for ME2E testing. Here, we will provide an example of ME2E testing using spreadsheets.
   </p>
   <h2>A New Project</h2>
   <p>
-    To demmonstrate these tools, we will need a new project. We will build a blog system that lets people write messages, read them, and comment on them. This is a common example. We will use to to show how to integrate testing into the development of software.
+    To demonstrate these tools, we will need a new project. We will build a blog system that lets people write messages, read them, and comment on them. This is a common example. We will use to to show how to integrate testing into the development of software. This blog system will let people write comments on their own home page and allow others to read an comment on the blog.
+  </p>
+  <p>
+    We will start this new project as an agile program. Agile programming relies on testing, so we will start with some End-to-End tests.
+  </p>
+</div>
+<img src="img/3BlogStories.png">
+<div class="wp-text-area">
+  <p>
+    The image above shows a Scrum backlog with three stories. In scrum, a story is a sentence of with the form "As a ..., I want to ..., so I can ...". The first elipsis should be represents a system user. For example, in the first story, it says "As a user" where we understand "user" to be a person who has a blog in the system. The second elipsis represents a tast that the system user wants to do. In the first story, the user wants to "write text in a box". The third elipsis represents the reason the system user wants to do the task. Again, in the first story, the user wants to do the task "so I can put information in my blog".
+  </p>
+  <p>
+    In Specification by Example, these stories are augmented by examples of the user doing the task, and a test that state explicitly what should be done to make sure that the story completes. The example and test help in the communication between the Product Owner, who makes sure the program that is being written is the program the user wants, and the Development Team, who is writing the code. It helps the Product Owner make sure that he or she has throught through the steps the system should take, and it givens the Development Team a clear mark to aim for. Even if the End User, the Product Owner, and the Development Team are all the same person, this discipline can help. By breaking your program down into these kinds of steps, you can make sure that you are continuing to make progress. It gives you the opportunity to think about what you really want the program to do before you start programming it and writing those thoughts down so that when you are deep in the code, you don't forget what you started out to do. 
+  </p>
+  <h2>Interlude: Improving out Server</h2>
+  <p>
+    People have been having trouble with their html code. It is hard to tell where the server is getting the files from. The advantage of writing our own server, is that we can change it to work for us. Let's add a feature to the server so that it writes out the file it is looking for and whether or not if found it.
   </p>
 </div>
 <div class="code">
-  This is some code
+var fs = require('fs');
+var http = require('http');
+var url = require('url');
+var ROOT_DIR = "html/";
+http.createServer(function (req, res) {
+    var urlObj = url.parse(req.url, true, false);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function (err, data) {
+  if (err) {
+      res.writeHead(404);
+      res.end(JSON.stringify(err));
+      <span class="add">console.log("404: " + ROOT_DIR + JSON.stringify(err));</span>
+      return;
+  }
+  res.writeHead(200);
+  res.end(data);
+  <span class="add">console.log("200: " + ROOT_DIR + urlObj.pathname);</span>
+});
+</div>
+<div class="wp-text-area">
+  <p>
+    The two lines in red above will write out where the files are coming from. The first one will tell you where it looked when it didn't find a file; the second when it did find a file. The function <code>console.log</code> writes it's string argument on the server's console. This means that it will appear in the window from which you are running the server. You will want to run the server in it's own terminal from now on so that you can see the messages it is giving your.
+  </p>
+  <h2>Breaking down the task</h2>
+  <p>
+    OK. Now that we have a server that will help us when we cannot find the file, let's go back to working on the blog. The story and the tests give a sense of what we need to do, but we really should think about how we want to do it before we start writing code. The first thing to do is to break the story into task that we can do in day or too. As you learn the language, these tasks will get more complicated, but for now, let's be very specific.
+  </p>
+  <ol>
+    <li>
+      The first thing to do is to create a home page. So let's first just creat a page with a title and a heading. This should be simple, we have done it before, but it will let us know that file we are editing is the file we are looking at in the browser.
+    </li>
+    <li>
+      Next, we will want to creat a box for text. In html, this is a textbox. We add that, and make sure it shows up in the browser.
+    </li>
+    <li>
+      Then we can add a button and see that in the browser.
+    </li>
+    <li>
+      We write anything on the web page when we click the button.
+    </li>
+    <li>
+      We write the content of the text box.
+    </li>
+  </ol>
 </div>
 <ol class="activity">
   <li class="enter">This is an item

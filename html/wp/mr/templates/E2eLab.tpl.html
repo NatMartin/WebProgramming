@@ -53,41 +53,287 @@ http.createServer(function (req, res) {
   </p>
   <ol>
     <li>
-      The first thing to do is to create a home page. So let's first just creat a page with a title and a heading. This should be simple, we have done it before, but it will let us know that file we are editing is the file we are looking at in the browser.
+      The first thing to do is to create a home page. So let's first just create a page with a title and a heading. This should be simple, we have done it before, but it will let us know that file we are editing is the file we are looking at in the browser.
     </li>
     <li>
-      Next, we will want to creat a box for text. In html, this is a textbox. We add that, and make sure it shows up in the browser.
+      Next, we will want to create a box for text. In html, this is a textbox. We add that, and make sure it shows up in the browser.
     </li>
     <li>
-      Then we can add a button and see that in the browser.
+      Then we can add a button to the screen so that we can post the information in the blog. It doesn't need to do anything, we are just looking at layout.
     </li>
     <li>
-      We write anything on the web page when we click the button.
+      We add an alert to the button so we can see that the button is actually working and that it is calling the function.
     </li>
     <li>
-      We write the content of the text box.
+      We move the JavaScript function to another file so we have our code and HTML separated.
+    </li>
+    <li>
+      We create an output area to put the sequence of blog posts from the window. We make sure that we can write to this window.
+    </li>
+    <li>
+      We take the content of the input window and put it in the output window.
+    </li>
+    <li>
+      We create an array to store the various blog posts so we can display them as we write multiple posts.
     </li>
   </ol>
+  <h2>Task 1: Base Page</h2>
+  <p>
+    Setting up the base page is simple. This is what I did. One thing I did was add a sequence number to the title, so I can see which version I am looking at. This is Blog 0.0. The initial one.
+  </p>
 </div>
-<ol class="activity">
-  <li class="enter">This is an item
-  </li>
-  <li class="do">
-  </li>
-</ol>
-  </li>
-  <li class="do">Read 
-    <a href="">
-      URL
-    </a>
-  </li>
-</ol>
+<div class="code">
+&lt!DOCTYPE html&gt
+&lthtml&gt
+&lthead&gt
+  &lttitle&gtBlog v0.0&lt/title&gt
+&lt/head&gt
+&ltbody&gt
+  &lth1&gtNat's Blog&lt/h1&gt
+&lt/body&gt
+ </div>
+<div class="wp-text-area">
+  <p>
+    Save the version in git, before moving on.
+  </p>
+  <h2>Task 2: Input area</h2>
+  <p>
+    The next task is to create an input area. All I really need to do is add the <code>&lttextarea id="blogContent" rows="10" cols="80"&gt&lt/textarea&gt</code> line. However, I enclose it in a <code>div</code> so I can give it a name. I know that this is an piece of my final project, so I will want to style it so it looks good. To specify a style, I will need to name to attach the style to. I don't want to think about styling yet, because for now I am focussing on getting the thing to work. I add a name so I don't have to come back to do it later.
+  </p>
+</div>
+<div class="code">
+&lt!DOCTYPE html&gt
+&lthtml&gt
+&lthead&gt
+  &lttitle&gtBlog v0.1&lt/title&gt
+&lt/head&gt
+&ltbody&gt
+  &lth1&gtNat's Blog&lt/h1&gt
+  &ltdiv id="blogInput"&gt
+    &lttextarea id="blogContent" rows="10" cols="80"&gt&lt/textarea&gt
+  &lt/div&gt
+&lt/body&gt
+</div>
+<div class="wp-text-area">
+  <p>
+    Remember to update the version number the save in git before moving on.
+  </p>
+  <h2>Task 3: Add Button</h2>
+  <p>
+    Next we add the button. I add a <code>br</code> tag to the button so it will appear immediately below the text area rather than next to it.
+  </p>
+</div>
+<div class="code">
+&lt!DOCTYPE html&gt
+&lthtml&gt
+&lthead&gt
+  &lttitle&gtBlog v0.2&lt/title&gt
+&lt/head&gt
+&ltbody&gt
+  &lth1&gtNat's Blog&lt/h1&gt
+  &ltdiv id="blogInput"&gt
+    &lttextarea id="blogContent" rows="10" cols="80"&gt&lt/textarea&gt
+    &ltbr&gt
+    &ltbutton&gtPost&lt/button&gt
+  &lt/div&gt
+&lt/body&gt
+</div>
+<div class="wp-text-area">
+  <p>
+    Update the version number the save in git before moving on.
+  </p>
+  <h2>Task 4: Add Action to Button</h2>
+  <p>
+    Next we add the simplest function we can to the button to make sure it works. We need to add an <code>onclick</code> attribute. While we are at it, we can also add an <code>id</code> attribute in case we want to style the button. We should also add a <code>button</code> class in case we want to style all of the buttons.
+  </p>
+  <p>
+    We also add the simplest function that we can see. This is usually to throw up an alert.
+  </p>
+</div>
+<div class="code">
+&lt!DOCTYPE html&gt
+&lthtml&gt
+&lthead&gt
+  &lttitle&gtBlog v0.3&lt/title&gt
+&lt/head&gt
+&ltbody&gt
+  &lth1&gtNat's Blog&lt/h1&gt
+  &ltdiv id="blogInput"&gt
+    &lttextarea id="blogContent" rows="10" cols="80"&gt&lt/textarea&gt
+    &ltbr&gt
+    &ltbutton id="postButton" class="button"  onclick="addBlog()"&gtPost&lt/button&gt
+  &lt/div&gt
+  &ltscript type="text/javascript"&gt
+    function addBlog() {
+      alert('Hello World')
+    }
+  &lt/script&gt
+&lt/body&gt
+</div>
+<div class="wp-text-area">
+  <p>
+    Remember git and version number.
+  </p>
+  <h2>Task 5: Separate JavaScript from HTML</h2>
+  <p>
+    Now that we have written some JavaScript, we need to get it out of the HTML file. We do this for three reasons:
+    <ol>
+      <li>
+        We want to concentrate on one thing at a time. When we write HTML, we focus on the structure of our document. The headers, the paragraphs .... When we write JavaScript, we focus on the active behavior of our page. What the things on our page do. When we write CSS, we focus on the appearance of the page.
+      </li>
+      <li>
+        We want to be able to test the JavaScript. The HTML and CSS are relatively easy to test because they appear in the page. The JavaScript, being behavior, is mostly invisible. It unfolds over time, so we will need to watch it over time. If it unfolds over a long period of time, it can take a long time to test, so we want to be able to automate the test. By separating the JavaScript from the HTML, we can test it separately.
+      </li>
+      <li>
+        By separating out the JavaScript, we can also tell the editor that we are writing a JavaScript program so the editor can give us better hints. It will look through it's JavaScript dictionary rather than its HTML dictionary.
+      </li>
+    </ol>
+  </p>
+  <p>
+    The HTML now looks like this. We specify a <code>src</code> attribute and remove the JavaScript.
+  </p>
+</div>
+<div class="code">
+&lt!DOCTYPE html&gt
+&lthtml&gt
+&lthead&gt
+  &lttitle&gtBlog v0.4&lt/title&gt
+&lt/head&gt
+&ltbody&gt
+  &lth1&gtNat's Blog&lt/h1&gt
+  &ltdiv id="blogInput"&gt
+    &lttextarea id="blogContent" rows="10" cols="80"&gt&lt/textarea&gt
+    &ltbr&gt
+    &ltbutton id="postButton" class="button"  onclick="addBlog()"&gtPost&lt/button&gt
+  &lt/div&gt
+  &ltscript type="text/javascript" src="js/blog5.js"&gt&lt/script&gt
+&lt/body&gt
+</div>
+<div class="wp-text-area">
+  <p>
+    The JavaScript file looks like this. Basically the same thing that was in the <code>script</code> tag. This is all we want to do at this step. We are testing that we have actually put the JavaScript code in the right place and that it still works.
+  </p>
+</div>
+<div class="code">
+/*
+  Blog JavaScript v 0.4
+*/
+function addBlog() {
+  alert('Hello World')
+}
+</div>
+<div class="wp-text-area">
+  <p>
+    Remember git and version number.
+  </p>
+  <h2>Task 6: Output Area</h2>
+  <p>
+    Now we want to add an area where we can show the blog entried. We need to add a new <code>div</code> tag to the HTML. We give it the <code>id</code> blogOutput.
+  </p>
+</div>
+<div class="code">
+&lt!DOCTYPE html&gt
+&lthtml&gt
+&lthead&gt
+  &lttitle&gtBlog v0.5&lt/title&gt
+&lt/head&gt
+&ltbody&gt
+  &lth1&gtNat's Blog&lt/h1&gt
+  &ltdiv id="blogInput"&gt
+    &lttextarea id="blogContent" rows="10" cols="80"&gt&lt/textarea&gt
+    &ltbr&gt
+    &ltbutton id="postButton" class="button"  onclick="addBlog()"&gtPost&lt/button&gt
+  &lt/div&gt
+  &ltdiv id="blogOutput" class="blogOutput"&gt&lt/div&gt
+  &ltscript type="text/javascript" src="js/blog5.js"&gt&lt/script&gt
+&lt/body&gt
+</div>
+<div class="wp-text-area">
+  <p>
+    The JavaScript file changes more dramatically. We now need to get access to the input area and the output area. We do this using <code>document.getElementById()</code>. This function accesses the Document Object Model or DOM. The DOM is a tree of objects that construct the page in an HTML document. A simple way to get access to object in the DOM is by using the method <code>getElementByID(id)</code>. This function takes and string representation of the element's id and returns the element. Here, we call <code>document.getElementById("blogOutput")</code> to get the object that we constructed with the HTML <code>&ltdiv id="blogOutput" class="blogOutput"&gt&lt/div&gt</code> tag. The value <code>id="blogOutput"</code> is what connects the function call to the object created in the browser by the HTML.
+  </p>
+  <p>
+    We can save these objects to variables--just as we can save any object to variables. And we can then call the object's methods. Here, we need to call two methods: <code>inArea.value</code> to get the words we have typed into the input area, and <code>outArea.innerHTML</code> to display them in the output area.
+  </p>
+</div>
+<div class="code">
+/*
+  Blog JavaScript v 0.5
+*/
+function addBlog() {
+  var outArea = document.getElementById("blogOutput");
+  var inArea = document.getElementById("blogContent")
+  outArea.innerHTML = inArea.value ;
+}
+</div>
+<div class="wp-text-area">
+  <p>
+    Remember git and version number.
+  </p>
+  <h2>Task 7: Multiple Posts</h2>
+  <p>
+   This is not much of a blog if we can only add one post to it. The next thing we need to do is add the ability to save posts and replay them. To do this we will not need to do anything to the HTML. The only thing we need to add it to change the connection to the HTML. We will work mostely in the JavaScript.
+  </p>
+</div>
+<div class="code">
+&lt!DOCTYPE html&gt
+&lthtml&gt
+&lthead&gt
+  &lttitle&gtBlog v0.6&lt/title&gt
+&lt/head&gt
+&ltbody&gt
+  &lth1&gtNat's Blog&lt/h1&gt
+  &ltdiv id="blogInput"&gt
+    &lttextarea id="blogContent" rows="10" cols="80"&gt&lt/textarea&gt
+    &ltbr&gt
+    &ltbutton id="postButton" class="button"  onclick="addBlog()"&gtPost&lt/button&gt
+  &lt/div&gt
+  &ltdiv id="blogOutput" class="blogOutput"&gt&lt/div&gt
+  &ltscript type="text/javascript" src="js/blog7.js"&gt&lt/script&gt
+&lt/body&gt
+</div>
+<div class="wp-text-area">
+  <p>
+    Now, instead of writing out input to the output immediately, we save the output in an array called <code>posts</code>. We also move the variables outside the fuction because we will use them each time the function is called. Outside the fuction the will not need to be reinitialized each time. We do not want <code>posts</code> to be reinitialized each time, so it has to be outside the funtion. This also means that the variables are global, which is usually to be avoided, but they are only global to the page. Here, we only have one function on the page. In general, however, a better plan would be to put the variables and functions in an object.
+  </p>
+  <p>
+    Next we alter our function so that it puts the most recent content of the input area into the array. The <code>push</code> method on arrays adds the most recent element to the end of the array. (This seems wrong to me; I would expect it to put it in the front. But that is what we have. There is another method called <code>unshift</code> that puts the addition on the front, but "unshift" does not help me remember what I am doing.) Because the push element puts the item on the end of the array, we need to display the array in reverse order. We can start with the <code>length</code> method on the array (subtracting 1 because we start counting at 0), and count down to 0. At each step, we put the blog output in the <code>outArea</code> along with a horizontal rule <code>hr</code>.
+  </p>
+</div>
+<div class="code">
+/*
+  Blog JavaScript v 0.6
+*/
+var posts = [];
+var outArea = document.getElementById("blogOutput");
+var inArea = document.getElementById("blogContent");
+
+function addBlog() {
+  posts.push(inArea.value);
+  outArea.innerHTML = "";
+  for (var i = posts.length - 1; i >= 0; i--) {
+    outArea.innerHTML = outArea.innerHTML + "&lthr&gt" + posts[i];
+  };
+}
+</div>
+<div class="wp-text-area">
+  <p>
+    Store the new code in git with a new version number and we are done. We have finished the first story in our backlog. 
+  </p>
+  <h2>Discussion</h2>
+  <p>
+    This is still not a very good blog because it only works as long as the window is open. All of the code we have written is with respect to the document currently displayed in the browser; as soon as we close the window, the blog goes away. Generally, as a security measure, browsers will not store anything on the client's host. This is a good thing. We do not want web sites putting things on our computer that we do not know about. However, it makes it difficult for the developer of web sites.
+  </p>
+  <p>
+    To deal with our inability to store information on the client host, we will need the client to return information to the server, so we can store it on the server host.
+  </p>
+</div>
 <div class="wp-text-area">
   <h3>References</h3>
   <ul class="references">
     <li class="ref">
-      <a href="">
-	Reference
+      <a href="http://en.wikipedia.org/wiki/Document_Object_Model">
+	       Document Object Model (Wikipedia)
       </a>
     </li>
   </ul>

@@ -1,0 +1,12 @@
+<div class="wp-text-area">
+  <h1>Unit Testing</h1>
+  <p>
+    Responsible programmers unit test to make sure that their part of the code continue to perform as expected. Subsequent programmers will find it difficult to determine which piece of the code is misbehaving without unit tests, make large bodies of code difficult to change. Indeed, without unit test code becomes more and more difficult to upgrade the larger it gets because new programmers do not know the assumptions prior programmers have made, so they cannot know when they are violating them. These violation show up as failures in the end-to-end testing, but the end-to-end testing gives no indication where the violation might be. Unit testing can give that information. Indeed, unit testing may indicate that assumptions were violated before an end-to-end testing failure occurs.
+  </p>
+  <p>
+  	Unit testing comprises part of technical debt. Technical debt acrues to programs as they are developed without fixing non-obvious errors. For example, a program that has no indentation has significant technical debt even if it works perfectly. The technical debt makes the program hard to change. If the program is hard to change, it will be hard to maintain. The programmer, but saving a few minutes by not formatting the code correctly has placed a burden on the programmers that come after him or her. The debt is owed to the programmers who come after the person writing the code.
+  </p>
+  <p>
+  	Writing unit tests partially discharges techical debt. By writing unit test, the programmer gives subsequent programmers insight into the assumptions of the code and a way to make sure that the assumptions are met. The tests themselve indicate what the programming intended for the code in that the programmer has written tests for the elements of the code he or she thought were the functions of the code. That is, they tests and their outcomes indicate what the user thought were the normal uses of the code. Second, the test give subsequent programmers the means of insuring that the assumptions the initial programmer made are still correct. The subsequent programmers can run the tests to make sure that everything the original programmer thought should happen still happens. The tests, being automated, can only test expected errors, but the expentations of the original programmer provide insight that the subsequent programmers may not otherwise have.
+  </p>
+</div>

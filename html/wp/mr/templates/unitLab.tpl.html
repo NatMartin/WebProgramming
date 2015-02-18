@@ -58,18 +58,77 @@
     </ol>
   </p>
   <h2>Setting up our Jasmine tests</h2>
+  <p>
+    The first thing we need to do is set up a SpecRunner.html to run our tests. The easiest thing to do is copy the SpecRunner into a new file and run it. Let's call it <code>BlogTestRunner.html</code>
+  </p>
+   <ol class="activity">
+    <li class="do">
+      Copy <code>SpecRunner.html</code> into <code>~/src/wp/html/blog/BlogTestRunner.html</code>
+    </li>
+    <li class="do">
+      Copy the jasmine directory into <code>~/src/html/blog</code>
+    </li>
+    <li class="do">
+      Edit the head in <code>BlogTestRunner.html</code> to point to the correct directories for the Jasmine tests.
+    </li>
+    <li class="do">
+      Copy <code>SpecRunner.html</code> into <code>~/src/wp/html/blog/BlogTestRunner.html</code>
+    </li>
+    <li>
+      Add the body from <code>blog.html</code> to the <code>BlogTestRunner.html</code>
+    </li>
+    <li>
+      Load <code>BlogTestRunner.html</code> from your server. Does is work? It show no specs?
+    </li>
+  </ol>
   <h2>Making sure "Post" function works</h2>
   <p>
-    
+    The first thing to do once you have the body of your page in the spec runner, is to create a new directory called <code>spec</code> in <code>~/src/wp/html/blog</code>.
   </p>
-  <h2>Makind sure the "Post" function transfers info</h2>
+   <ol class="activity">
+    <li class="do">
+      Put a <code>spec</code> directory in your <code>blog</code> directory.
+    </li>
+    <li class="do">
+      Create a new file in the <code>spec</code> directory called <code>blog-spec.js</code>
+    </li>
+    <li class="do">
+      Edit the head in <code>BlogTestRunner.html</code> to point to <code>blog-spec.js</code>. Make sure it also points to <code>blog.js</code> as the source.
+    </li>
+  </ol>
   <p>
-    
+    We cannot actually check that clicking on the button to check that the function will be called. We can, however make sure that the function is defined. So we check that. Add the following code to your blog-spec.js, then load BlogTestRunner.html using your server.
   </p>
+</div>  
+<div class="code">
+describe("blog", function() {
+
+  it("defines a function called addBlog() to be called by the post button.", function () {
+    expect(addBlog).toBeDefined();
+  });
+});
+</div>
+<div class="wp-text-area">
+  <p>
+    Once the program is works. That is, you see the Jasmine test running saying that one spec has successfully complete, save it in git. Now we are ready to make sure that the function actually moved information.
+  </p>
+  <h2>Making sure the "Post" function transfers info</h2>
+  <p>
+        
+  </p>
+</div>
+<div class="code">
+  This is some code
+</div>
+<div class="wp-text-area">
   <h2>Making sure the "Post" function puts information in the array</h2>
   <p>
     
   </p>
+</div>
+<div class="code">
+  This is some code
+</div>
 </div>
 
 
@@ -77,20 +136,6 @@
 <div class="code">
   This is some code
 </div>
-<ol class="activity">
-  <li class="enter">This is an item
-  </li>
-  <li class="do">
-  </li>
-</ol>
-  </li>
-  <li class="do">Read 
-    <a href="">
-      URL
-    </a>
-  </li>
-</ol>
-<div class="wp-text-area">
   <h3>References</h3>
   <ul class="references">
     <li class="ref">

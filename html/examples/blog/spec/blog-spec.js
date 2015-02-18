@@ -4,7 +4,14 @@ describe("blog", function() {
 		expect(addBlog).toBeDefined();
 	});
 
-	it("defines a new blog post", function () {
-
+	it("connects the input area to the output area", function () {
+		expect(outArea).toBeDefined();
+		expect(outArea).not.toBeNull();
+		expect(outArea).toEqual(document.getElementById("blogOutput"))
+		outArea.innerHTML = "";
+		expect(outArea.innerHTML).toEqual("");
+		inArea.value = "Test";
+		addBlog();
+		expect(outArea.innerHTML).toEqual("<hr>Test");
 	});
 });

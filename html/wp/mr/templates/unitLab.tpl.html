@@ -114,13 +114,32 @@ describe("blog", function() {
   </p>
   <h2>Making sure the "Post" function transfers info</h2>
   <p>
-        
+    To Check this we will want to check that the outArea variable is definec, not null and equal to the document element "blogOutput". We blank out the input area and check to make sure it is blank. We will then add some text to the input area by setting <code>inArea.value</code> to the string <code>Test</code>. We call the function and check that the value gets into the input area. Notice that we need to add the horizontal rule to the output because that is what <code>addBlog()</code> actually puts in.
   </p>
 </div>
 <div class="code">
-  This is some code
+describe("blog", function() {
+
+  it("defines a function called addBlog() to be called by the post button.", function () {
+    expect(addBlog).toBeDefined();
+  });
+
+  it("connects the input area to the output area", function () {
+    expect(outArea).toBeDefined();
+    expect(outArea).not.toBeNull();
+    expect(outArea).toEqual(document.getElementById("blogOutput"))
+    outArea.innerHTML = "";
+    expect(outArea.innerHTML).toEqual("");
+    inArea.value = "Test";
+    addBlog();
+    expect(outArea.innerHTML).toEqual("<hr>Test");
+  });
+});
 </div>
 <div class="wp-text-area">
+  <p>
+    When we are done, we check in to git and go on to the next test.
+  </p>
   <h2>Making sure the "Post" function puts information in the array</h2>
   <p>
     

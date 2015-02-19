@@ -1,4 +1,40 @@
 <div class="wp-text-area">
+  <h2>Interlude: Retrieving from Git</h2>
+  <p>
+    It is probably a good time to talk about getting files back from git. We have been saving them there as part of our programming practice, but how do we get them back if we need them. To do so, we will need to be able to find the files, then retrieve them. 
+  </p>
+  <h3>Finding files in Git</h3>
+  <p>
+    The command, <code>git log</code>, lists the commits that have been stored in Git. The bare form lists the commits with the most recent at the top. You can limit the number of files by specifying that number as a option. For example, <code>git log -2</code> shows the two most recent commits. The <code>-p</code> option, shows all of the changes that were made since the previous commit. For example <code>git log -2 -p</code> shows the changes in the two most recent commits.
+  </p>
+  <p>
+    The git documentation listed in the reference below provide a lot more options to <code>git log</code>. It will repay your time to read through the chapter on Git Basics.
+  </p>
+</div>
+<div class="wp-text-area">
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History">
+        The Git documentation on git log
+      </a>
+    </li>
+</div>
+<div class="wp-text-area">
+  <p>
+    To get your files back, use the <code>checkout</code> command. You can checkout the most recent checked in file with <code>checkout &ltpath to file&gt</code>. You can check out a particular version using <code>checkout &ltcommit&gt &ltpath to file&gt</code>. For example, to get a file back that you removed several commits ago, you can enter <code>checkout &ltcommit&gt^ &ltpath to file&gt</code> where <code>&ltcommit&gt</code> is the first commit that does not have the file in it. The <code>^</code> character says, get the file from the commit immediately before this one. You might want to do this because you can find the first commit that does not have the file in it using the command <code>git rev-list -n 1 HEAD -- &ltpath to file&gt</code>. This solution is explained in the stackoverflow page referenced below.
+  </p>
+</div>
+<div class="wp-text-area">
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://stackoverflow.com/questions/953481/restore-a-deleted-file-in-a-git-repo">
+        Stack overflow solution to finding a deleted fine in a sequence of commits.
+      </a>
+    </li>
+  </ul>
+</div>
   <h2>Writing Unit Tests</h2>
   <p>
     What should we capture in our unit tests. The plan we developed for our code gives us insight. Remember, we planned to do the following:

@@ -14,4 +14,17 @@ describe("blog", function() {
 		addBlog();
 		expect(outArea.innerHTML).toEqual("<hr>Test");
 	});
+
+	it("stores multiple blog posts in an array called posts", function () {
+		expect(posts).toBeDefined();
+		expect(posts).not.toBeNull();
+		posts = [];
+		expect(posts).toEqual([]);
+		inArea.value = "Test1";
+		addBlog();
+		expect(posts).toEqual(["Test1"]);
+		inArea.value = "Test2";
+		addBlog();
+		expect(posts).toEqual(["Test1", "Test2"]);
+	});
 });

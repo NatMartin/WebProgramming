@@ -132,7 +132,7 @@ describe("blog", function() {
     expect(outArea.innerHTML).toEqual("");
     inArea.value = "Test";
     addBlog();
-    expect(outArea.innerHTML).toEqual("<hr>Test");
+    expect(outArea.innerHTML).toEqual("&lthr&gtTest");
   });
 });
 </div>
@@ -142,24 +142,57 @@ describe("blog", function() {
   </p>
   <h2>Making sure the "Post" function puts information in the array</h2>
   <p>
-    
+    Now we want to make sure that the values are being stored in the array we are using as out blog store. As with the previous test we make sure the array is empty, then add a value. If it appears in the array, the test passes. Just to make sure that it will hold multiple values, we add another and check to see that both of them appear in the array.
   </p>
 </div>
 <div class="code">
-  This is some code
-</div>
-</div>
+describe("blog", function() {
 
+  it("defines a function called addBlog() to be called by the post button.", function () {
+    expect(addBlog).toBeDefined();
+  });
 
+  it("connects the input area to the output area", function () {
+    expect(outArea).toBeDefined();
+    expect(outArea).not.toBeNull();
+    expect(outArea).toEqual(document.getElementById("blogOutput"))
+    outArea.innerHTML = "";
+    expect(outArea.innerHTML).toEqual("");
+    inArea.value = "Test";
+    addBlog();
+    expect(outArea.innerHTML).toEqual("&lthr&gtTest");
+  });
 
-<div class="code">
-  This is some code
+  it("stores multiple blog posts in an array called posts", function () {
+    expect(posts).toBeDefined();
+    expect(posts).not.toBeNull();
+    posts = [];
+    expect(posts).toEqual([]);
+    inArea.value = "Test1";
+    addBlog();
+    expect(posts).toEqual(["Test1"]);
+    inArea.value = "Test2";
+    addBlog();
+    expect(posts).toEqual(["Test1", "Test2"]);
+  });
+});
 </div>
+<div class="wp-text-area">
+  <p>
+    We have finished out three tests. Save them in git.
+  </p>
+</div>
+<div class="wp-text-area">
   <h3>References</h3>
   <ul class="references">
     <li class="ref">
-      <a href="">
-	Reference
+      <a href="http://www.htmlgoodies.com/beyond/javascript/testing-javascript-using-the-jasmine-framework.html">
+        A good article Jasmine
+      </a>
+    </li>
+    <li class="ref">
+      <a href="http://www.htmlgoodies.com/html5/javascript/spy-on-javascript-methods-using-the-jasmine-testing-framework.html#fbid=kjM4S0Uw2Yj">
+        A good article on the spy function in JavaScript
       </a>
     </li>
   </ul>

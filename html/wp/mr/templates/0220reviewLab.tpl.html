@@ -1,26 +1,120 @@
 <div class="wp-text-area">
-  <h2>No Lab Written</h2>
   <p>
-    This is the lab section for this page. It has not been written
-    yet. It is only the template.
+    Manual vs Automatic testing and End-to-end vs Unit testing are two orthogonal descriptions of testing. That is there is Manual End-to-end testing, Manual Unit testing, Automated End-to-end testing, and Automated Unit testing. All four are useful in different areas. The following describe properties of the tests.
   </p>
+  <h2>Manual vs Automatic Testing</h2>
+  <ul>
+    <li>
+      Manual
+      <ol>
+        <li>
+          Human follows steps; views answer
+        </li>
+        <li>
+          Steps and observations must be clear
+        </li>
+        <li>
+          Allows for observation and interpretation
+        </li>
+        <li>
+          Costly
+        </li>
+      </ol>
+    </li>
+    <li>
+      Automated
+      <ol>
+        <li>
+          Program executes steps; performs test
+        </li>
+        <li>
+          Program executes steps; performs test
+        </li>
+        <li>
+          Cheap
+        </li>
+      </ol>
+    </li>
+  </ul>
+  <h2>Unit vs End-to-end</h2>
+  <ul>
+    <li>
+      Unit
+      <ol>
+        <li>
+          Programmer tests own code
+        </li>
+        <li>
+          Does not catch intergration errors
+        </li>
+        <li>
+          Automation helps with regressions errors
+        </li>
+      </ol>
+    </li>
+    <li>
+      Automated
+      <ol>
+        <li>
+          Tests system behavior
+        </li>
+        <li>
+          Does not indentify root cause
+        </li>
+        <li>
+          Automation lets programmers catch regression errors
+        </li>
+      </ol>
+    </li>
+  </ul>
+  <p>
+    Specification by example provides an example and a test with every story. The test is an end-to-end test. It may be automated or manual.
+  </p>
+  <ol class="questions">
+    <li class="question">
+      What is a regression error?
+    </li>
+    <li class="question">
+      Which type of testing would be most useful to programmers once End-to-end testing has discovered a system error?
+    </li>
+    <li class="question">
+      Which type of testing would be most useful to catch UI errors?
+    </li>
+    <li class="question">
+      Why is it worthwhile to have manual tests?
+    </li>
+    <li class="question">
+      Write a specification by example for the story "As a blog user, I want to log in, so only I can change my blog entries."
+    </li>
+    <li class="question">
+      Write a story for the specification: "The system shall allow any user to comment on an existing blog post."
+    </li>
+  </ol>
+  <h2>Unit Testing</h2>
+  <ol class="questions">
+    <li class="question">
+      What is a unit test?
+    </li>
+    <li class="question">
+      Why is it helpful to have automated unit tests?
+    </li>
+    <li class="question">
+      What five functions does Jasmine define for us?
+    </li>
+    <li class="question">
+      Why is it worthwhile to have manual tests? What do they do?
+    </li>
+    <li class="question">
+      List the methods on an expectation (i.e. what is produced by the "expect" method).
+    </li>
+    <li class="question">
+      What is a spy in Jasmine?
+    </li>
+    <li>
+      What is a fake? How do fakes and mocks differ?
+    </li>
+  </ol>
 </div>
-<div class="code">
-  This is some code
-</div>
-<ol class="activity">
-  <li class="enter">This is an item
-  </li>
-  <li class="do">
-  </li>
-</ol>
-  </li>
-  <li class="do">Read 
-    <a href="">
-      URL
-    </a>
-  </li>
-</ol>
 <div class="wp-text-area">
   <h3>References</h3>
   <ul class="references">

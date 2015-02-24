@@ -1,0 +1,160 @@
+  <h2>Getting Jasmine Node</h2>
+  <p>
+    The first thing to do is download jasmine-node. This is a testing framework for jasmine in node.js. We can use <code>npm</code> the node package manager.
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>sudo npm install jasmine-node -g</code>
+  </li>
+  <li class="do">
+    Check to make sure it is installed using <code>jasmine-node --verison</code>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <h2>Setting up Directories</h2>
+  <p>
+    Our server is in <code>~/src/wp</code> so we will need to test there. Let's create a directory in <code>wp</code> to hold our specs.
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>cd ~/src/wp</code>
+  </li>
+  <li class="enter">
+     <code>mkdir spec</code>
+  </li>
+  <li class="see">
+     Enter <code>ls</code>; see <code>server.js spec/</code>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <h2>Creating out specification file</h2>
+  <p>
+    Now we will write our first test.
+  </p>
+</div>
+<ol class="activity">
+  <li class="do">
+     Open sublime-text and create a new file with <code>ctrl-n</code>
+  </li>
+  <li class="do">
+     Save the file <code>ctrl-s</code> in <code>~/src/wp/spec/server-spec.js</code>
+  </li>
+  <li class="see">
+     Enter <code>ls ~/src/wp/spec</code>; see <code>server-spec.js</code>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    Lets look at what we already have in our server. As you can see, it's not easy to test. That is because we wrote it quickly and did not really think about it much other than whether or not it worked.
+  </p>
+</div>
+<div class="code">
+var fs = require('fs');
+var http = require('http');
+var url = require('url');
+var ROOT_DIR = "html/";
+
+http.createServer(function (req, res) {
+    var urlObj = url.parse(req.url, true, false);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function (err, data) {
+  if (err) {
+      res.writeHead(404);
+      res.end(JSON.stringify(err));
+      return;
+  }
+  res.writeHead(200);
+  res.end(data);
+    });
+}).listen(3030);
+</div>
+<div class="wp-text-area">
+  <p>
+    To make the code more testable, we need to pull the behavior out of the server. This has the added benefit of makeing the code easier to read. Now instead of having code if we get an error, we have a function whose name tells us what we do when we get an error.
+  </p>
+</div>
+<div class="code">
+var fs = require('fs');
+var http = require('http');
+var url = require('url');
+var ROOT_DIR = "html/";
+
+function returnErrorMessage(result, error) {
+  result.writeHead(404);
+  result.end(JSON.stringify(error));
+}
+
+function returnPage(result, page) {
+  result.writeHead(200);
+  result.end(page); 
+}
+
+http.createServer(function (req, res) {
+    var urlObj = url.parse(req.url, true, false);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function (err, data) {
+      if (err) {
+        returnErrorMessage(res, err);
+          return;
+      }
+      returnPage(res, data);
+    });
+}).listen(3030);
+</div>
+<div class="wp-text-area">
+  <p>
+    I hope you agree that the server is easier to read. We can improve it further, however, by breaking out the server function itself and naming it.
+  </p>
+</div>
+<div class="code">
+var fs = require('fs');
+var http = require('http');
+var url = require('url');
+var ROOT_DIR = "html/";
+
+function returnErrorMessage(result, error) {
+  result.writeHead(404);
+  result.end(JSON.stringify(error));
+}
+
+function returnPage(result, page) {
+  result.writeHead(200);
+  result.end(page); 
+}
+
+function server(request, result) {
+    var urlObj = url.parse(request.url, true, false);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function(error, page) {
+      if (error) {
+        returnErrorMessage(result, error);
+      } else {
+        returnPage(result, page);
+    });
+}
+
+http.createServer(server).listen(3030);
+</div>
+<div class="wp-text-area">
+  <p>
+    Now the code is easy to read. The <code>http.createServer()</code> creates a server using server. The server, takes a request and a result and reads a file from the pathname specify in the request and returns an error if there is one. It returns the page if the read succeeds.
+  </p>
+  <p>
+    It is also easy to test. The functions are accessible to our testing framework, so we can test that they do the right things. However, to test them, we will need to create fake results and requests.
+  </p>
+</div>
+
+<div class="wp-text-area">
+  <h3>References</h3>
+  <ul class="references">
+    <li class="ref">
+      <a href="http://blog.codeship.com/jasmine-node-js-application-testing-tutorial/">
+        Blog on getting started with Jasmine in node.
+      </a>
+    </li>
+    <li class="ref">
+      <a href="https://github.com/mhevery/jasmine-node">
+        Official jasmine-node documentation from Github
+      </a>
+    </li>
+  </ul>
+</div>

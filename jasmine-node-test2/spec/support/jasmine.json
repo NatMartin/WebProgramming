@@ -1,0 +1,11 @@
+{
+	"src_dir": "..",
+	"spec_dir": "spec",
+	"spec_files": [
+		"*spec.js",
+		"**/*[sS]pec.js"
+	],
+	"helpers": [
+		"helpers/**/*.js"
+	]
+}

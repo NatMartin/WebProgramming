@@ -1,0 +1,26 @@
+<div class="wp-text-area">
+  <h1>Developing the Server using TDD</h1>
+  <p>
+  	In this lesson we will take on the second story in our backlog, "As a blog writer, I want to be able to save my posts so that I do not have to retype them." This story cannot be satisfied using JavaScript in the browser because the browser loses state whenever it moves to a new page. HTTP, the protocol of the web, is a RESTful intefaces, so the client maintaines no state.  To complete this story, we will have to do our work on the server.
+  </p>
+  <p>
+  	Fortunately, The tools we have been using to edit code in the browser will also work on the server. We will need to download a different version of Jasmine, one that runs outside the browser and provides all of the node.js classes.
+  </p>
+  <p>
+  	We will also use a new practice. Notice that over the last few days, we planned our program, wrote it in pieces, then tested it in pieces. We can achieve better efficiency if we reverse the order, writing the test before writing the code. Similar to the way we create a backlog of end-to-end stories with tests provided in Specification by Example, we can provide tasks with unit tests for personal development, a practice called Test Driven Development (TDD).
+  </p>
+  <p>
+  	Test Driven Development proceeds in three stages:
+  	<ol>
+  		<li>
+  			Write a failiing test. If it does not fail, we do not need to write any code, so we can go on to write a new test until we get one that fails.
+  		</li>
+  		<li>
+  			Write the smallest program that will make the test succeed. By the smallest program, we really mean the smallest program. For example we can write a multiply funciton that simply retruns ten if the test is to multiply five by two. We will add more tests until we have a real multply function. Writing the program should not take more than five to ten minutes.
+  		</li>
+  		<li>
+  			Refactor the code so that it is easy to understand. This means first, making the code look good with proper indentation and expressive function and variable names. Second, look for any code that is repeated. If you find any pull it out into its own function. Third, make sure that each function only do one thing and that the one thing they do is clearly expressed by its name. Do the same for class, methods and properties. Refactoring is the step that turns student code into professional code.
+  		</li>
+  	</ol>
+  </p>
+</div>

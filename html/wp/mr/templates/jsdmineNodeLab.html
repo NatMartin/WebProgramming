@@ -135,6 +135,26 @@ function server(request, result) {
 http.createServer(server).listen(3030);
 </div>
 <div class="wp-text-area">
+  <h2>Modularizing</h2>
+  <p>
+    We need to do one more thing before testing our code: make it into a module, so we can include it in our testing framework. If you look at the top of the server code you see the lines
+    <div class="code">
+var fs = require('fs');
+var http = require('http');
+var url = require('url');
+    </div>
+    These are modules defined by node.js. The first, <code>fs</code> contains the file system for node. The second, <code>http</code>, contains the routines that manage HTTP. The third, <code>url</code>, contains the routines that parse URLs. We will write a new one that provides access to the server.
+  </p>
+  <p>
+    Modules encapsulate code, that is, they determine which parts of the code are accessible outside the module. To create a module, we only need to specify what is available outside it. Here, we will export <code>server</code>, <code>returnPage</code>, and <code>returnError</code>.
+  </p>
+  <p>
+    Before we do that, however, let's put the code in a library where it can be loaded by the glue code that will pull together the elements of the library.
+  </p>
+</div>
+
+<div class="wp-text-area">
+  <h2>Testing with Jasmine-node</h2>
   <p>
     Now the code is easy to read. The <code>http.createServer()</code> creates a server using server. The server, takes a request and a result and reads a file from the pathname specify in the request and returns an error if there is one. It returns the page if the read succeeds.
   </p>
@@ -142,6 +162,20 @@ http.createServer(server).listen(3030);
     It is also easy to test. The functions are accessible to our testing framework, so we can test that they do the right things. However, to test them, we will need to create fake results and requests.
   </p>
 </div>
+<ol class="activity">
+  <li class="enter">
+     <code>cd ~/src/wp</code>
+  </li>
+  <li class="enter">
+     <code>mkdir lib</code>
+  </li>
+  <li class="enter">
+     <code>cp server.js lib</code>
+  </li>
+  <li class="see">
+     Enter <code>ls lib</code>; see <code>server.js spec/</code>
+  </li>
+</ol>
 
 <div class="wp-text-area">
   <h3>References</h3>

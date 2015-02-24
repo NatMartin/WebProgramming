@@ -1,507 +1,251 @@
-<div class="wp-text-area">
-  <h2>Planning the Tasks</h2>
+  <h2>Getting Jasmine Node</h2>
   <p>
-    The story we are working on is "As a blog writer, I want to be able to save my posts so that I do not have to retype them." It sounds like it will be easy, but as developers we know that it will involve development on the server side. The first thing we want to do is figure out how will will accomplish the task.
-  </p>
-  <p>
-    We will need to update our server program so that when the user navigates to the blog, a program runs. This program will collect the blog and return it to the user. When the user enters data into the input area, this data will need to be returned to the server and stored where it can be retrieved when the user returns.
-  </p>
-  <p>
-    Let's break it down further:
-  </p>
-  <ol>
-    <li>
-      We are not sure what the browser is going to send back to use, so first, let's upgrade our server to print the browser's requests.
-    </li>
-    <li>
-      Once we know what we are getting from the browser, we can set up a program to handel that.
-    </li>
-  </ol>
-  <p>
-    This is enough to get started. Let's look at how we are going to do TDD. First, we will need a testing framework. Standalone Jasmine will not work because it works only in the browser (i.e., in a web page). We will need to download Jasmine-node to test it. Then we will need to set up our directory with a spec directory containing a file that ends in "spec.js" because that is what Jasmine-node looks for by default. 
-  </p>
-  <h2>Setting up Jasmine to run Node.js</h2>
-  <p>
-    The first thing to do is download jasmine. This time you can do it globally because it will be accessing jasmine from the command line rather than from a web page. 
+    The first thing to do is download jasmine-node. This is a testing framework for jasmine in node.js. We can use <code>npm</code> the node package manager.
   </p>
 </div>
 <ol class="activity">
   <li class="enter">
-     <code>sudo npm install -g jasmine</code>
+     <code>sudo npm install jasmine-node -g</code>
   </li>
-  <li class="enter">
-     <code>mkdir ~/src/new-server</code>
-  </li>
-  <li class="enter">
-     <code>cd ~/src/new-server</code>
-  </li>
-  <li class="enter">
-     <code>jasmine init</code>
-  </li>
-  <li class="see">
-    You should have a new directory in <code>new-server</code> called <code>spec</code>. There should be a directory in <code>spec</code> called <code>support</code> containing a single file called <code>jasmine.json</code>  
+  <li class="do">
+    Check to make sure it is installed using <code>jasmine-node --verison</code>
   </li>
 </ol>
 <div class="wp-text-area">
-  <h2>Test 1: Making sure everything is in the right place</h2>
+  <h2>Setting up Directories</h2>
   <p>
-    Now that we have the directories and files set up to run Jasmine using node.js, we can start building the code.
-  </p>
-  <h2>Creating the first test</h2>
-  <p>
-    We will create the new server in <code>~/src/new-server</code>. We will build the server there. The first thing we do is build a test. To make sure that we have everything in place, lets start just with a simple test that we hope will pass.
+    Our server is in <code>~/src/wp</code> so we will need to test there. Let's create a directory in <code>wp</code> to hold our specs.
   </p>
 </div>
 <ol class="activity">
-  <li class="do">
-    Using your editor open a file called<code>server-spec.js</code> in <code>~/src/new-server/spec</code>. Enter the code display in the following code block
-  </li>
-  <li class="do">
-    Save the code and navigate to <code>~/src/new-server</code>
+  <li class="enter">
+     <code>cd ~/src/wp</code>
   </li>
   <li class="enter">
-     <code>jasmine</code>
+     <code>mkdir spec</code>
   </li>
   <li class="see">
-    <div class="code">
-Started
-.
-
-
-1 spec, 0 failures
-Finished in 0.006 seconds
-    </div>
+     Enter <code>ls</code>; see <code>server.js spec/</code>
   </li>
 </ol>
-<div class="code">
-/*
-  server.spec.js
-*/
-describe("Server", function () {
-
-  it("is tested with jasmine-node", function() {
-    expect(true).toBe(true);
-  });
-
-});
-</div>
 <div class="wp-text-area">
+  <h2>Creating out specification file</h2>
   <p>
-    This doesn't test much, but at least we know that the test system is working.
-  </p>
-  <h2>Test 2: First failing test</h2>
-  <p>
-    The first thing we do in Test Driven Development is write a failing test. This makes sure that the testing system can distinguish between a failing test and a successful test. We write a failing test so that we know that the code we wrote make the test succeed, as expected. If we wrote the code first and then the test, the test might succeed by accident, say because the test is flawed and really testing nothing, rather than from the code we just wrote. So, by writing a failing test first, we demonstrate that the test is really testing the code as we expect. 
-  </p>
-  <p>
-    As a first test, let's check to see that the root directory is "html". To do this, we only need test that the variable <code>ROOT_DIR</code> equals <code>html/</code>.
-
+    Now we will write our first test.
   </p>
 </div>
 <ol class="activity">
   <li class="do">
-     Edit the code to add the test below to <code>server-sped.js</code>
+     Open sublime-text and create a new file with <code>ctrl-n</code>
   </li>
   <li class="do">
      Save the file <code>ctrl-s</code> in <code>~/src/wp/spec/server-spec.js</code>
   </li>
-  <li class="enter">
-    <code>jasmine</code>
-  </li>
   <li class="see">
-    <div class="code">
-nat@Linus:~/src/server-test$ jasmine
-Started
-.F
-
-Failures:
-1) Server has a root directory of html
-  Message:
-    ReferenceError: ROOT_DIR is not defined
-  Stack:
-    ReferenceError: ROOT_DIR is not defined
-        at Object.<anonymous> (/home/nat/src/server-test/spec/serverspec.js:16:10)
-
-2 specs, 1 failure
-Finished in 0.015 seconds
-    </div>
+     Enter <code>ls ~/src/wp/spec</code>; see <code>server-spec.js</code>
   </li>
 </ol>
+<div class="wp-text-area">
+  <p>
+    Lets look at what we already have in our server. As you can see, it's not easy to test. That is because we wrote it quickly and did not really think about it much other than whether or not it worked.
+  </p>
+</div>
 <div class="code">
-/*
-  server.spec.js
-*/
-describe("Server", function () {
+var fs = require('fs');
+var http = require('http');
+var url = require('url');
+var ROOT_DIR = "html/";
 
-  it("is tested with jasmine-node", function() {
-    expect(true).toBe(true);
-  });
-
-  it("has a root directory of html", function() {
-    expect(ROOT_DIR).toEqual("html/");
-  });
-});
+http.createServer(function (req, res) {
+    var urlObj = url.parse(req.url, true, false);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function (err, data) {
+  if (err) {
+      res.writeHead(404);
+      res.end(JSON.stringify(err));
+      return;
+  }
+  res.writeHead(200);
+  res.end(data);
+    });
+}).listen(3030);
 </div>
 <div class="wp-text-area">
   <p>
-    Success! The test has failed. We now know that our testing framework can succeed and fail, which is what you want a testing framework to do.
+    To make the code more testable, we need to pull the behavior out of the server. This has the added benefit of makeing the code easier to read. Now instead of having code if we get an error, we have a function whose name tells us what we do when we get an error.
   </p>
-  <h3>Making the test succeed.</h3>
+</div>
+<div class="code">
+var fs = require('fs');
+var http = require('http');
+var url = require('url');
+var ROOT_DIR = "html/";
+
+function returnErrorMessage(result, error) {
+  result.writeHead(404);
+  result.end(JSON.stringify(error));
+}
+
+function returnPage(result, page) {
+  result.writeHead(200);
+  result.end(page); 
+}
+
+http.createServer(function (req, res) {
+    var urlObj = url.parse(req.url, true, false);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function (err, data) {
+      if (err) {
+        returnErrorMessage(res, err);
+          return;
+      }
+      returnPage(res, data);
+    });
+}).listen(3030);
+</div>
+<div class="wp-text-area">
   <p>
-    Now that we have a failing test, we can write the code to make it succeed. The code should be small, and in this case it is. We write a file that defines <code>ROOT_DIR</code> and sets it to <code>html/</code>. The code is below. We will also need to update our test to include the code we are testing. We can do this by adding the lines in red. Jasmine is not really intended to do testing at this level of detail. It tests modules that have well defined interfaces. To actually load the code we are testing we need to read a file and then evaluate the file inside the test file. This is unfortunate, but ¯\_(ツ)_/¯.
+    I hope you agree that the server is easier to read. We can improve it further, however, by breaking out the server function itself and naming it.
+  </p>
+</div>
+<div class="code">
+var fs = require('fs');
+var http = require('http');
+var url = require('url');
+var ROOT_DIR = "html/";
+
+function returnErrorMessage(result, error) {
+  result.writeHead(404);
+  result.end(JSON.stringify(error));
+}
+
+function returnPage(result, page) {
+  result.writeHead(200);
+  result.end(page); 
+}
+
+function server(request, result) {
+    var urlObj = url.parse(request.url, true, false);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function(error, page) {
+      if (error) {
+        returnErrorMessage(result, error);
+      } else {
+        returnPage(result, page);
+    });
+}
+
+http.createServer(server).listen(3030);
+</div>
+<div class="wp-text-area">
+  <p>
+    Now the code is easy to read. The <code>http.createServer()</code> creates a server using server. The server, takes a request and a result and reads a file from the pathname specify in the request and returns an error if there is one. It returns the page if the read succeeds.
+  </p>
+  <p>
+    It is also easy to test. The functions are accessible to our testing framework, so we can test that they do the right things. However, to test them, we will need to create fake results and requests.
+  </p>
+</div>
+
+<div class="wp-text-area">
+  <h2>Modularizing</h2>
+  <p>
+    We need to do one more thing before testing our code: make it into a module, so we can include it in our testing framework. If you look at the top of the server code you see the lines
+    <div class="code">
+var fs = require('fs');
+var http = require('http');
+var url = require('url');
+    </div>
+    These are modules defined by node.js. The first, <code>fs</code> contains the file system for node. The second, <code>http</code>, contains the routines that manage HTTP. The third, <code>url</code>, contains the routines that parse URLs. We will write a new one that provides access to the server.
+  </p>
+  <p>
+    Modules encapsulate code, that is, they determine which parts of the code are accessible outside the module. To create a module, we only need to specify what is available outside it. Here, we will export <code>server</code>, <code>returnPage</code>, and <code>returnError</code>.
+  </p>
+  <p>
+    Before we do that, however, let's put the code in a library where it can be loaded by the glue code that will pull together the elements of the library.
   </p>
 </div>
 <ol class="activity">
-  <li class="do">
-    Create a new file <code>~/src/wp/server.js</code> and add the following file.
-  </li>
-  <li class="do">
-    Update <code>~/src/wp/server-spec.js</code> to add the line <code>require ('../server.js')</code> so it lookis like
-    <div class="code">
-/*
-  server.spec.js
-*/
-<span class="add">
-var fs = require("fs");
-
-function read(f) {
-  return fs.readFileSync(f).toString();
-}
-function include(f) {
-  eval.apply(global, [read(f)]);
-}
-
-include('server.js');
-</span>
-
-describe("Server", function () {
-
-  it("is tested with jasmine-node", function() {
-    expect(true).toBe(true);
-  });
-
-  it("has a root directory of html", function() {
-    expect(ROOT_DIR).toEqual("html/");
-  });
-});
-</div>
+  <li class="enter">
+     <code>cd ~/src/wp</code>
   </li>
   <li class="enter">
-    <code>jasmine</code>
+     <code>mkdir lib</code>
+  </li>
+  <li class="enter">
+     <code>cp server.js lib</code>
   </li>
   <li class="see">
-    <div class="code">
-nat@Linus:~/src/server-test$ jasmine
-Started
-..
-
-
-2 specs, 0 failures
-Finished in 0.007 seconds
-    </div>
+     Enter <code>ls lib</code>; see <code>server.js spec/</code>
   </li>
 </ol>
+<div class="wp-text-area">
+  <p>
+    Now edit <code>~/src/wp/lib/server.js</code> to match the following code:
+  </p>
+</div>
 <div class="code">
-/*
-  server.js
-*/
+exports = module.exports = {};
+
+var fs = require('fs');
+var url = require('url');
 var ROOT_DIR = "html/";
+
+function returnErrorMessage(result, error) {
+  result.writeHead(404);
+  result.end(JSON.stringify(error));
+};
+
+function returnPage(result, page) {
+  result.writeHead(200);
+  result.end(page); 
+};
+
+exports.server = function(request, result) {
+    var urlObj = url.parse(request.url, true, false);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function(error, page) {
+    if (error) {
+      returnErrorMessage(result, error);
+    } else {
+      returnPage(result, page);
+      }
+    });
+};  
 </div>
 <div class="wp-text-area">
   <p>
-    Hurray! It worked. The testing framework found out code and that code made the failing test succeed.
-  </p>
-  <h3>Refactor the code</h3>
-  <p>
-    Next we refactor the code. Is there anything we can do to make this code clearer? Well ... not really. It's not doing much yet, so there's not much we can do. Time to celebrate by checking the code in to git..
+    We are creating a module that exports <code>server</code> as the only entry point. It includes two functions <code>returnPage</code> and <code>returnErrorMessage</code> that are not visible outside the module. We need to load two node.js modules into this module: the <code>fs</code> module, which lets us read files and the <code>url</code> module, which lets us parse the url to find out what file we should load.
   </p>
   <p>
-    Let's push on.
-  </p>
-  <h2>Test 3: Defining the server function</h2>
-  <p>
-    Since there is nothing to refactor, we can go ahead and add a failing test. Let's build our server function. We can test that the function is defined. It does not need to do anything yet. We add the following test to <code>server-spec.js</code>. Run it and see it fail.
+    Edit <code>~/src/wp/server.js</code> to match this code:
   </p>
 </div>
 <div class="code">
-  it("has a server() function", function() {
-    expect(server).toBeDefined;
-  });
+var http = require('http');
+var server = require('./lib/server.js');
+
+http.createServer(server.server).listen(3030);
 </div>
 <div class="wp-text-area">
   <p>
-    Now we add the server definition to <code>server.js</code>.
+    We need to load two modules here: The node.js <code>http</code> module and our new <code>server.js</code>. We load the <code>server.js</code> module using the <code>require</code> command, just as we load the <code>http</code> module. We need to specify the full path of the module (i.e., <code>./lib/server.js</code>) because <code>require</code> looks in the directories where node.js keeps its modules. Other modules need to specify their location more fully.
   </p>
-</div>
-<div class="code">
-var ROOT_DIR = 'html/';
-
-function webServer() {
-
-}
-</div>
-<div class="wp-text-area">
-  <p>
-    We test the code by running <code>jasmine</code> again. This time we see:
-  </p>
-</div>
-<div class="code">
-nat@Linus:~/src/server-test$ jasmine
-Started
-...
-
-
-3 specs, 0 failures
-Finished in 0.008 seconds
-</div>
-<div class="wp-text-area">
-  <p>
-    Again, there is nothing we can refactor, so again we check in to git and move on.
-  </p>
-  <h2>Test 4: Reading from a file</h2>
-  <p>
-    Let's try to do some real work. We know that the server is going to need to read from a file to get the information to send back to the client, so let's try that part first with the following test.
-  </p>
-</div>
-<div class="code">
-  it("reads from a file", function() {
-    expect(getPage('testFile.html')).toEqual('test');
-  });
-</div>
-<div class="wp-text-area">
-  <p>
-    We run the code with <code>jasmine</code> and if fails.
-  </p>
-</div>
-<div class="code">
-</div>
-<div class="wp-text-area">
-  <p>
-    Next we write the smallest piece of code that will satisfy the test. The following will do:
-  </p>
-</div>
-<div class="code">
-function getPage(pageName) {
-  return('test');
-}</div>
-<div class="wp-text-area">
-  <p>
-    But this does not actually get a page, the intention of the function and this is the intention of TDD. At each stage we write the smallest piece of code that will do what we need. In this way, we can be sure that the tests are actually testing what the functionality that we need. When we are writing the tests, we are setting hurdles for ourselves. When we are writing the code we are trying to overcome those hurdles as quickly as possible. By "cheating" like this, we work to make sure that the tests actually test what we care about, not something that implies what we care about. Here, though the function returns what we expect, it does not actually read the file. We know that because we are writing the file and can correct it. All too often when we write code we write functions that pass the tests we think of, but do not pass the tests we do not think of. By shifting our focus back and forth between writing tests that will really ensure the code does what we want, and code that does what the test expects, we test that the code does not let detail slide.
-  </p>
-  <p>
-    We run the code using <code>jasmine</code> and, as expected, it passes.
-  </p>
-</div>
-<div class="code">
-nat@Linus:~/src/server-test$ jasmine
-Started
-....
-
-
-4 specs, 0 failures
-Finished in 0.008 seconds
-</div>
-
-<div class="wp-text-area">
-  <h2>Test 4.1: Reading from a file</h2>
-  <p>
-    Now we need to think. How can we be sure that the file is actually finding and reading from a file. One way to do that is to have the test function read the file and put the value that it read in to the test. This would ensure that the function under is actually reading from the file. This really does not add much effort for us, since we need to write the code to get the information from the file anyway.
-  </p>
-  <p>
-    We try the following test:
-  </p>
-</div>
-<div class="code">
-  function getFileContents(fileName) {
-    fs.readFile(ROOT_DIR + fileName, function(error, page) {
-      if (error) {
-        throw error;
-      } else {
-        return page;
-        }
-      });
-  }
-
-  it("reads from a file", function() {
-    var fileContents = getFileContents('testfile.html');
-    expect(getPage('testFile.html')).toEqual(fileContents);
-  });
-</div>
-<div class="wp-text-area">
-  <p>
-    We run the code with <code>jasmine</code> and it fails. And it fails in an unexpected way. It says that it "Expected 'test' to equal undefined". We know that the getPage function is returning "test," so our file read function must be returning undefined.
-  </p>
-</div>
-<div class="code">
-nat@Linus:~/src/server-test$ jasmine
-Started
-...F
-
-Failures:
-1) Server reads from a file
-  Message:
-    Expected 'test' to equal undefined.
-  Stack:
-    Error: Expected 'test' to equal undefined.
-        at Object.<anonymous> (/home/nat/src/server-test/spec/serverspec.js:43:36)
-
-4 specs, 1 failure
-Finished in 0.021 seconds
-</div>
-<div class="wp-text-area">
-  <p>
-    We run the code with <code>jasmine</code> and it fails.
-  </p>
-</div>
-<div class="code">
-</div>
-<div class="wp-text-area">
-  <p>
-    Next we write the smallest piece of code that will satisfy the test. The following will do:
-  </p>
-</div>
-<div class="code">
-
-</div>
-<div class="wp-text-area">
-  <p>
-
-  </p>
-  <p>
-    We run the code using <code>jasmine</code> and, as expected, it passes.
-  </p>
-</div>
-<div class="code">
-
-</div>
-
-</div>
-
-<div class="wp-text-area">
-  <h2>Test 4.1: Reading from a file</h2>
   <p>
     
   </p>
-</div>
-<div class="code">
-</div>
-<div class="wp-text-area">
   <p>
-    We run the code with <code>jasmine</code> and it fails.
+    Test your code to make sure that the server still works.
   </p>
-</div>
-<div class="code">
-</div>
-<div class="wp-text-area">
-  <p>
-    Next we write the smallest piece of code that will satisfy the test. The following will do:
-  </p>
-</div>
-<div class="code">
-
-</div>
-<div class="wp-text-area">
-  <p>
-
-  </p>
-  <p>
-    We run the code using <code>jasmine</code> and, as expected, it passes.
-  </p>
-</div>
-<div class="code">
-
-</div>
-
-</div>
-
-<div class="wp-text-area">
-  <h2>Test 4.1: Reading from a file</h2>
-  <p>
-    
-  </p>
-</div>
-<div class="code">
-</div>
-<div class="wp-text-area">
-  <p>
-    We run the code with <code>jasmine</code> and it fails.
-  </p>
-</div>
-<div class="code">
-</div>
-<div class="wp-text-area">
-  <p>
-    Next we write the smallest piece of code that will satisfy the test. The following will do:
-  </p>
-</div>
-<div class="code">
-
-</div>
-<div class="wp-text-area">
-  <p>
-
-  </p>
-  <p>
-    We run the code using <code>jasmine</code> and, as expected, it passes.
-  </p>
-</div>
-<div class="code">
-
-</div>
-
-</div>
-
-<div class="wp-text-area">
-  <h2>Test 4.1: Reading from a file</h2>
-  <p>
-    
-  </p>
-</div>
-<div class="code">
-</div>
-<div class="wp-text-area">
-  <p>
-    We run the code with <code>jasmine</code> and it fails.
-  </p>
-</div>
-<div class="code">
-</div>
-<div class="wp-text-area">
-  <p>
-    Next we write the smallest piece of code that will satisfy the test. The following will do:
-  </p>
-</div>
-<div class="code">
-
-</div>
-<div class="wp-text-area">
-  <p>
-
-  </p>
-  <p>
-    We run the code using <code>jasmine</code> and, as expected, it passes.
-  </p>
-</div>
-<div class="code">
-
 </div>
 
 <div class="wp-text-area">
   <h3>References</h3>
   <ul class="references">
     <li class="ref">
-      <a href="http://jasmine.github.io/2.2/node.html">
-        Instructions on setting up Jasmine for node.js.
+      <a href="http://blog.codeship.com/jasmine-node-js-application-testing-tutorial/">
+        Blog on getting started with Jasmine in node.
       </a>
     </li>
     <li class="ref">
-      <a href="">
-        
+      <a href="https://github.com/mhevery/jasmine-node">
+        Official jasmine-node documentation from Github
       </a>
     </li>
   </ul>
 </div>
-
-<hr>
-<address></address>
-<!-- hhmts start --><!-- hhmts end -->

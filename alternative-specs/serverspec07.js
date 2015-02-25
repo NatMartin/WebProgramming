@@ -13,17 +13,8 @@ var requestFake = {
 	url: "fakeUrl"
 };
 var resultFake = {
-	headValue: 0,
-	returnString: "none",
-	end: function(value) {
-		this.returnString = value;
-	},
-	writeHead: function(value) {
-		this.headValue = value;
-	}
+	headValue = "none"
 };
-
-serverModule.__set__("fs", fsFake);
 
 describe("Server", function () {
 

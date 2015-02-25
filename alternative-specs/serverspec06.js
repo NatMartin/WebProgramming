@@ -9,21 +9,8 @@ var fsFake = {
 		callback(null, "Works");
 	}
 }
-var requestFake = {
-	url: "fakeUrl"
-};
-var resultFake = {
-	headValue: 0,
-	returnString: "none",
-	end: function(value) {
-		this.returnString = value;
-	},
-	writeHead: function(value) {
-		this.headValue = value;
-	}
-};
-
-serverModule.__set__("fs", fsFake);
+var requestFake = null;
+var resultFake = null;
 
 describe("Server", function () {
 

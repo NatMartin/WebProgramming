@@ -1,29 +1,41 @@
 /*
 	serverspec.js
 */
-var rewire = require("rewire")
-var serverModule = rewire("../lib/server.js");
+var rewire = require('rewire');
+var server = rewire("../lib/server.js");
 
 var fsFake = {
-	readFile: function(path, callback){
+	readFile: function (path, callback) {
 		callback(null, "Works");
-	}
-}
-var requestFake = {
-	url: "fakeUrl"
-};
-var resultFake = {
-	headValue: 0,
-	returnString: "none",
-	end: function(value) {
-		this.returnString = value;
-	},
-	writeHead: function(value) {
-		this.headValue = value;
 	}
 };
 
-serverModule.__set__("fs", fsFake);
+var urlFake = {
+	parse: function (urlStr, parseQueryString, slashedDenotehost) {
+		console.log("Parsing url " + urlStr)
+		return urlStr;
+	}
+}
+
+var requestFake = {
+	url : "foo"
+};
+
+var resultFake = {
+	headValue: 0,
+	returnString: "",
+	writeHead: function(value) {
+		console.log("writeHead " + value);
+		this.headValue = value
+	},
+	end: function(value) {
+		console.log("end " + value);
+		this.returnString = value;
+	}
+};
+
+server.__set__("fs", fsFake);
+server.__set__("url", urlFake);
 
 describe("Server", function () {
 
@@ -32,7 +44,7 @@ describe("Server", function () {
 	});
 
 	it("defines server()", function() {
-		expect(serverModule.server).toBeDefined();
+		expect(server).toBeDefined();
 	});
 
 	it("uses a Mock for fs", function() {
@@ -40,10 +52,10 @@ describe("Server", function () {
 			expect(doc).toEqual("Works");
 			expect(error).toBeNull();
 		});
-  	});
+	});
 
 	it("reads a file passed in though request.url", function() {
-		serverModule.server(requestFake, resultFake);
+		server.server(requestFake, resultFake);
 		expect(resultFake.headValue).toEqual(200);
 		expect(resultFake.returnString).toEqual('Works');
 	});

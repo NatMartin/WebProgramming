@@ -75,6 +75,7 @@ http.createServer(function (req, res) {
   </p>
 </div>
 <div class="code">
+server.__set__("fs", fsFake);
 var fs = require('fs');
 var http = require('http');
 var url = require('url');
@@ -181,7 +182,7 @@ var url = require('url');
   </p>
 </div>
 <div class="code">
-exports = module.exports = {};
+<span class="add">exports = module.exports = {};</span>
 
 var fs = require('fs');
 var url = require('url');
@@ -197,7 +198,7 @@ function returnPage(result, page) {
   result.end(page); 
 };
 
-exports.server = function(request, result) {
+<span class="add">exports</span>.server = function(request, result) {
     var urlObj = url.parse(request.url, true, false);
     fs.readFile(ROOT_DIR + urlObj.pathname, function(error, page) {
     if (error) {
@@ -218,33 +219,771 @@ exports.server = function(request, result) {
 </div>
 <div class="code">
 var http = require('http');
-var server = require('./lib/server.js');
+var serverModule = require('./lib/server.js');
 
-http.createServer(server.server).listen(3030);
+http.createServer(serverModule.server).listen(3030);
 </div>
 <div class="wp-text-area">
   <p>
     We need to load two modules here: The node.js <code>http</code> module and our new <code>server.js</code>. We load the <code>server.js</code> module using the <code>require</code> command, just as we load the <code>http</code> module. We need to specify the full path of the module (i.e., <code>./lib/server.js</code>) because <code>require</code> looks in the directories where node.js keeps its modules. Other modules need to specify their location more fully.
   </p>
+  <h2>Unit Testing Modules</h2>
   <p>
-    
+    Modules help programmers write and maintain code, but they make unit testing more difficult. Modules help by insuring the code is used as intended so if it needs to be changed, only the interface needs to be maintained. However, because they can only be used through the interfaces, modules make it difficult to test the internals. Module testing uses fakes.
   </p>
   <p>
-    Test your code to make sure that the server still works.
+    Fakes are pieces of software that stand in for other pieces of software in testing. They allow us to contol the context of the program while testing. For example, if we need to test against a Database, we can be sure that the database we test against while developing, is going to be different from the database we will deploy agains. If nothing else, it will hold more data. To make sure our tests run the same way every time, so we know we are testing our code rather than the database, we create a fake database that we control. The fake database need not even be a real database, it only needs to provide the same interface that the real database provides. It does not even need to provide the entire interface; it need only provide the part of the interface our code uses.
+  </p>
+  <p>
+    For example, cosider the code below.
   </p>
 </div>
+<div class="code">
+/*
+  serverspec.js
+*/
+var serverModule = require("../lib/server.js");
+
+describe("Server", function () {
+
+  it("is tested with jasmine-node", function() {
+    expect(true).toBe(true);
+  });
+
+  it("defines server()", function() {
+    expect(serverModule.server).toBeDefined();
+  });
+</div>
+<div class="wp-text-area">
+  <p>
+    The code loads the server module into the variable <code>serverModule</code>, checks to make sure that jasmine is working, then tests to make sure that the server function is defined. But how can we test anything beyond this? To call the server function, we need to pass it a <code>request</code> object and a <code>result</code> object. These are created by the <code>createServer</code> method on the <code>http</code> object when we call it from our server. The server module depends on the url module, and the file system module, <code>fs</code>. Worse, calling it relies on the http module. We have no insight into these modules and no way to manipulate them.
+  </p>
+  <p>
+    Dependency injection solves this problem. Dependency injection is the process of supplying dependencies (i.e., injecting them into the code) when we want to test the code. We write the dependencies we supply, so we can manipulate them to work the way we want to. As long as the satisfy the part of the interface we use in our code, the fake modules we write should react in our code the same way the real modules would react. 
+  </p>
+  <p>
+    To test our code, we will need to inject the file system module, <code>fs</code>, and the url module <code>url</code>. We will also need to pass in two classes <code>request</code> and <code>result</code> as parameters to <code>server</code>. In <code>fs</code>, we will need a method called <code>readFile(path, callback)</code> that takes as parameters, a string that represents the path to the file we want to read, and a function, which we will call with an error message as the first parameter and the contents of the file as the second parameter. (Actually, we will only provide either an error, if the read does not work, or the contents, if the read does work. We put null in for the other parameter.) In the <code>url</code> module, we need to provide a <code>parse(urlString)</code> method that returns a url. Writing this code will be easy enought, since it does not really need to do anything; it only needs to provide a result that we can test against. But how do we replace the system's <code>fs</code> module with our own?
+  </p>
+  <p>
+    Fortunately others have faced the same problem and have written packages that will do exactly what we want. We will be using the one called <code>rewire</code>. It will let us change the value of the internal contents of our modules--in particular, it will allow us to change the modules that the module under test relies on.
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>cd ~/src/wp</code>
+  </li>
+  <li class="enter">
+     <code>npm install rewire</code>
+  </li>
+  <li class="see">
+     Enter <code>ls</code>; see <code>server.js spec/ lib/ node-modules/</code>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    We need to <code>require</code> the rewire module, but then we can <code>rewire</code> our server module. Now edit <code>~/src/wp/spec/serverspec.js</code> to match the following code:
+  </p>
+</div>
+<div class="code">
+/*
+  serverspec.js
+*/
+var rewire = require("rewire");
+var serverModule = rewire("../lib/server.js");
+
+describe("Server", function () {
+
+  it("is tested with jasmine-node", function() {
+    expect(true).toBe(true);
+  });
+
+  it("defines server()", function() {
+    expect(serverModule.server).toBeDefined();
+  });
+  <span class="add">
+  it("uses a Mock for fs", function() {
+    fsFake.readFile("anything", function(error, doc) {
+          expect(doc).toEqual("Works");
+          expect(error).toBeNull();
+    });
+  });
+  </span>
+});
+</div>
+<div class="wp-text-area">
+  <p>
+    We run our tests again and see that nothing has changed. The rewire module is doing the same thing that the require module did. That is we can still find out <code>server</code> function in <code>serverModule</code>.
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>jasmine-node spec</code>
+  </li>
+  <li class="see">
+     <div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+..F
+
+Failures:
+
+  1) Server uses a Mock for fs
+   Message:
+     ReferenceError: fsFake is not defined
+   Stacktrace:
+     ReferenceError: fsFake is not defined
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:18:5)
+
+Finished in 0.014 seconds
+3 tests, 3 assertions, 1 failure, 0 skipped
+
+
+     </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    We run our tests again but this time, our new test fails. It says that fsFake is not define. That is true, because we have not yet defined it. We are now practicing Test Driven Development. We write a test first and make sure that it fails before we write any code. What's more, we only write enough code to fix the problem the test points out to make sure that we are writing the minimum code to make the test pass. This time we add a variable called <code>fsFake</code>.
+  </p>
+</div>
+<div class="code">
+/*
+  serverspec.js
+*/
+var rewire = require("rewire")
+var serverModule = rewire("../lib/server.js");
+<span class="add">
+var fsFake = null;
+</span>
+describe("Server", function () {
+
+  it("is tested with jasmine-node", function() {
+    expect(true).toBe(true);
+  });
+
+  it("defines server()", function() {
+    expect(serverModule.server).toBeDefined();
+  });
+  
+  it("uses a Mock for fs", function() {
+    fsFake.readFile("anything", function(error, doc) {
+          expect(doc).toEqual("Works");
+          expect(error).toBeNull();
+    });
+  });
+</div>
+<div class="wp-text-area">
+  <p>
+    Yet again, we run the test. Since it has changed, we know we are making progress. Now it tells us that we need a method call of readFile in our fsMock. We add the method.
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>jasmine-node spec</code>
+  </li>
+  <li class="see">
+     <div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+..F
+
+Failures:
+
+  1) Server uses a Mock for fs
+   Message:
+     TypeError: Cannot call method 'readFile' of null
+   Stacktrace:
+     TypeError: Cannot call method 'readFile' of null
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:19:12)
+
+Finished in 0.018 seconds
+3 tests, 3 assertions, 1 failure, 0 skipped
+
+
+     </div>
+  </li>
+</ol>
+<div class="code">
+/*
+  serverspec.js
+*/
+var rewire = require("rewire")
+var serverModule = rewire("../lib/server.js");
+
+var fsFake = <span class="add">{
+  readFile: function(path, callback){
+    callback(null, null);
+  }
+}
+</span>
+describe("Server", function () {
+
+  it("is tested with jasmine-node", function() {
+    expect(true).toBe(true);
+  });
+
+  it("defines server()", function() {
+    expect(serverModule.server).toBeDefined();
+  });
+  
+  it("uses a Mock for fs", function() {
+    fsFake.readFile("anything", function(error, doc) {
+          expect(doc).toEqual("Works");
+          expect(error).toBeNull();
+    });
+  });
+</div>
+<div class="wp-text-area">
+  <p>
+    This time we need to add more than strictly required because of the way our test is written. JavaScript will happily call any function with any parameters, so, if we call a function that does not have any parameters the test will succeed. Indeed if we fail to call the callback function, the test will succeed because it never gets to the <code>expect</code> clauses. Now when we run our test we see it complain that it was expecting "Works."
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>jasmine-node spec</code>
+  </li>
+  <li class="see">
+     <div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+..F
+
+Failures:
+
+  1) Server uses a Mock for fs
+   Message:
+     TypeError: Cannot call method 'readFile' of null
+   Stacktrace:
+     TypeError: Cannot call method 'readFile' of null
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:19:12)
+
+Finished in 0.018 seconds
+3 tests, 3 assertions, 1 failure, 0 skipped
+
+
+     </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    We can easily fix this by calling the callback function with the value "Works" in the doc parameter. We call the function again and the test succeeds.
+  </p>
+</div>
+<div class="code">
+/*
+  serverspec.js
+*/
+var rewire = require("rewire")
+var serverModule = rewire("../lib/server.js");
+
+var fsFake = {
+  readFile: function(path, callback){
+    callback(null, <span class="add">Works</span>);
+  }
+}
+
+describe("Server", function () {
+
+  it("is tested with jasmine-node", function() {
+    expect(true).toBe(true);
+  });
+
+  it("defines server()", function() {
+    expect(serverModule.server).toBeDefined();
+  });
+  
+  it("uses a Mock for fs", function() {
+    fsFake.readFile("anything", function(error, doc) {
+          expect(doc).toEqual("Works");
+          expect(error).toBeNull();
+    });
+  });
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>jasmine-node spec</code>
+  </li>
+  <li class="see">
+     <div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec...
+
+Finished in 0.009 seconds
+3 tests, 4 assertions, 0 failures, 0 skipped
+
+
+     </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    Now we are ready to add our next test.
+  </p>
+</div>
+<div class="code">
+/*
+  serverspec.js
+*/
+var rewire = require("rewire")
+var serverModule = rewire("../lib/server.js");
+
+var fsFake = {
+  readFile: function(path, callback){
+    callback(null, Works);
+  }
+}
+
+describe("Server", function () {
+
+  it("is tested with jasmine-node", function() {
+    expect(true).toBe(true);
+  });
+
+  it("defines server()", function() {
+    expect(serverModule.server).toBeDefined();
+  });
+  
+  it("uses a Mock for fs", function() {
+    fsFake.readFile("anything", function(error, doc) {
+          expect(doc).toEqual("Works");
+          expect(error).toBeNull();
+    });
+<span class="add">
+  it("reads a file passed in though request.url", function() {
+          serverModule.server(requestFake, resultFake);
+          expect(resultFake.headValue).toEqual(200);
+          expect(resultFake.returnString).toEqual('Works');
+  });
+</span>
+});
+</div>
+<div class="wp-text-area">
+  <p>
+    As we hoped it fails telling us that <code>requestFake</code> is undefined.
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>jasmine-node spec</code>
+  </li>
+  <li class="see">
+     <div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+...F
+
+Failures:
+
+  1) Server reads a file passed in though request.url
+   Message:
+     ReferenceError: requestFake is not defined
+   Stacktrace:
+     ReferenceError: requestFake is not defined
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:30:23)
+
+Finished in 0.017 seconds
+4 tests, 5 assertions, 1 failure, 0 skipped
+
+
+     </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    We fix this by adding a <code>requestFake</code> variable.
+  </p>
+</div>
+<div class="code">
+/*
+  serverspec.js
+*/
+var rewire = require("rewire")
+var serverModule = rewire("../lib/server.js");
+
+var fsFake = {
+  readFile: function(path, callback){
+    callback(null, <span class="add">Works</span>);
+  }
+}
+var requestFake = null;
+
+describe("Server", function () {
+
+  it("is tested with jasmine-node", function() {
+    expect(true).toBe(true);
+  });
+
+  it("defines server()", function() {
+    expect(serverModule.server).toBeDefined();
+  });
+  
+  it("uses a Mock for fs", function() {
+    fsFake.readFile("anything", function(error, doc) {
+          expect(doc).toEqual("Works");
+          expect(error).toBeNull();
+    });
+  });
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>jasmine-node spec</code>
+  </li>
+  <li class="see">
+     <div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec...F
+
+Failures:
+
+  1) Server reads a file passed in though request.url
+   Message:
+     ReferenceError: resultFake is not defined
+   Stacktrace:
+     ReferenceError: resultFake is not defined
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:32:36)
+
+Finished in 0.016 seconds
+4 tests, 5 assertions, 1 failure, 0 skipped
+
+
+     </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    Now it tells us that <code>resultFake</code> is undefined. We might have anticipated that, but by letting the testing software tell us what to do next, we make sure that it will catch all of the errors that might creep in if we modify the code. As another benefit, it keeps us from writing too much code before we test. This is particularly effective against syntax errors. If you only type in a line or two, it is easy to find the typoes. As mentioned before, it also make sure that we do not add anything unneeded.
+  </p>
+  <p>
+    We add the code and test again.
+  </p>
+</div>
+<div class="code">
+/*
+  serverspec.js
+*/
+var rewire = require("rewire")
+<span class="add">var serverModule = rewire("../lib/server.js");</span>
+
+var fsFake = {
+  readFile: function(path, callback){
+    callback(null, "Works");
+  }
+}
+var requestFake = null;
+var resultFake = null;
+
+describe("Server", function () {
+
+  it("is tested with jasmine-node", function() {
+    expect(true).toBe(true);
+  });
+
+  it("defines server()", function() {
+    expect(serverModule.server).toBeDefined();
+  });
+
+  it("uses a Mock for fs", function() {
+    fsFake.readFile("anything", function(error, doc) {
+      expect(doc).toEqual("Works");
+      expect(error).toBeNull();
+    });
+    });
+
+  it("reads a file passed in though request.url", function() {
+    serverModule.server(requestFake, resultFake);
+    expect(resultFake.headValue).toEqual(200);
+    expect(resultFake.returnString).toEqual('Works');
+  });
+
+});
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>jasmine-node spec</code>
+  </li>
+  <li class="see">
+     <div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec...F
+
+Failures:
+
+  1) Server reads a file passed in though request.url
+   Message:
+     TypeError: Cannot read property 'url' of null
+   Stacktrace:
+     TypeError: Cannot read property 'url' of null
+    at Object.exports.server (/home/nat/src/WebProgramming/lib/server.js:18:35)
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:33:16)
+
+Finished in 0.015 seconds
+4 tests, 5 assertions, 1 failure, 0 skipped
+
+
+     </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    We might need to think about this error. It tells us that it cannot read the <code>url</code> property of null. We are passing in two null classes, which one is it? We can see from our server code <code>var urlObj = url.parse(request.url, true, false);</code> that it is the request. we need to add the parameter to the requestFake.
+  </p>
+  <p>
+    As always, add the code and test again.
+  </p>
+</div>
+<div class="code">
+/*
+  serverspec.js
+*/
+var rewire = require("rewire")
+var serverModule = rewire("../lib/server.js");
+
+var fsFake = {
+  readFile: function(path, callback){
+    callback(null, "Works");
+  }
+}
+<span class="add">
+var requestFake = {
+  url: "fakeUrl"
+};
+</span>
+var resultFake = null;
+
+describe("Server", function () {
+
+  it("is tested with jasmine-node", function() {
+    expect(true).toBe(true);
+  });
+
+  it("defines server()", function() {
+    expect(serverModule.server).toBeDefined();
+  });
+
+  it("uses a Mock for fs", function() {
+    fsFake.readFile("anything", function(error, doc) {
+      expect(doc).toEqual("Works");
+      expect(error).toBeNull();
+    });
+    });
+
+  it("reads a file passed in though request.url", function() {
+    serverModule.server(requestFake, resultFake);
+    expect(resultFake.headValue).toEqual(200);
+    expect(resultFake.returnString).toEqual('Works');
+  });
+
+});
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>jasmine-node spec</code>
+  </li>
+  <li class="see">
+     <div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec...F
+
+Failures:
+
+  1) Server reads a file passed in though request.url
+   Message:
+     TypeError: Cannot read property 'headValue' of null
+   Stacktrace:
+     TypeError: Cannot read property 'headValue' of null
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:36:20)
+
+Finished in 0.022 seconds
+4 tests, 5 assertions, 1 failure, 0 skipped
+
+
+     </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    Now we can add something to our fakes because the test has told us to. We need to add the <code>headValue</code> property nil. We look at our code and see that we request the head value of the results. We need to add <code>headValue</code> to <code>resultFake</code>.
+  </p>
+  <p>
+    As always, add the code and test again.
+  </p>
+</div>
+<div class="code">
+/*
+  serverspec.js
+*/
+var rewire = require("rewire")
+var serverModule = rewire("../lib/server.js");
+
+var fsFake = {
+  readFile: function(path, callback){
+    callback(null, "Works");
+  }
+}
+var requestFake = {
+  url: "fakeUrl"
+};
+<span class="add">
+var resultFake = {
+  headValue: "none"
+};
+</span>
+
+describe("Server", function () {
+
+  it("is tested with jasmine-node", function() {
+    expect(true).toBe(true);
+  });
+
+  it("defines server()", function() {
+    expect(serverModule.server).toBeDefined();
+  });
+
+  it("uses a Mock for fs", function() {
+    fsFake.readFile("anything", function(error, doc) {
+      expect(doc).toEqual("Works");
+      expect(error).toBeNull();
+    });
+    });
+
+  it("reads a file passed in though request.url", function() {
+    serverModule.server(requestFake, resultFake);
+    expect(resultFake.headValue).toEqual(200);
+    expect(resultFake.returnString).toEqual('Works');
+  });
+
+});
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>jasmine-node spec</code>
+  </li>
+  <li class="see">
+     <div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec...F
+
+Failures:
+
+  1) Server reads a file passed in though request.url
+   Message:
+     Expected 'none' to equal 200.
+   Stacktrace:
+     Error: Expected 'none' to equal 200.
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:38:32)
+
+  2) Server reads a file passed in though request.url
+   Message:
+     Expected undefined to equal 'Works'.
+   Stacktrace:
+     Error: Expected undefined to equal 'Works'.
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:39:35)
+
+Finished in 0.019 seconds
+4 tests, 6 assertions, 2 failures, 0 skipped
+
+
+     </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    Bonus. This time we get two complaints. It expects 'none' to equal 200 and it expects undefined to equal 'Works'. The first problem is that we are not actually setting the headValue. We do that by adding the function <code>writeHead</code> tl set the <code>headValue</code>. The second is that we do not even have a <code>end</code> function that sets the value <code>returnString
+</code>. We can add those then test again.
+  </p>
+</div>
+<div class="code">
+/*
+  serverspec.js
+*/
+var rewire = require("rewire")
+var serverModule = rewire("../lib/server.js");
+
+var fsFake = {
+  readFile: function(path, callback){
+    callback(null, "Works");
+  }
+}
+var requestFake = {
+  url: "fakeUrl"
+};
+<span class="add">
+var resultFake = {
+  headValue: 0,
+  returnString: "none",
+  end: function(value) {
+    this.returnString = value;
+  },
+  writeHead: function(value) {
+    this.headValue = value;
+  }
+};
+</span>
+
+<span class="add">
+serverModule.__set__("fs", fsFake);
+</span>
+
+describe("Server", function () {
+
+  it("is tested with jasmine-node", function() {
+    expect(true).toBe(true);
+  });
+
+  it("defines server()", function() {
+    expect(serverModule.server).toBeDefined();
+  });
+
+  it("uses a Mock for fs", function() {
+    fsFake.readFile("anything", function(error, doc) {
+      expect(doc).toEqual("Works");
+      expect(error).toBeNull();
+    });
+    });
+
+  it("reads a file passed in though request.url", function() {
+    serverModule.server(requestFake, resultFake);
+    expect(resultFake.headValue).toEqual(200);
+    expect(resultFake.returnString).toEqual('Works');
+  });
+
+});
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>jasmine-node spec</code>
+  </li>
+  <li class="see">
+     <div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec...F
+
+Failures:
+
+  1) Server reads a file passed in though request.url
+   Message:
+     Expected 'none' to equal 200.
+   Stacktrace:
+     Error: Expected 'none' to equal 200.
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:38:32)
+
+  2) Server reads a file passed in though request.url
+   Message:
+     Expected undefined to equal 'Works'.
+   Stacktrace:
+     Error: Expected undefined to equal 'Works'.
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:39:35)
+
+Finished in 0.019 seconds
+4 tests, 6 assertions, 2 failures, 0 skipped
+
+
+     </div>
+  </li>
+</ol>
+
 
 <div class="wp-text-area">
   <h3>References</h3>
   <ul class="references">
     <li class="ref">
-      <a href="http://blog.codeship.com/jasmine-node-js-application-testing-tutorial/">
-        Blog on getting started with Jasmine in node.
+      <a href="https://www.npmjs.com/package/rewire">
+        Rewire on Github
       </a>
     </li>
     <li class="ref">
-      <a href="https://github.com/mhevery/jasmine-node">
-        Official jasmine-node documentation from Github
+      <a href="http://randomjavascript.blogspot.in/2013/10/jasmine-node-and-rewire-part-1.html">
+        Tutorial on rewire
       </a>
     </li>
   </ul>

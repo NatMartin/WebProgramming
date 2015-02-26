@@ -1,3 +1,25 @@
+<div class="wp-text-area">
+  <h2>Planning the Tasks</h2>
+  <p>
+    The story we are working on is "As a blog writer, I want to be able to save my posts so that I do not have to retype them." It sounds like it will be easy, but as developers we know that it will involve development on the server side. The first thing we want to do is figure out how will will accomplish the task.
+  </p>
+  <p>
+    We will need to update our server program so that when the user navigates to the blog, a program runs. This program will collect the blog and return it to the user. When the user enters data into the input area, this data will need to be returned to the server and stored where it can be retrieved when the user returns.
+  </p>
+  <p>
+    Let's break it down further:
+  </p>
+  <ol>
+    <li>
+      We are not sure what the browser is going to send back to use, so first, let's upgrade our server to print the browser's requests.
+    </li>
+    <li>
+      Once we know what we are getting from the browser, we can set up a program to handel that.
+    </li>
+  </ol>
+  <p>
+    This is enough to get started. Let's look at how we are going to do TDD. First, we will need a testing framework. Standalone Jasmine will not work because it works only in the browser (i.e., in a web page). We will need to download Jasmine-node to test it. Then we will need to set up our directory with a spec directory containing a file that ends in "spec.js" because that is what Jasmine-node looks for by default. 
+  </p>
   <h2>Getting Jasmine Node</h2>
   <p>
     The first thing to do is download jasmine-node. This is a testing framework for jasmine in node.js. We can use <code>npm</code> the node package manager.
@@ -946,33 +968,175 @@ describe("Server", function () {
   </li>
   <li class="see">
      <div class="code">
-nat@Linus:~/src/WebProgramming$ jasmine-node spec...F
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+....
 
-Failures:
-
-  1) Server reads a file passed in though request.url
-   Message:
-     Expected 'none' to equal 200.
-   Stacktrace:
-     Error: Expected 'none' to equal 200.
-    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:38:32)
-
-  2) Server reads a file passed in though request.url
-   Message:
-     Expected undefined to equal 'Works'.
-   Stacktrace:
-     Error: Expected undefined to equal 'Works'.
-    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:39:35)
-
-Finished in 0.019 seconds
-4 tests, 6 assertions, 2 failures, 0 skipped
+Finished in 0.016 seconds
+4 tests, 6 assertions, 0 failures, 0 skipped
 
 
      </div>
   </li>
 </ol>
+<div class="wp-text-area">
+  <p>
+    Wonderful, we now have our server working. It's time to do our first task as outlined above. We will print out what the server is geting from the browser. To do this we will use a method called <code>console.log()</code>. This method takes a string and prints it to the screen where the server is running. To test it, we will need to create a fake console, with a log method.
+  </p>
+</div>
+<div class="code">
+/*
+  serverspec.js
+*/
+var rewire = require("rewire")
+var serverModule = rewire("../lib/server.js");
+
+var fsFake = {
+  readFile: function(path, callback){
+    callback(null, "Works");
+  }
+}
+var requestFake = {
+  url: "fakeUrl"
+};
+
+var resultFake = {
+  headValue: 0,
+  returnString: "none",
+  end: function(value) {
+    this.returnString = value;
+  },
+  writeHead: function(value) {
+    this.headValue = value;
+  }
+};
+
+serverModule.__set__("fs", fsFake);
+
+describe("Server", function () {
+
+  it("is tested with jasmine-node", function() {
+    expect(true).toBe(true);
+  });
+
+  it("defines server()", function() {
+    expect(serverModule.server).toBeDefined();
+  });
+
+  it("uses a Mock for fs", function() {
+    fsFake.readFile("anything", function(error, doc) {
+      expect(doc).toEqual("Works");
+      expect(error).toBeNull();
+    });
+    });
+
+  it("reads a file passed in though request.url", function() {
+    serverModule.server(requestFake, resultFake);
+    expect(resultFake.headValue).toEqual(200);
+    expect(resultFake.returnString).toEqual('Works');
+  });
+<span class="add">
+  it("write the url out to the console", function() {
+    var consoleContents = "";
+    serverModule.__with__({
+        console: {
+          log: function(value) {
+            consoleContents = value;
+          }
+        }
+    })(function () {
+      serverModule.server(requestFake, resultFake);
+      expect(consoleContents).toEqual(requestFake.url);
+    });
+
+  });
+</span>
+});
+</div>
+<div class="wp-text-area">
+  <p>
+    This new test is a little complicated. We are planning to write out to the console, using <code>console.log</code>. To test it, we will need to change consol.log, so that it outputs somewhere we can get at it. The <code>__with__</code> command in the rewire module changes that temporarily. The function runs as if the variables were set. After the <code>__with__</code> clause everything goes back to normal.
+  </p>
+  <p>
+    We set up the console to have a single fucntion that writes everything it gets into a variable called <code>consoleContents</code>. In the body of the test we can check this. We run the test and see:
+  </p>
+</div>
+<ol class="activity">
+  <li class="enter">
+     <code>jasmine-node spec</code>
+  </li>
+  <li class="see">
+     <div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+....F
+
+Failures:
+
+  1) Server write the url out to the console
+   Message:
+     Expected '' to equal 'fakeUrl'.
+   Stacktrace:
+     Error: Expected '' to equal 'fakeUrl'.
+    at /home/nat/src/WebProgramming/spec/serverspec.js:61:28
+    at /home/nat/src/WebProgramming/lib/server.js:110:24
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:59:5)
+
+Finished in 0.018 seconds
+5 tests, 7 assertions, 1 failure, 0 skipped
 
 
+
+     </div>
+  </li>
+</ol>
+<div class="wp-text-area">
+  <p>
+    We can now add the line to the server that will write out the value of the url.
+  </p>
+</div>
+<div class="code">
+exports = module.exports = {};
+
+var fs = require('fs');
+var url = require('url');
+var ROOT_DIR = "html/";
+
+function returnErrorMessage(result, error) {
+  result.writeHead(404);
+  result.end(JSON.stringify(error));
+};
+
+function returnPage(result, page) {
+  result.writeHead(200);
+  result.end(page); 
+};
+
+exports.server = function(request, result) {
+    var urlObj = url.parse(request.url, true, false);
+    console.log(request.url);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function(error, page) {
+    if (error) {
+      returnErrorMessage(result, error);
+    } else {
+      returnPage(result, page);
+      }
+    });
+};
+</div>
+<div class="wp-text-area">
+  <p>
+    And the test passes.
+  </p>
+</div>
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+...fakeUrl
+..
+
+Finished in 0.013 seconds
+5 tests, 7 assertions, 0 failures, 0 skipped
+
+
+<div class="code">
+</div>
 <div class="wp-text-area">
   <h3>References</h3>
   <ul class="references">

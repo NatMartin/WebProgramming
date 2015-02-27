@@ -471,13 +471,15 @@ Failures:
 
   1) Server uses a Mock for fs
    Message:
-     TypeError: Cannot call method 'readFile' of null
+     Expected null to equal 'Works'.
    Stacktrace:
-     TypeError: Cannot call method 'readFile' of null
-    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:19:12)
+     Error: Expected null to equal 'Works'.
+    at /home/nat/src/WebProgramming/spec/serverspec.js:24:16
+    at Object.fsFake.readFile (/home/nat/src/WebProgramming/spec/serverspec.js:8:3)
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:23:10)
 
 Finished in 0.018 seconds
-3 tests, 3 assertions, 1 failure, 0 skipped
+3 tests, 4 assertions, 1 failure, 0 skipped
 
 
      </div>
@@ -619,10 +621,10 @@ var serverModule = rewire("../lib/server.js");
 
 var fsFake = {
   readFile: function(path, callback){
-    callback(null, <span class="add">Works</span>);
+    callback(null, "Works");
   }
 }
-var requestFake = null;
+<span class="add">var requestFake = null;</span>
 
 describe("Server", function () {
 
@@ -678,7 +680,7 @@ Finished in 0.016 seconds
   serverspec.js
 */
 var rewire = require("rewire")
-<span class="add">var serverModule = rewire("../lib/server.js");</span>
+var serverModule = rewire("../lib/server.js");
 
 var fsFake = {
   readFile: function(path, callback){
@@ -686,7 +688,7 @@ var fsFake = {
   }
 }
 var requestFake = null;
-var resultFake = null;
+<span class="add">var resultFake = null;</span>
 
 describe("Server", function () {
 
@@ -1127,15 +1129,34 @@ exports.server = function(request, result) {
     And the test passes.
   </p>
 </div>
-nat@Linus:~/src/WebProgramming$ jasmine-node spec
-...fakeUrl
-..
-
-Finished in 0.013 seconds
-5 tests, 7 assertions, 0 failures, 0 skipped
-
-
 <div class="code">
+exports = module.exports = {};
+
+var fs = require('fs');
+var url = require('url');
+var ROOT_DIR = "html/";
+
+function returnErrorMessage(result, error) {
+  result.writeHead(404);
+  result.end(JSON.stringify(error));
+};
+
+function returnPage(result, page) {
+  result.writeHead(200);
+  result.end(page); 
+};
+
+exports.server = function(request, result) {
+    var urlObj = url.parse(request.url, true, false);
+    console.log(request.url);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function(error, page) {
+    if (error) {
+      returnErrorMessage(result, error);
+    } else {
+      returnPage(result, page);
+      }
+    });
+};
 </div>
 <div class="wp-text-area">
   <h3>References</h3>

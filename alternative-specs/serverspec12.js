@@ -95,18 +95,9 @@ describe("Server", function () {
 		blogWritten = ['blog entry 1', 'blog entry 2']
 		fs.writeFileSync("html/spec/test.html", JSON.stringify(blogWritten));
 
-		serverModule.__with__({
-    		fs: {
-    			readFile: function(path, callback) {
-    				var contents = fs.readFileSync(path, 'utf8');
-    				callback(null, contents);
-    			}
-    		}
-		})(function() {		
-			serverModule.server(requestFake, resultFake);
-			console.log("Server result is: " + resultFake.returnString);
-			expect(resultFake.returnString).toEqual(JSON.stringify(blogWritten));
-		});
+		serverModule.server(requestFake, resultFake);
+		console.log("Server result is: " + resultFake.returnString);
+		expect(resultFake.returnString).toEqual(JSON.stringify(blogWritten));
 	});
 
 });

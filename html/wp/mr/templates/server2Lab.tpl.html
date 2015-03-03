@@ -46,7 +46,7 @@ it("Example: writing then reading an array", function(done) {
     Now we are ready to write the test. We want to check that the blog post's can be read from the file. We create a fake request and result, and make sure that the blog post gets read.
   </p>
   <p>
-    I set up the test by requireing the file system so I can write the test file. Then I set up fake results and requests and set the requestFake url to <code>"spec/test.html"</code>. I create an array with two entries and then write that array into the test file. I expect the <code>posts(resultFake)<code> to equal the array I wrote to the file. The function <code>posts(resultFake)</code> gets the string returned by resultFake and turns it back into an array. When this works, I know that the server is reading the data from <code>spec/test.html</code> correctly.
+    I set up the test by requireing the file system so I can write the test file. Then I set up fake results and requests and set the requestFake url to <code>"spec/test.html"</code>. I create an array with two entries and then write that array into the test file. I expect the <code>posts(resultFake)</code> to equal the array I wrote to the file. The function <code>posts(resultFake)</code> gets the string returned by resultFake and turns it back into an array. When this works, I know that the server is reading the data from <code>spec/test.html</code> correctly.
   </p>
 </div>
 <div class="code">
@@ -68,7 +68,7 @@ it("Example: writing then reading an array", function(done) {
 <div class="wp-text-area">
   <h3>Running the test</h3>
   <p>
-    I run the test and, unsurprisingly, the first thing it complains about is that <code>'none'</code> is not what I expected. Now we have a failing test so we can start working on the server. 
+    I run the test and, unsurprisingly, the first thing it complains about is that <code>'none'</code> is not what I expected. Now we have a failing test so we can start working on the server. However, when we look at the server we see that the problem is more subtle than we thought. 
   </p>
 </div>
 <div class="code">
@@ -90,6 +90,160 @@ Finished in 0.043 seconds
 7 tests, 9 assertions, 1 failure, 0 skipped
 </div>
 <div class="wp-text-area">
+  <h3>Testing Asynchronous Behavior</h3>
+  <p>
+    The problem is not that the information is not being processed properly. In fact, what we are asking the system to do, returning a string representation of a file, should already be part of the behavior of the system. The only difference is that the string being returned this time is not part of a web page or a JavaScript program. So why does the program fail? 
+  </p>
+  <p>
+    The answer is asynchrony. Let's modify out program so that when it returns the page, it prints it to the console.
+  </p>
+</div>
+<div class="code">
+exports = module.exports = {};
+
+var fs = require('fs');
+var url = require('url');
+var ROOT_DIR = "html/";
+
+function returnErrorMessage(result, error) {
+  result.writeHead(404);
+  result.end(JSON.stringify(error));
+};
+
+function returnPage(result, page) {
+  result.writeHead(200);
+  result.end(page); 
+};
+
+exports.server = function(request, result) {
+    var urlObj = url.parse(request.url, true, false);
+    console.log(request.url);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function(error, page) {
+    if (error) {
+      returnErrorMessage(result, error);
+      } else {
+        returnPage(result, page);
+<span class="add">        console.log("Static Server: " + ROOT_DIR + urlObj.pathname + page);</span>
+      }
+    });
+};
+</div>
+<div class="wp-text-area">
+  <p>
+    We also add output to our test so we can see what happens.    
+  </p>
+</div>
+<div class="code">
+  it("reads an array of blog posts from the disk", function() {
+    setFakeResultRequest("spec/test.html");
+    var fs = require("fs");
+    blogWritten = ['blog entry 1', 'blog entry 2']
+    fs.writeFileSync("html/spec/test.html", JSON.stringify(blogWritten));
+
+    serverModule.server(requestFake, resultFake);
+<span class="add">    console.log("Server result is: " + resultFake.returnString);</span>
+    expect(resultFake.returnString).toEqual(JSON.stringify(blogWritten));
+  });
+</div>
+<div class="wp-text-area">
+  <p>
+    Now when we run our tests we can see the order in which things are happening.
+  </p>
+</div>
+<div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+...fakeURL
+Static Server: html/fakeURLWorks
+...spec/test.html
+<span class="add">Server result is: none</span>
+F
+
+Failures:
+
+  1) Server reads an array of blog posts from the disk
+   Message:
+     Expected 'none' to equal '["blog entry 1","blog entry 2"]'.
+   Stacktrace:
+     Error: Expected 'none' to equal '["blog entry 1","blog entry 2"]'.
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:100:35)
+
+Finished in 0.043 seconds
+7 tests, 9 assertions, 1 failure, 0 skipped
+
+
+<span class="add">Static Server: html/spec/test.html["blog entry 1","blog entry 2"]</span>
+nat@Linus:~/src/WebProgramming$ 
+</div>
+<div class="wp-text-area">
+  <p>
+    You can see <code>Server result is: none</code> and the test fails. However, after the test fails, we see the message <code>Static Server: html/spec/test.html["blog entry 1","blog entry 2"]</code>. The problem is that when we read the file, it kicks off an asynchronous process and continues working. The asynchronous process works while the current process proceeds, returning to the test and failing, because it has not yet read the information into the <code>resultFake</code>. We need to make the process synchronous in our test because we are not really running in a server that will continue to loop until the information returns.
+  </p>
+  <p>
+    To do this, we replace the asynchronous call to <code>readFile</code> with the synchronous call to <code>readFileSync</code> in our test. The function <code>readFileSync</code> will not start a new process, instead it will wait until the information is read from the file and put in its proper place before continuing on to the expectation. This way, we can be sure that the values have been placed in the <code>resultFake</code> before we need to extract them.
+  </p>
+</div>
+
+<div class="code">
+  it("reads an array of blog posts from the disk", function() {
+    setFakeResultRequest("spec/test.html");
+    var fs = require("fs");
+    blogWritten = ['blog entry 1', 'blog entry 2']
+    fs.writeFileSync("html/spec/test.html", JSON.stringify(blogWritten));
+<span class="add">
+    serverModule.__with__({
+        fs: {
+          readFile: function(path, callback) {
+            var contents = fs.readFileSync(path, 'utf8');
+            callback(null, contents);
+          }
+        }
+    })(function() {   
+      serverModule.server(requestFake, resultFake);
+      console.log("Server result is: " + resultFake.returnString);
+      expect(resultFake.returnString).toEqual(JSON.stringify(blogWritten));
+    });
+</span>
+  });
+</div>
+<div class="wp-text-area">
+  <p>
+    What we have done is swapped <code>readFileSync</code> for <code>readFile</code> for this test. That is, during this test, the functions that normally call readFile, now call readFileSync. To make this work, we need to call the callback function that is passed to <code>readFile</code> with the contents of the file that we get from <code>readFileSync</code>. This way, the function will read all of the information from the file and call the callback function before to goes on to do anything else. That is, it will block any further processing until the read is complete. In this way, we can be sure that the data will be in the <code>resultFake</code> before we check to see if it is there with the <code>expect</code>.
+  </p>
+  <p>
+    Let's try again.
+  </p>
+</div>
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+...fakeURL
+Static Server: html/fakeURLWorks
+...spec/test.html
+Static Server: html/spec/test.html["blog entry 1","blog entry 2"]
+Server result is: ["blog entry 1","blog entry 2"]
+.
+
+Finished in 0.035 seconds
+7 tests, 9 assertions, 0 failures, 0 skipped
+
+
+<div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+...fakeURL
+Static Server: html/fakeURLWorks
+...spec/test.html
+Static Server: html/spec/test.html["blog entry 1","blog entry 2"]
+Server result is: ["blog entry 1","blog entry 2"]
+.
+
+Finished in 0.035 seconds
+7 tests, 9 assertions, 0 failures, 0 skipped
+
+
+</div>
+<div class="wp-text-area">
+  <p>
+    Now we see that the test works. We can go on to upgrade the server. We know that the server can read information from a file.    
+  </p>
+</div>
   <h3>Altering the server code</h3>
   <p>
     Test driven development lets me update the server code without worrying that I will break something that worked previously. Every time I run my tests, it tests all of the code that I wrote before. This gives me confidence to make signifiant changes.
@@ -98,6 +252,22 @@ Finished in 0.043 seconds
     The server sends back information requested by the browser. HTTP describes a "GET" operation that is expected to return a file. The browser interprets the file based on type metadata. This metadata tells it whether it should be text, HTML, JavaScript or something else. The data returns it returned based on the url in the request. Here, the url is going to be <code>test.html</code> so we will want to have it return a string representation of our blog array when it sees that url.
   </p>
 </div>
+<div class="code">
+</div>
+<div class="wp-text-area">
+  <p>
+    
+  </p>
+</div>
+<div class="code">
+</div>
+<div class="wp-text-area">
+  <p>
+    
+  </p>
+</div>
+
+<div class="wp-text-area">
 <ol class="activity">
   <li class="enter">This is an item
   </li>

@@ -1,11 +1,102 @@
 <div class="wp-text-area">
-  <h2>What does the browser send</h2>
+  <h2>Reading a file on the disk</h2>
   <p>
-    We can now do some experiments with our server to see what the browser sends to the server.
+    The first test will be that the server can read the information from the disk and create an array from the information. But how do we do that? How do we read a JavaScript array from the disk in node.js? To answer these questions, we can use our test environment. 
+  </p>
+  <p>
+    We need to look up the <a href="http://nodejs.org/api/fs.html">node.js file system reference</a>. From that we see that we can read a file using <code>readFile</code> and <code>readFileSync</code>; we can write files using <code>writeFile</code> and <code>writeFileSync</code>. The <code>Sync</code> versions of the calls are synchronous; they do not take a callback function. The parameters to <code>readFile(filename[, options], callback)</code> are a string holding the name of the file to be read, options, of which we need to supply <code>'utf8'</code> if we want a string back, and the callback function. The parameters to <code>readFileSync(filename[, options])</code> are the same except we need not supply a callback function; instead it returns the contents of the file as the return value. The parameters to <code>writeFile(filename, data[, options], callback)</code> and <code>writeFileSync(filename, data[, options])</code> are the same a <code>readFile</code> except for <code>data</code>. The <code>data</code> parameter is the location where the data will be stored. It should be either a string, if the option <code>'utf8'</code> was supplied, or a buffer, if no encoding option was supplied.
+  </p>
+  <h3>Trying it out</h3>
+  <p>
+    We can try this out first using our testing environment. After some experimentation, I got the following test to work. 
+  </p>
+  <p>
+    The first thing I do is require the file system using <code>require("fs")</code>. Notice that I do that within the test so that I do not pollute any of the other tests. Next I create and array of entries. I then use <code>fs.writeFileSync("test.html", JSON.stringify(blogWritten))</code> to write out the file. I use the <code>Sync</code> version to make sure that the file is written before it is read. Otherwise, there is a possibility that the reader's callback would execute before the writer's callback. I also use <code>JSON.stringify</code> to turn the array into a string before I write it.
+  </p>
+  <p>
+    Having set up the test by writing known contents to a particular file, I then call <code>fs.readFile("test.html", 'utf8', callback)</code> to read the contents of the file I just wrote. If an error is return I throw it, but if not error is returned, I parse the string I read back into an array, and expect that the array I read is the equal to the array I wrote.
+  </p>
+  <p>
+    Note that the test uses a parameter with one function, called <code>done</code>. This helps deal with the asynchronous read function. The test will not complete until the <code>done</code> function is called, so when I call <code>fs.readFile</code>, I can make it wait until the function returns. If I do not do this, the tests are likely to complete bevore the file is read and the <code>expect</code> test executes.
+  </p>
+  <p>
+    When the test works, I know I can read and write to a file. I leave the test in my spec in case I need to remember how to do it later. These examples can also be helpful to someone who is new to your code. They show how difficult elements of the code the same way that comments can help. The advantage of doing them as working code is that they will run every time the tests are run, helping to ensure that they continue to be correct. Because comments are not executed, it is easy to forget to update them making them, worse than useless, misleading.
   </p>
 </div>
 <div class="code">
-  This is some code
+it("Example: writing then reading an array", function(done) {
+  var fs = require("fs");
+  blogWritten = ['blog entry 1', 'blog entry 2']
+  fs.writeFileSync("test.html", JSON.stringify(blogWritten));
+
+  fs.readFile("test.html", 'utf8', function(error, doc) {
+    if (error) {
+      throw error;
+    } else {
+      blogRead = JSON.parse(doc);
+      expect(blogRead).toEqual(blogWritten);
+      done();
+    }
+  })
+});
+</div>
+<div class="wp-text-area">
+  <h3>Writing the test</h3>
+  <p>
+    Now we are ready to write the test. We want to check that the blog post's can be read from the file. We create a fake request and result, and make sure that the blog post gets read.
+  </p>
+  <p>
+    I set up the test by requireing the file system so I can write the test file. Then I set up fake results and requests and set the requestFake url to <code>"spec/test.html"</code>. I create an array with two entries and then write that array into the test file. I expect the <code>posts(resultFake)<code> to equal the array I wrote to the file. The function <code>posts(resultFake)</code> gets the string returned by resultFake and turns it back into an array. When this works, I know that the server is reading the data from <code>spec/test.html</code> correctly.
+  </p>
+</div>
+<div class="code">
+  it("reads an array of blog posts from the disk", function() {
+    var fs = require("fs");
+    function posts (resultFake) {
+      return resultFake.returnString;
+    }
+    setFakeResultRequest();
+    requestFake.url = "spec/test.html"
+    blogWritten = ['blog entry 1', 'blog entry 2']
+    fs.writeFileSync("spec/test.html", JSON.stringify(blogWritten));
+
+    serverModule.server(requestFake, resultFake);
+
+    expect(posts(resultFake).toEqual(JSON.stringify(blogWritten));
+  });
+</div>
+<div class="wp-text-area">
+  <h3>Running the test</h3>
+  <p>
+    I run the test and, unsurprisingly, the first thing it complains about is that <code>'none'</code> is not what I expected. Now we have a failing test so we can start working on the server. 
+  </p>
+</div>
+<div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+...fakeUrl
+...spec/test.html
+F
+
+Failures:
+
+  1) Server reads an array of blog posts from the disk
+   Message:
+     Expected 'none' to equal '["blog entry 1","blog entry 2"]'.
+   Stacktrace:
+     Error: Expected 'none' to equal '["blog entry 1","blog entry 2"]'.
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:107:29)
+
+Finished in 0.043 seconds
+7 tests, 9 assertions, 1 failure, 0 skipped
+</div>
+<div class="wp-text-area">
+  <h3>Altering the server code</h3>
+  <p>
+    Test driven development lets me update the server code without worrying that I will break something that worked previously. Every time I run my tests, it tests all of the code that I wrote before. This gives me confidence to make signifiant changes.
+  </p>
+  <p>
+    The server sends back information requested by the browser. HTTP describes a "GET" operation that is expected to return a file. The browser interprets the file based on type metadata. This metadata tells it whether it should be text, HTML, JavaScript or something else. The data returns it returned based on the url in the request. Here, the url is going to be <code>test.html</code> so we will want to have it return a string representation of our blog array when it sees that url.
+  </p>
 </div>
 <ol class="activity">
   <li class="enter">This is an item
@@ -24,8 +115,8 @@
   <h3>References</h3>
   <ul class="references">
     <li class="ref">
-      <a href="">
-	Reference
+      <a href="http://nodejs.org/api/fs.html">
+        Node.js file system reference
       </a>
     </li>
   </ul>

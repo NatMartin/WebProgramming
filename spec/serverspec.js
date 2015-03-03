@@ -9,23 +9,27 @@ var fsFake = {
 		callback(null, "Works");
 	}
 }
-var requestFake = {
-	url: "fakeUrl"
-};
-var resultFake = {
-	headValue: 0,
-	returnString: "none",
-	end: function(value) {
-		this.returnString = value;
-	},
-	writeHead: function(value) {
-		this.headValue = value;
-	}
-};
-
-serverModule.__set__("fs", fsFake);
 
 describe("Server", function () {
+
+	var resultFake = null;
+	var requestFake = null;
+
+	function setFakeResultRequest(fakeURL) {
+		requestFake = {
+			url: fakeURL
+		};
+		resultFake = {
+			headValue: 0,
+			returnString: "none",
+			end: function(value) {
+				this.returnString = value;
+			},
+			writeHead: function(value) {
+				this.headValue = value;
+			}
+		};
+	};
 
 	it("is tested with jasmine-node", function() {
 		expect(true).toBe(true);
@@ -43,12 +47,18 @@ describe("Server", function () {
   	});
 
 	it("reads a file passed in though request.url", function() {
-		serverModule.server(requestFake, resultFake);
-		expect(resultFake.headValue).toEqual(200);
-		expect(resultFake.returnString).toEqual('Works');
+		setFakeResultRequest("fakeURL");
+		serverModule.__with__({
+			fs: fsFake
+		})(function () {
+			serverModule.server(requestFake, resultFake);
+			expect(resultFake.headValue).toEqual(200);
+			expect(resultFake.returnString).toEqual('Works');
+		});
 	});
 
 	it("write the url out to the console", function() {
+		setFakeResultRequest("fakeURL");
 		var consoleContents = "";
 		serverModule.__with__({
     		console: {
@@ -61,6 +71,42 @@ describe("Server", function () {
 			expect(consoleContents).toEqual(requestFake.url);
 		});
 
+	});
+
+	it("Example: writing then reading an array", function(done) {
+		var fs = require("fs");
+		blogWritten = ['blog entry 1', 'blog entry 2']
+		fs.writeFileSync("test.html", JSON.stringify(blogWritten));
+		fs.readFile("test.html", 'utf8', function(error, doc) {
+			if (error) {
+				throw error;
+			} else {
+				blogRead = JSON.parse(doc);
+				expect(blogRead).toEqual(blogWritten);
+				done();
+			}
+		})
+
+	});
+
+	it("reads an array of blog posts from the disk", function() {
+		setFakeResultRequest("spec/test.html");
+		var fs = require("fs");
+		blogWritten = ['blog entry 1', 'blog entry 2']
+		fs.writeFileSync("html/spec/test.html", JSON.stringify(blogWritten));
+
+		serverModule.__with__({
+    		fs: {
+    			readFile: function(path, callback) {
+    				var contents = fs.readFileSync(path, 'utf8');
+    				callback(null, contents);
+    			}
+    		}
+		})(function() {		
+			serverModule.server(requestFake, resultFake);
+
+			expect(resultFake.returnString).toEqual(JSON.stringify(blogWritten));
+		});
 	});
 
 });

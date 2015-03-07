@@ -251,23 +251,394 @@ Finished in 0.035 seconds
   <p>
     The server sends back information requested by the browser. HTTP describes a "GET" operation that is expected to return a file. The browser interprets the file based on type metadata. This metadata tells it whether it should be text, HTML, JavaScript or something else. The data returns it returned based on the url in the request. Here, the url is going to be <code>test.html</code> so we will want to have it return a string representation of our blog array when it sees that url.
   </p>
-</div>
-<div class="code">
-</div>
-<div class="wp-text-area">
   <p>
-    
+    The next thing we will want to do is make sure that the code we write actually put the values into an array. The first thing we do is write a test. The previous test does most of what we want, it reads an array from a file; now we want to put what it reads in a variable. We do not want to lose our previous test, however, so the first thing we do is copy the previous test.
+  </p>
+  <p>
+   We will need to make two alterations to the test.
+   <ol>
+     <li>
+       We will need to change the file it is writing to, because otherwise changes we make to the server will cause the previous test to fail. Web servers work by computing based on the URL that it receives, so, to get independent tests, we need independant URLs. The reason for this change will become clearer when we edit our <code>server.js</code> file.
+     </li>
+     <li>
+       We will need to check the variable in which the array has been stored. This poses a problem. The array is a private variable in the server module. To get it, we will need to break into the module. Rewire allows us to do that. The function <code>__get__</code> takes a string that represents a variable in the module and returns its value. Using it we can look at the variable <code>blogPosts</code>. 
+     </li>
+   </ol> 
   </p>
 </div>
 <div class="code">
-</div>
-<div class="wp-text-area">
-  <p>
-    
-  </p>
-</div>
+  it("creates an array of blog posts from data read from disk.", function() {
+    setFakeResultRequest("spec/blog.html");
+    var fs = require("fs");
+    blogWritten = ['blog entry 1', 'blog entry 2']
+    fs.writeFileSync("html/spec/blog.html", JSON.stringify(blogWritten));
 
+    serverModule.__with__({
+        fs: {
+          readFile: function(path, callback) {
+            var contents = fs.readFileSync(path, 'utf8');
+            callback(null, contents);
+          }
+        }
+    })(function() {   
+      serverModule.server(requestFake, resultFake);
+
+      expect(serverModule.__get__('blogPosts')).toEqual(JSON.stringify(blogWritten));
+    });
+  });
+</div>
 <div class="wp-text-area">
+  <p>
+    Now we can run the test and we discover that <code>blogPosts</code> is not defined.
+  </p>
+</div>
+<div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+...fakeURL
+...spec/test.html
+.spec/blog.html
+F
+
+Failures:
+
+  1) Server creates an array of blog posts from data read from disk.
+   Message:
+     ReferenceError: blogPosts is not defined
+   Stacktrace:
+     ReferenceError: blogPosts is not defined
+    at Object.eval (eval at __get__ (/home/nat/src/WebProgramming/lib/server.js:41:30), <anonymous>:1:1)
+    at Object.__get__ (/home/nat/src/WebProgramming/lib/server.js:41:16)
+    at /home/nat/src/WebProgramming/spec/serverspec.js:128:24
+    at /home/nat/src/WebProgramming/lib/server.js:120:24
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:125:5)
+
+Finished in 0.042 seconds
+8 tests, 10 assertions, 1 failure, 0 skipped
+</div>
+<div class="wp-text-area">
+  <p>
+    We define <code>blogPosts</code> because that is what the test tells us to do.
+  </p>
+</div>
+<div class="code">
+exports = module.exports = {};
+
+var fs = require('fs');
+var url = require('url');
+var ROOT_DIR = "html/";
+<span class="add">var blogPosts = [];</span>
+
+function returnErrorMessage(result, error) {
+  result.writeHead(404);
+  result.end(JSON.stringify(error));
+};
+
+function returnPage(result, page) {
+  result.writeHead(200);
+  result.end(page); 
+};
+
+exports.server = function(request, result) {
+    var urlObj = url.parse(request.url, true, false);
+    console.log(request.url);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function(error, page) {
+    if (error) {
+      returnErrorMessage(result, error);
+      } else {
+        returnPage(result, page);
+      }
+    });
+};
+</div>
+<div class="wp-text-area">
+  <p>
+    We run the test again and find that the empty array to which we initialized <code>blogPosts</code> is not equal to what we wrote to the file.
+  </p>
+</div>
+<div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+...fakeURL
+...spec/test.html
+.spec/blog.html
+F
+
+Failures:
+
+  1) Server creates an array of blog posts from data read from disk.
+   Message:
+     Expected [  ] to equal [ 'blog entry 1', 'blog entry 2' ].
+   Stacktrace:
+     Error: Expected [  ] to equal [ 'blog entry 1', 'blog entry 2' ].
+    at /home/nat/src/WebProgramming/spec/serverspec.js:128:46
+    at /home/nat/src/WebProgramming/lib/server.js:112:24
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:125:5)
+
+Finished in 0.042 seconds
+8 tests, 10 assertions, 1 failure, 0 skipped
+</div>
+<div class="wp-text-area">
+  <p>
+    Now we need to think a little about what we want to do. We know we can read from the file, now we want to put what we read into <code>blogPosts</code>. We add a new action to our server that is triggered whenever we get the url <code>spec/test.html</code>. In general, servers work by looking at the url with which they have been presented and acting based on that URL. This is what we have been doing so far, but the only thing we have done is return the file in the location specified by the url. We are moving from a static web, that only retrieves and returns files, to an active web that will do computations based on the url sent.
+  </p>
+  <p>
+    The first computation we will do is put the values we read from the disk into an array called blogPosts.
+  </p>
+</div>
+<div class="code">
+exports = module.exports = {};
+
+var fs = require('fs');
+var url = require('url');
+var ROOT_DIR = "html/";
+var blogPosts = [];
+
+function returnErrorMessage(result, error) {
+  result.writeHead(404);
+  result.end(JSON.stringify(error));
+};
+
+function returnPage(result, page) {
+  result.writeHead(200);
+  result.end(page); 
+};
+<span class="add">
+function returnBlogs(page) {
+  blogPosts = JSON.parse(page);
+};
+</span>
+exports.server = function(request, result) {
+    var urlObj = url.parse(request.url, true, false);
+    console.log(request.url);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function(error, page) {
+    if (error) {
+      returnErrorMessage(result, error);
+<span class="add">      } else if (request.url === "spec/test.html") {
+        returnBlogs(page);
+</span>      } else {
+        returnPage(result, page);
+      }
+    });
+};
+</div>
+<div class="wp-text-area">
+  <p>
+    We run the tests again, and it works.
+  </p>
+</div>
+<div class="code">
+nat@Linus:~/src/WebProgramming$ cp server.js  alternative-servers/server
+server1.js  server2.js  server3.js  
+nat@Linus:~/src/WebProgramming$ cp server.js  alternative-servers/server4.js
+nat@Linus:~/src/WebProgramming$ mv server.temp.js server.js 
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+...fakeURL
+...spec/test.html
+.spec/blog.html
+.
+
+Finished in 0.031 seconds
+8 tests, 10 assertions, 0 failures, 0 skipped
+</div>
+<div class="wp-text-area">
+  <p>
+    We can move on to our next step. We want to form a web page that contains the blog when we get a request from the client.
+  </p>
+  <p>
+    First we need to write a test. For this test, we will create a blog file to return to the browser. The file will contain the information read from the disk and the JavaScript that creates the blog post. That is, we will want to send back a JavaScript file that contains the code below. It is the same code that we wrote for the blog, but with the posts we wrote out for our previous test as the set of blog posts.
+  </p>
+</div>
+<div class="code">
+var posts = ['blog entry 1', 'blog entry 2'];
+var outArea = document.getElementById("blogOutput");
+var inArea = document.getElementById("blogContent");
+
+function addBlog() {
+  posts.push(inArea.value);
+  outArea.innerHTML = "";
+  for (var i = posts.length - 1; i >= 0; i--) {
+    outArea.innerHTML = outArea.innerHTML + "&lthr&gt" + posts[i];
+  };
+}
+</div>
+<div class="wp-text-area">
+  <p>
+    We can turn this file into a string and store it in our test or we can write it out and read it in from our spec folder. I chose the latter option to save on typing. If we want to store it in our test, we will need to escape the quotation markes (i.e. replace " and ' with /" and /'). We will also need to replace the newline character with /n.
+  </p>
+</div>
+<div class="code">
+  it("creates a pages that includes the blog posts.", function() {
+    setFakeResultRequest("spec/blog.html");
+    var fs = require("fs");
+    blogWritten = ['blog entry 1', 'blog entry 2']
+    fs.writeFileSync("html/spec/blog.html", JSON.stringify(blogWritten));
+    var testBlog = fs.readFileSync("html/spec/testBlog.js", 'utf8');
+
+    serverModule.__with__({
+        fs: {
+          readFile: function(path, callback) {
+            var contents = fs.readFileSync(path, 'utf8');
+            callback(null, contents);
+          }
+        }
+    })(function() {   
+      serverModule.server(requestFake, resultFake);
+      expect(resultFake.returnString).toEqual(testBlog);
+    });
+  });
+</div>
+<div class="wp-text-area">
+  <p>
+    Now we run the test
+  </p>
+</div>
+<div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+...fakeURL
+...spec/test.html
+.spec/blog.html
+.spec/blog.html
+F
+
+Failures:
+
+  1) Server creates a pages that includes the blog posts.
+   Message:
+     Expected 'none' to equal 'var posts = ['blog entry 1', 'blog entry 2'];
+var outArea = document.getElementById("blogOutput");
+var inArea = document.getElementById("blogContent");
+
+function addBlog() {
+  posts.push(inArea.value);
+  outArea.innerHTML = "";
+  for (var i = posts.length - 1; i >= 0; i--) {
+    outArea.innerHTML = outArea.innerHTML + "<hr>" + posts[i];
+  };
+}'.
+   Stacktrace:
+     Error: Expected 'none' to equal 'var posts = ['blog entry 1', 'blog entry 2'];
+var outArea = document.getElementById("blogOutput");
+var inArea = document.getElementById("blogContent");
+
+function addBlog() {
+  posts.push(inArea.value);
+  outArea.innerHTML = "";
+  for (var i = posts.length - 1; i >= 0; i--) {
+    outArea.innerHTML = outArea.innerHTML + "<hr>" + posts[i];
+  };
+}'.
+    at /home/nat/src/WebProgramming/spec/serverspec.js:148:36
+    at /home/nat/src/WebProgramming/lib/server.js:118:24
+    at null.<anonymous> (/home/nat/src/WebProgramming/spec/serverspec.js:146:5)
+
+Finished in 0.059 seconds
+9 tests, 11 assertions, 1 failure, 0 skipped
+</div>
+<div class="wp-text-area">
+  <p>
+    The test prints out a lot of information, but mainly it is the content of the test. As expected, it is telling us that the returnString is not returning anything. We need to add the code.
+  </p>
+  <p>
+    The strategy will be to read the blog code in from a file. That way we can alter the code for the blog without changing the blogs that are stored in it. We will then combine the blogs that have been written so far with the code for the blog. That is, we first read in the blog posts, then read in the blog template and return them concatenated.
+  </p>
+</div>
+<div class="code">
+exports = module.exports = {};
+
+var fs = require('fs');
+var url = require('url');
+var ROOT_DIR = "html/";
+var blogPosts = [];
+
+function returnErrorMessage(result, error) {
+  result.writeHead(404);
+  result.end(JSON.stringify(error));
+};
+
+function returnPage(result, page) {
+  result.writeHead(200);
+  result.end(page); 
+};
+
+function returnBlog(result, page) {
+    blogPosts = page;
+    blogTemplate = fs.readFile(ROOT_DIR + "templates/blog.js")
+    result.end("blogPosts + blogTemplate.js");
+}
+
+exports.server = function(request, result) {
+    var urlObj = url.parse(request.url, true, false);
+    console.log(request.url);
+    fs.readFile(ROOT_DIR + urlObj.pathname, function(error, page) {
+    if (error) {
+      returnErrorMessage(result, error);
+      } else if (request.url === "spec/blog.html") {
+            returnBlog(page);
+        } else {
+        returnPage(result, page);
+      }
+    });
+};
+</div>
+<div class="wp-text-area">
+  <p>
+    We run the file and find that we get two errors. Namely that the template is not available. We write the template and store it in the template directory. The template will appear as below. It is the code we want minus the array of blog posts at the top.
+  </p>
+</div>
+<div class="code">
+var outArea = document.getElementById("blogOutput");
+var inArea = document.getElementById("blogContent");
+
+function addBlog() {
+  posts.push(inArea.value);
+  outArea.innerHTML = "";
+  for (var i = posts.length - 1; i >= 0; i--) {
+    outArea.innerHTML = outArea.innerHTML + "&lthr&gt" + posts[i];
+  };
+}
+</div>
+<div class="wp-text-area">
+  <p>
+    This way of producing web page to be returned is common. The web pages are often written as partial web pages, or templates, and combined with other elements that are computed. The process may become complicated with various pieces of the web page being constructed and interleaved with pieces that are written. Here the task is relatively simple so we can do by writing JavaScript code in the browser. More sophisticated web page constrution requires a framework. Common frameworks for developing web pages are Java Server Pages (JSP), Active Server Pages (ASP), PHP: Hypertest Preprocessor (PHP), etc.
+  </p>
+  <p>
+    Here we the here, we simply add the value of the blog array to a variable at the top of the JavaScript. We run the test and it works.
+  </p>
+</div>
+<div class="code">
+nat@Linus:~/src/WebProgramming$ jasmine-node spec
+...fakeURL
+...spec/test.html
+.spec/blog.html
+.spec/blog.html
+.
+
+Finished in 0.034 seconds
+9 tests, 11 assertions, 0 failures, 0 skipped
+</div>
+<div class="wp-text-area">
+</div>
+<div class="code">
+</div>
+<div class="wp-text-area">
+</div>
+<div class="code">
+</div>
+<div class="wp-text-area">
+</div>
+<div class="code">
+</div>
+<div class="wp-text-area">
+</div>
+<div class="code">
+</div>
+<div class="wp-text-area">
+</div>
+<div class="code">
+</div>
+<div class="wp-text-area">
+</div>
+<div class="code">
+</div>
 <ol class="activity">
   <li class="enter">This is an item
   </li>

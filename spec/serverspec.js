@@ -104,8 +104,48 @@ describe("Server", function () {
     		}
 		})(function() {		
 			serverModule.server(requestFake, resultFake);
-			console.log("Server result is: " + resultFake.returnString);
+
 			expect(resultFake.returnString).toEqual(JSON.stringify(blogWritten));
+		});
+	});
+
+	it("creates an array of blog posts from data read from disk.", function() {
+		setFakeResultRequest("spec/blog.html");
+		var fs = require("fs");
+		blogWritten = ['blog entry 1', 'blog entry 2']
+		fs.writeFileSync("html/spec/blog.html", JSON.stringify(blogWritten));
+
+		serverModule.__with__({
+    		fs: {
+    			readFile: function(path, callback) {
+    				var contents = fs.readFileSync(path, 'utf8');
+    				callback(null, contents);
+    			}
+    		}
+		})(function() {		
+			serverModule.server(requestFake, resultFake);
+
+			expect(serverModule.__get__('blogPosts')).toEqual(JSON.stringify(blogWritten));
+		});
+	});
+
+	it("creates a pages that includes the blog posts.", function() {
+		setFakeResultRequest("js/blog.js");
+		var fs = require("fs");
+		blogWritten = ['blog entry 1', 'blog entry 2']
+		fs.writeFileSync("html/spec/blog.html", JSON.stringify(blogWritten));
+		var testBlog = fs.readFileSync("html/spec/testBlog.js", 'utf8');
+
+		serverModule.__with__({
+    		fs: {
+    			readFile: function(path, callback) {
+    				var contents = fs.readFileSync(path, 'utf8');
+    				callback(null, contents);
+    			}
+    		}
+		})(function() {		
+			serverModule.server(requestFake, resultFake);
+			expect(resultFake.returnString).toEqual(testBlog);
 		});
 	});
 
